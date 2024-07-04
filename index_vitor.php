@@ -1,3 +1,32 @@
+<?php
+
+session_start();
+include ('./Config/config.php');
+require ('./Classes/Database.php');
+require ('./Classes/Post.php');
+include ('./Classes/Usuario.php');
+
+
+
+$query .= "SELECT p.* FROM postagem p INNER JOIN seguidor ON p.idusu = idseguido ";
+$query2 .= "WHERE seguidor = $idusu order by p.id desc";
+
+
+
+
+
+
+
+
+
+$query3 .= "SELECT c* FROM curtida c INNER JOIN postagem ON p.idusu = idpost ";
+$query4 .= "WHERE postagem = $idusu";
+
+
+ 
+
+?>
+
 
 
 
@@ -6,7 +35,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="index.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="https:://unicons.iconscout.com/release/v2.1.6/css/unicons.css"> -->
@@ -25,7 +54,6 @@
             </div>
             <div class="create">
                 <label class="btn btn-primary" for="create-post">Criar</label>
-                <a href="login.php"><label class="btn btn-primary" for="create-post">Logar</label></a>
                 <div class="profile-photo">
                     <img src="img/perfil.jpg" alt="">
                 </div>
@@ -148,7 +176,52 @@
 
                  <!-- meio -->
             <div class="middle">
+                
+                <!-- publicações -->
+                <div class="stories">
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="img/perfil.jpg" alt="">
+                        </div>
+                        <p class="name">Seu Story</p>
+                    </div>
 
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="img/vitor.jpg" alt="">
+                        </div>
+                        <p class="name">Vitor Word</p>
+                    </div>
+
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="img/jeferson.jpg" alt="">
+                        </div>
+                        <p class="name">Xiru Master</p>
+                    </div>
+
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="img/murilo.jpg" alt="">
+                        </div>
+                        <p class="name">Murilove</p>
+                    </div>
+
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="img/leo.jpg" alt="">
+                        </div>
+                        <p class="name">Leozinho do grau</p>
+                    </div>
+
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="img/kauaV.jpg" alt="">
+                        </div>
+                        <p class="name">Kaua Valim</p>
+                    </div>
+                </div>
+                <!-- fim do storie -->
                 <form class="create-post">
                     <div class="profile-photo">
                         <img src="img/perfil.jpg" alt="">
@@ -206,9 +279,11 @@
 
                             <div class="comments text-muted">Ver todos os comentários</div>
 
+                        </div>
                     </div>
 
-                        <div class="feed">
+                    <!-- publicação -->
+                    <div class="feed">
                         <div class="head">
                             <div class="user">
                                 <div class="profile-photo">
@@ -254,13 +329,12 @@
 
                             <div class="comments text-muted">Ver todos os comentários</div>
                         <!-- fim da publicação -->
-                        <!-- fim do meio do site -->
                     </div>
                 </div>
-            </div>
+                 <!-- fim do meio do site -->
 
                     <!-- direito -->
-                <div class="right">
+            <div class="right">
                 <div class="messages">
                     <div class="heading">
                         <h4>Mensagens<h4><i class="fa-solid fa-pen-to-square"></i>
