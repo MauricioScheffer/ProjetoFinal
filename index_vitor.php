@@ -1,3 +1,32 @@
+<?php
+
+session_start();
+include ('./Config/config.php');
+require ('./Classes/Database.php');
+require ('./Classes/Post.php');
+include ('./Classes/Usuario.php');
+
+
+
+$query .= "SELECT p.* FROM postagem p INNER JOIN seguidor ON p.idusu = idseguido ";
+$query2 .= "WHERE seguidor = $idusu order by p.id desc";
+
+
+
+
+
+
+
+
+
+$query3 .= "SELECT c* FROM curtida c INNER JOIN postagem ON p.idusu = idpost ";
+$query4 .= "WHERE postagem = $idusu";
+
+
+ 
+
+?>
+
 
 
 
