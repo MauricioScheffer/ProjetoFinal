@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Logar</title>
 </head>
@@ -13,12 +13,12 @@
             <h2 class="log">
                 Rede Social
             </h2>
-            <div class="search-bar">
+            <!-- <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
-            </div>
+            </div> -->
             <div class="create">
-                <label class="btn btn-primary" for="create-post">Criar</label>
+                <a href="index.php"><label class="btn btn-primary" for="create-post">Voltar</label></a>
                 <div class="profile-photo">
                     <img src="img/perfil.jpg" alt="">
                 </div>
@@ -39,7 +39,9 @@
                 </div>
                 <div class="botao">
                     <label class="btn btn-primary entrar">Entrar</label>
+                    <label class="btn btn-primary entrar">Cadastrar-se</label>
                 </div>
+                <a href="">Esqueci minha senha</a>
             </div>
 
         </div>
@@ -51,5 +53,5 @@
 
     </main>
 </body>
-<script src="main.js"></script>
+<script src="../Script/main.js"></script>
 </html>

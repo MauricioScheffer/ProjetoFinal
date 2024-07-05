@@ -40,7 +40,7 @@ body{
 
 .container{
     width: 80%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .profile-photo{
@@ -149,16 +149,44 @@ main .container .left .profile{
     padding: var(--card-padding);
     background: var(--color-white);
     border-radius: var(--card-border-radius);
-    display: flex;
+    display: block;
     align-items: center;
     column-gap: 1rem;
-    width: 100%;
+    width: 350px;
 }
 
-main .container .left .profile .profile-photo img{
-    border: 1px solid black;
-    border-radius: 50%;
+.profile{
+    height: 420px;
 }
+
+.profile .profile-photo{
+    background-color: beige;
+    padding: 145px;
+}
+
+.handle h4{
+    font-size: 25px;
+}
+
+.handle p{
+    font-size: 20px;
+}
+
+.handle input{
+    border: 0;
+    background-color: var(--color-primary);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+}
+
+.handle :-ms-input-placeholder{
+    color: var(--color-light);
+}
+
+/* main .container .left .profile .profile-photo{
+    width: 280px;
+    height: 400px;
+} */
 
 /* sidebar */
 .left .sidebar{

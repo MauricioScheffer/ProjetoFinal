@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Cadastrar</title>
 </head>
@@ -18,7 +18,7 @@
             <input type="search" placeholder="Pesquisar">
         </div> -->
         <div class="create">
-            <label class="btn btn-primary" for="create-post">Voltar</label>
+          <a href="index.php">  <label class="btn btn-primary"  for="create-post">Voltar</label></a>
             <div class="profile-photo">
                 <img src="img/perfil.jpg" alt="">
             </div>
@@ -52,13 +52,7 @@
         </div>
     </div>
 </main>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2024 Rede Social. Todos os direitos reservados.</p>
-    </div>
-</footer>
-
-<script src="main.js"></script>
+<?php include 'footer.php'; ?>
+<script src="../Script/main.js"></script>
 </body>
 </html>

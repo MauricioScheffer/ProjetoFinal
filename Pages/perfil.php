@@ -22,7 +22,7 @@
                 <label class="btn btn-primary" for="create-post">Criar</label>
                 <a href="login.php"><label class="btn btn-primary" for="create-post">Logar</label></a>
                 <div class="profile-photo">
-                    <img src="img/perfil.jpg" alt="">
+                    <img src="../img/perfil.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -36,13 +36,14 @@
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
-                        <img src="img/perfil.jpg" alt="">
+                        <img src="" alt="">
                     </div>
                     <div class="handle">
-                        <h4>Name user</h4>
+                        <h4>Nome Usuario</h4>
                         <p class="text-muted">
                             @maumau
                         </p>
+                        <input type="text" placeholder="Meus Pets">
                     </div>
                 </a>
 
