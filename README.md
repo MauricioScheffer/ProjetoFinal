@@ -102,8 +102,8 @@ Projeto Final/
 
 
 └── README.md
-```
-<!-- Tabela relacional do banco utilizado no projeto -->
 
+<!-- Tabela relacional do banco utilizado no projeto -->
+```
 ![Tabela relacional do banco de dados do projeto](https://github.com/MauricioScheffer/ProjetoFinal/assets/134110747/0fb8da46-f9f1-4654-81d3-4531ba6e2a3c)
 
