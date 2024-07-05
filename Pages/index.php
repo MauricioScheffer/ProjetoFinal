@@ -259,24 +259,24 @@
                 </div>
             </div>
 
-                    <!-- direito -->
-                <div class="right">
+                    <!-- direito
+                 <div class="right">
                 <div class="messages">
                     <div class="heading">
                         <h4>Mensagens<h4><i class="fa-solid fa-pen-to-square"></i>
                     </div>
-                    <!-- search bar -->
+                    search bar 
                      <div class="search-bar">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="search" placeholder="Procure mensagens" id="message-search">
                      </div>
-                     <!-- categoria mensagens -->
+                      categoria mensagens 
                       <div class="category">
                         <h6 class="active">Primeiro</h6>
                         <h6>Geral</h6>
                         <h6 class="message-requests">Solicitações(8)</h6>
                       </div>
-                      <!-- mensagem -->
+                       mensagem 
                        <div class="message">
                         <div class="profile-photo">
                             <img src="img/jeferson.jpg" alt="">
@@ -286,7 +286,7 @@
                             <p class="text-muted">Projeto pra entregar hein xiruzão</p>
                         </div>
                        </div>
-                       <!-- mensagem -->
+                        mensagem 
                        <div class="message">
                             <div class="profile-photo">
                                 <img src="img/jeferson.jpg" alt="">
@@ -297,9 +297,9 @@
                             </div>  
                     </div>
                 </div>
-                <!-- fim das mensagens -->
+                fim das mensagens
 
-                <!-- solicitações de amigos -->
+                 solicitações de amigos 
                  <div class="friend-requests">
                     <h4>Solicitações</h4>
                     <div class="request">
@@ -324,7 +324,7 @@
                         </div>
                     </div>
                  </div>
-            </div>
+            </div> -->
         </div>
     </main>
 </body>

@@ -36,14 +36,20 @@
                     <input type="text" placeholder="E-mail">
                     <input type="password" id="senha" placeholder="Senha">
                     <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
-                    <script src="main.js"></script>
                 </div>
                 <div class="botao">
-                    <label class="btn btn-primary">Entrar</label>
+                    <label class="btn btn-primary entrar">Entrar</label>
                 </div>
             </div>
 
         </div>
+        <footer>
+        <div class="container">
+            <p>&copy; 2024 Rede Social. Todos os direitos reservados.</p>
+        </div>
+        </footer>
+
     </main>
 </body>
+<script src="main.js"></script>
 </html>
