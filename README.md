@@ -1,7 +1,7 @@
 <!-- Nome do Projeto -->
-Rede Social -> Roubo Social
+Rede Social -> PetHub
 <!-- Descrição -->
-Um Projeto de Rede Social para usuários desfrutarem da interface e funcionalidade
+A Rede Social "PetHub" é a rede ideal para quem quer compartilhar suas experiências incríveis com seu animal de estimação. Você poderá criar uma conta e cadastrar seus pets, que aparecerão em seu perfil como pertecentes a você, além de poder registrar quantos pets você desejar. E não é só isso! Você poderá ver postagens de outros donos de pets, tendo a opção de curtir suas postagens, comentá-las, e até mesmo seguir quem você quiser, além de também poder ser seguido. Caso ocorra qualquer coisa, você poderá editar o cadastro do seu pet, ou até mesmo excluí-lo se desejar.
 
 <!-- Funcionalidades -->
 Criação/Personalização de Perfil
@@ -9,7 +9,7 @@ Criação/Edição de Publicação
 
 
 <!-- Tecnologias Utilizadas: -->
-PHP
+PHP 
 HTML
 CSS
 MySQL
@@ -17,31 +17,88 @@ JavaScript
 <!-- Estrutura do Projeto -->
 ```plaintext
 
+
+
+
+
 Projeto Final/
-├── db/
-│ ├── create_tables.sql
+├── bdSocial/
+│ ├── Usuario.sql
+│ ├── Postagem.sql
+│ ├── Seguidor.sql
+│ ├── Comentario.sql
+│ ├── Curtida.sql
 ├── css/
-│ ├── index.css
+│ ├── styles.css
 | ├── login.css
+
 ├── js/
-│ ├── scripts.js
+│ ├── script.js
+
+├── Classes/
+│ ├── Database.php
+│ ├── Usuario.php
+│ ├── Postagem.php
+│ ├── Comentario.php
+│ ├── Segudidor.php
+│ ├── Curtida.php
+├── Config/
+│ ├── Condig.php
 ├── index.php
 ├── login.php
 ├── logout.php
+├── cadastro.php
+├── deletar_usuario.php
+├── editar_usuario.php
+├── criar_postagem.php
+├── editar_postagem.php
+├── deletar_postagem.php
+├── curtir_postagem.php
+├── comentario.php
+├── deletar_comentario.php
+├── editar_comentario.php
 
-├── [nome-da-tabela]/ <-- Usuario
-│ ├── create.php
-│ ├── read.php
-│ ├── update.php
-│ ├── delete.php
-├── [nome-da-tabela-2]/ <-- POST
-│ ├── create.php
-│ ├── read.php
-│ ├── update.php
-│ ├── delete.php
-├── [nome-da-tabela-3]/ 
-│ ├── create.php
-│ ├── read.php
-│ ├── update.php
-│ ├── delete.php
+├── [Usuario]/ <-- Usuario
+│ ├── id
+│ ├── nome
+│ ├── apelido
+│ ├── email
+│ ├── telefone
+│ ├── sexo
+│ ├── senha
+│ ├── foto
+│ ├── nascimento
+│ ├── adm
+│ ├── ativo
+
+├── [Postagem]/ <-- POST
+│ ├── id 
+│ ├── idUsuario
+│ ├── titulo
+│ ├── descricao
+│ ├── imagem
+│ ├── data
+
+
+├── [Comentario]/ 
+│ ├── id
+│ ├── idPostagem
+│ ├── idUsuario
+│ ├── descricao
+│ ├── data
+
+
+├── [Seguidor]/ 
+│ ├── id
+│ ├── idUsuario
+│ ├── idSeguidor
+
+
+├── [Curtida]/ 
+│ ├── id
+│ ├── idPostagem
+│ ├── idUsuario
+
+
+
 └── README.md
