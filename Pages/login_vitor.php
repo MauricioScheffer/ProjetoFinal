@@ -1,14 +1,33 @@
 
+<?php
+
+session_start();
+include_once ('../Classes/Database.php');
+include_once ('../Classes/Post.php');
+include_once ('../Classes/Usuario.php');
+include_once ('../Config/config.php');
+
+$usuario = new Usuario($db);
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['login'])) {
+        // Processar login
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+        if ($dados_usuario = $usuario->login($email, $senha)) {
+            $_SESSION['usuario_id'] = $dados_usuario['id'];
+            header('Location: index.php');
+            exit();
+        } else {
+            $mensagem_erro = "Credenciais inválidas!";
+        }
+    }
+}
 
 
 
-
-
-
-
-
-
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,9 +40,9 @@
 <body>
 <nav>
         <div class="container">
-            <a href="index.php"><h2 class="log">
+            <h2 class="log">
                 Rede Social
-            </h2></a>
+            </h2>
             <!-- <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
@@ -49,19 +68,20 @@
                     <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
                 </div>
                 <div class="botao">
-                    <label class="btn btn-primary entrar">Entrar</label>
-                    <a href="cadastro.php"><label class="btn btn-primary entrar">Cadastrar-se</label></a>
+                    <label class="btn btn-primary entrar" type="submit" value="login">Entrar</label>
+                    <label class="btn btn-primary entrar">Cadastrar-se</label>
                 </div>
-                <a class="esqueci" href="">Esqueci minha senha</a>
+                <a href="">Esqueci minha senha</a>
             </div>
 
         </div>
-    </main>
-    <footer>
+        <footer>
         <div class="container">
             <p>&copy; 2024 Rede Social. Todos os direitos reservados.</p>
         </div>
         </footer>
+
+    </main>
 </body>
 <script src="../Script/main.js"></script>
 </html>

@@ -11,9 +11,9 @@
 <body style= "background-image: url('/img/fundo-pet.jpg');">
     <nav>
         <div class="container">
-            <h2 class="log">
+        <a href="index.php"><h2 class="log">
                 Rede Social
-            </h2>
+            </h2></a>
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">

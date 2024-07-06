@@ -12,15 +12,15 @@
 <body>
     <nav>
         <div class="container">
-            <h2 class="log">
+            <a href="index.php"><h2 class="log">
                 Rede Social
-            </h2>
+            </h2></a>
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
             </div>
             <div class="create">
-                <label class="btn btn-primary" for="create-post">Criar</label>
+                <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
                 <a href="login.php"> <label class="btn btn-primary">Logar</label></a>
                 <div class="profile-photo">
                     <img src="../img/perfil.jpg" alt="">
@@ -291,7 +291,6 @@
                             <p class="text-muted">Projeto pra entregar hein xiruzão</p>
                         </div>
                        </div>
-                        Mensagem 
                        <div class="message">
                             <div class="profile-photo">
                                 <img src="../img/jeferson.jpg" alt="">
