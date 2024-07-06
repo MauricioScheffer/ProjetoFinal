@@ -110,7 +110,7 @@ nav .container {
     width: 30vw;
     margin-left: 1rem;
     font-size: 0.9rem;
-    color: var(--color-dark);
+    color: var (--color-dark);
 }
 
 nav .search-bar input[type="search"]::placeholder {
@@ -157,6 +157,11 @@ main .container {
     margin-bottom: 5px;
 }
 
+.meio p {
+    margin-bottom: 20px;
+    color: var(--color-grey);
+}
+
 .meio .caixas input {
     display: block;
     width: 100%;
@@ -177,18 +182,6 @@ main .container {
 
 .botao {
     margin: 17px;
-}
-
-.meio .esqueci {
-    text-align: left;
-    display: block;
-    transition: 1s;
-    font-size: 18px;
-    margin: 0 auto;
-}
-
-.meio .esqueci:hover {
-    color: var(--color-primary);
 }
 
 footer {

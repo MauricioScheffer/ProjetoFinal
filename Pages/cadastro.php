@@ -10,15 +10,15 @@
 <body>
 <nav>
     <div class="container">
-        <h2 class="log">
-            Rede Social
-        </h2>
+            <a href="index.php"><h2 class="log">
+                Rede Social
+            </h2></a>
         <!-- <div class="search-bar">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="search" placeholder="Pesquisar">
         </div> -->
         <div class="create">
-          <a href="index.php">  <label class="btn btn-primary"  for="create-post">Voltar</label></a>
+          <a href="index.php"><label class="btn btn-primary"  for="create-post">Voltar</label></a>
             <div class="profile-photo">
                 <img src="img/perfil.jpg" alt="">
             </div>

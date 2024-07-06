@@ -10,9 +10,9 @@
 <body>
 <nav>
         <div class="container">
-            <h2 class="log">
+            <a href="index.php"><h2 class="log">
                 Rede Social
-            </h2>
+            </h2></a>
             <!-- <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
@@ -39,19 +39,18 @@
                 </div>
                 <div class="botao">
                     <label class="btn btn-primary entrar">Entrar</label>
-                    <label class="btn btn-primary entrar">Cadastrar-se</label>
+                    <a href="cadastro.php"><label class="btn btn-primary entrar">Cadastrar-se</label></a>
                 </div>
-                <a href="">Esqueci minha senha</a>
+                <a class="esqueci" href="">Esqueci minha senha</a>
             </div>
 
         </div>
-        <footer>
+    </main>
+    <footer>
         <div class="container">
             <p>&copy; 2024 Rede Social. Todos os direitos reservados.</p>
         </div>
         </footer>
-
-    </main>
 </body>
 <script src="../Script/main.js"></script>
 </html>
