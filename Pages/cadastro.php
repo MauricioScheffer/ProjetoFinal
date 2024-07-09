@@ -54,15 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Rede Social
                 </h2>
             </a>
-            <!-- <div class="search-bar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Pesquisar">
-        </div> -->
             <div class="create">
                 <a href="index.php"><label class="btn btn-primary" for="create-post">Voltar</label></a>
-                <div class="profile-photo">
-                    <img src="img/perfil.jpg" alt="">
-                </div>
             </div>
         </div>
     </nav>
@@ -77,35 +70,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="caixas">
                         <input type="text" name="nome" placeholder="Nome completo" required>
                         <input type="text" name="apelido" placeholder="Nome de usuário" required>
-                        <!-- <input type="text" placeholder="Seu Pet🐶"> -->
                         <input type="email" name="email" placeholder="E-mail" required>
 
+                        <div class="senha">
                         <input type="password" name="senha" id="senha" placeholder="Senha" required>
+                        <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
+                        </div>
+
                         <input type="text" name="telefone" placeholder="Telefone" required>
                         <input type="date" name="nascimento" placeholder="Data de Nascimento" required>
 
-                        <div class="sexo">
-                            <label for="masculino">
-                                <input type="radio" id="masculino" name="sexo" value="M" required> 
-                            </label>
-                            <label for="feminino">
-                                <input type="radio" id="feminino" name="sexo" value="F" required> 
-                            </label>
-                            <label for="Outro">
-                                <input type="radio" id="outro" name="sexo" value="O" required> 
-                            </label>
-
+                            <div class="sexo">
+                                <select>
+                                    <option>Sexo:</option>
+                                    <option>Masculino</option>
+                                    <option>Feminino</option>
+                                    <option>Outro</option>
+                                </select>
+                            </div>
                         </div>
-                       
-                        <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
-                    </div>
-                    <div class="botao">
+                        <div class="botao">
                         <input class="btn btn-primary entrar" type="submit" value="Adicionar">
+                    </div>
                     </div>
                 </div>
             </form>
         </div>
-
     </main>
     <?php include 'footer.php'; ?>
     <script src="../Script/main.js"></script>
