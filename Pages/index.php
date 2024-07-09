@@ -21,7 +21,7 @@
             </div>
             <div class="create">
                 <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
-                <a href="login.php"> <label class="btn btn-primary">Logar</label></a>
+                <a href="contato.php"> <label class="btn btn-primary">Contato</label></a>
                 <div class="profile-photo">
                     <img src="../img/perfil.jpg" alt="">
                 </div>
@@ -64,7 +64,7 @@
                         <div class="notifications-popup">
                             <div>
                                 <div class="profile-photo">
-                                    <img src="img/vitor.jpg" alt="">
+                                    <img src="../img/vitor.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Vitor de Abreu</b> aceitou sua solicitação de amigo!
@@ -73,7 +73,7 @@
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="img/jeferson.jpg" alt="">
+                                    <img src="../img/jeferson.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Jeferson Leon</b> comentou em sua publicação
@@ -82,7 +82,7 @@
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="img/kauaV" alt="">
+                                    <img src="../img/kauaV" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Kaua Valim</b> começou a te seguir
@@ -91,7 +91,7 @@
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="img/murilo.jpg" alt="">
+                                    <img src="../img/murilo.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Murilo Torres</b> reagiu sua publicação
@@ -100,7 +100,7 @@
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="img/arthur.jpg" alt="">
+                                    <img src="../img/arthur.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Arthur Maciel</b> enviou uma solicitação para te seguir
@@ -109,7 +109,7 @@
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="img/leo.jpg" alt="">
+                                    <img src="../img/leo.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Leonardo Brum</b> comentou na sua publicação
@@ -119,27 +119,27 @@
                         </div>
                     </a>
 
-                    <a href="" class="menu-item" id="messages-notifications">
+                    <a class="menu-item" id="messages-notifications">
                         <span><i class="fa-solid fa-message"><small class="notification-count">6</small></i></span>
                         <h3>Mensagens</h3>
                     </a>
 
-                    <a href="" class="menu-item">
+                    <a class="menu-item">
                         <span><i class="fa-solid fa-bookmark"></i></span>
                         <h3>Atividades</h3>
                     </a>
 
-                    <a href="" class="menu-item">
+                    <a class="menu-item">
                         <span><i class="fa-solid fa-chart-simple"></i></span>
                         <h3>Analises</h3>
                     </a>
 
-                    <a href="" class="menu-item">
+                    <a class="menu-item" id="theme">
                         <span><i class="fa-solid fa-circle-half-stroke"></i></span>
-                        <h3>Teme</h3>
+                        <h3>Tema</h3>
                     </a>
 
-                    <a href="" class="menu-item">
+                    <a class="menu-item">
                         <span><i class="fa-solid fa-gear"></i></span>
                         <h3>Configurações</h3>
                     </a>
@@ -266,8 +266,8 @@
             </div>
 
             <!-- direito -->
-                 <div class="right">
-                <div class="messages">
+                <div class="right">
+                    <div class="messages">
                     <div class="heading">
                         <h4>Mensagens<h4><i class="fa-solid fa-pen-to-square"></i>
                     </div>
@@ -299,8 +299,8 @@
                             <h5>Jeferson Leon</h5>
                             <p class="text-bold">3 mensagens</p>
                             </div>  
+                        </div>
                     </div>
-                </div>
                 <!-- fim das mensagens -->
 
                  <!-- solicitações de amigos  -->
@@ -316,21 +316,77 @@
                                 <p class="text-muted">
                                     4 amigos em comum
                                 </p>
-                                <div class="action">
+                                </div>
+                            </div>
+                            <div class="action">
                                     <button class="btn btn-primary">
                                         Aceitar
                                     </button>
                                     <button class="btn">
                                         Recusar
                                     </button>
-                                </div>
                             </div>
                         </div>
                     </div>
                  </div>
-            </div> 
+            </div>
         </div>
     </main>
+
+    <div class="customize-theme">
+        <div class="card">
+            <h2 class="text-muted">Customize do Seu Jeito</h2>
+            <p>Organize sua Fonte, Cor e Fundo</p>
+
+            <!-- fontes -->
+            <div class="font-size">
+                <h4>Fontes</h4>
+                <div>
+            <h6>Aa</h6>
+                <div class="choose-size">
+                    <span class="font-size-1"></span>
+                    <span class="font-size-2 active"></span>
+                    <span class="font-size-3"></span>
+                    <span class="font-size-4"></span>
+                    <span class="font-size-5"></span>
+                </div>
+                <h3>Aa</h3>
+            </div>
+        </div>
+
+            <!-- cores -->
+            <div class="color">
+                <h4>Cores</h4>
+                <div class="choose-color">
+                    <span class="color-1 active"></span>
+                    <span class="color-2"></span>
+                    <span class="color-3"></span>
+                    <span class="color-4"></span>
+                    <span class="color-5"></span>
+                </div>
+            </div>
+
+        <!-- fundo -->
+        <div class="background">
+            <h4>Tema do Fundo</h4>
+            <div class="choose-bg">
+                <div class="bg-1 active">
+                    <span></span>
+                    <h5 for="bg-1">Claro</h5>
+                </div>
+                <div class="bg-2">
+                    <span></span>
+                    <h5>Escuro</h5>
+                </div>
+                <div class="bg-3">
+                    <span></span>
+                    <h5>Semi-Claro</h5>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <script src="../Script/main.js"></script>
 </body>
 
 </html>
