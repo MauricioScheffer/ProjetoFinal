@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit();
+}
+include_once './config/config.php';
+include_once './classes/Usuario.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +30,9 @@
                 <input type="search" placeholder="Pesquisar">
             </div>
             <div class="create">
-                <a href=""><label class="btn btn-primary" for="create-post">Criar</label></a>
-                <a href="contato.php"><label class="btn btn-primary">Contato</label></a>
+                <a href=""><input class="btn btn-primary" value="Criar"></a>
+                <a href="contato.php"><input class="btn btn-primary" value="Contato"></a>
+                <a href="editarUsuario.php"><input class="btn btn-primary" value="Editar perfil"></a>
                 <div class="profile-photo">
                     <img src="../img/perfil.jpg" alt="">
                 </div>
