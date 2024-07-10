@@ -2,38 +2,36 @@
 include_once('../Classes/Usuario.php');
 include_once('../Config/config.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuario = new Usuario($db);
-    $nome = $_POST['nome'];
-    $apelido = $_POST['apelido'];
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-    $foto = "";
-    $telefone = $_POST['telefone'];
-    $nascimento = date($_POST['nascimento']);
-    $sexo = $_POST['sexo'];
-    $adm = 0;
-    $ativo = 1;
-    $usuario->criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo);
-    header('Location: login.php');
+if (isset($_POST['sexo']) && $_POST['sexo'] !== "null") {
+    var_dump($_POST['sexo']);
     exit();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $usuario = new Usuario($db);
+        $nome = $_POST['nome'];
+        $apelido = $_POST['apelido'];
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+        $foto = "";
+        $telefone = $_POST['telefone'];
+        $nascimento = date($_POST['nascimento']);
+        $sexo = $_POST['sexo'];
+        $adm = 0;
+        $ativo = 1;
+        $usuario->criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo);
+        header('Location: login.php');
+        exit();
+    }
+} else {
+    echo '<script>
+     window.onload= function() {
+      alert("Informe um gênero!");
+     }
+     </script>';
 }
 
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,28 +71,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="email" name="email" placeholder="E-mail" required>
 
                         <div class="senha">
-                        <input type="password" name="senha" id="senha" placeholder="Senha" required>
-                        <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
+                            <input type="password" name="senha" id="senha" placeholder="Senha" required>
+                            <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
                         </div>
 
                         <input type="text" name="telefone" placeholder="Telefone" required>
                         <input type="date" name="nascimento" placeholder="Data de Nascimento" required>
 
-                            <div class="sexo">
-                                <select>
-                                    <option>Sexo:</option>
-                                    <option>Masculino</option>
-                                    <option>Feminino</option>
-                                    <option>Outro</option>
-                                </select>
-                            </div>
+                        <div class="sexo">
+                            <select name="sexo">
+                                <option value= null>Sexo:</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                                <option value="O">Outro</option>
+                            </select>
                         </div>
-                        <div class="botao">
+                    </div>
+                    <div class="botao">
                         <input class="btn btn-primary entrar" type="submit" value="Adicionar">
                     </div>
-                    </div>
                 </div>
-            </form>
+        </div>
+        </form>
         </div>
     </main>
     <?php include 'footer.php'; ?>
