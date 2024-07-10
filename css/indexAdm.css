@@ -39,6 +39,7 @@ body {
     min-height: 100vh;
 }
 
+
 .container:not(footer .container) {
     width: 80%;
     margin: 0 auto;
@@ -123,127 +124,35 @@ nav .create {
     gap: 2rem;
 }
 
-/* main */
-main {
-    flex: 1;
+h1 {
+    margin-bottom: 20px;
+}
+
+.user-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5.4rem;
+    gap: 15px;
 }
 
-main .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-}
-
-.meio {
-    width: 100%;
-    max-width: 500px;
-    padding: 70px;
-    background: var(--color-white);
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.meio h2 {
-    font-size: 35px;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.meio .caixas input {
-    display: block;
-    width: 100%;
-    margin: 16px 0;
-    padding: 15px 20px;
-    border-radius: 10px;
-    background: var(--color-secundary);
-}
-
-.senha{
-    display: flex;
-}
- .senha i {
-    font-size: 25px;
-    cursor: pointer;
-    position: absolute;
-    right: 40%;
-     top: calc(50% + 38px);
-    color: var(--color-black);
-}
-
-.botao {
-    margin: 17px;
-}
-
-.meio .esqueci {
+.user-card {
+    padding: var(--card-padding);
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--border-radius);
     text-align: left;
-    display: block;
-    transition: 1s;
-    font-size: 18px;
-    margin-left: 0;
 }
 
-.meio .esqueci:hover {
-    color: var(--color-primary);
+.user-card p {
+    margin: 5px 0;
 }
 
-footer {
-    background-color: var(--color-dark);
-    color: white;
-    width: 100%;
-    padding: 30px 0;
-    text-align: center;
-}
 /* Responsivo */
-@media screen and (max-width: 992px) {
-
-    main{
-        margin: 0;
-    }
-    .meio {
-        padding: 60px;
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
     }
 
-    .meio .caixas input {
-        width: 100%;
-        margin: 10px 0px;
-        padding: 15px 20px;
-        border-radius: 10px;
-        background: var(--color-secundary);
-    }
-
-    .meio .botao input{
-        padding: 12px 60px;
-        margin: 4px;
-    }
-
-    .meio .senha i{
-        position: absolute;
-        right: 25%;
-        top: calc(36% + 20px);
-        color: var(--color-black);
-    }
-}
-
-@media screen and (max-width: 480px) {
-
-    .meio h2 {
-        font-size: 25px;
-    }
-
-    .senha i {
-        right: 10px;
-        top: calc(50% + 15px);
-    }
-
-    .meio .caixas input {
-        padding: 10px 15px;
+    .user-card {
+        padding: 10px;
     }
 }

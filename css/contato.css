@@ -33,7 +33,6 @@ body {
     font-family: "Poppins", sans-serif;
     color: var(--color-dark);
     background: var(--color-light);
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -99,7 +98,6 @@ nav .container {
     justify-content: space-between;
 }
 
-
 nav .create {
     display: flex;
     align-items: center;
@@ -116,7 +114,8 @@ main {
     gap: 0;
 }
 
-main .container {
+main .container,
+main .container2 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -147,7 +146,13 @@ main .container {
     margin: 16px 0;
     padding: 15px 20px;
     border-radius: 10px;
+    background-color: var(--color-primary);
     background: var(--color-secundary);
+    letter-spacing: 2px;
+}
+
+.meio .sobre i{
+    margin: 0 6px 0px 0px;
 }
 
 .meio .icons{
@@ -155,17 +160,15 @@ main .container {
     justify-content: center;
 }
 
-.meio .icons span{
-    margin: 5px 20px;
+.meio .icons a span{
+    margin: 2px 20px;
     color: var(--color-light);
     background-color: var(--color-primary);
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 80px;
+    padding: 8px;
+    font-size: 40px;
 }
 
-.meio .icons span i{
-    font-size: 39px;
-}
 
 
 /* MAPA */
@@ -177,8 +180,9 @@ main .container {
 } */
 
 .mapa{
-    height: 350px;
+    height: 510px;
     width: 600px;
+    margin-bottom: 10px;
     border-radius: 10px;
     border: var(--color-primary);
 }
@@ -189,4 +193,68 @@ footer {
     width: 100%;
     padding: 30px 0;
     text-align: center;
+}
+
+/* RESPONSIVO */
+@media screen and (max-width: 992px) {
+    main {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mapa {
+        width: 100%;
+        height: auto;
+    }
+
+    .meio, .container2 {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .meio {
+        padding: 50px;
+    }
+
+    .meio h2 {
+        font-size: 28px;
+    }
+
+    .meio .sobre {
+        padding: 10px 15px;
+    }
+
+    .meio .icons a span {
+        padding: 6px;
+        font-size: 30px;
+    }
+
+    .mapa {
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .meio {
+        padding: 30px;
+    }
+
+    .meio h2 {
+        font-size: 24px;
+    }
+
+    .meio .sobre {
+        padding: 8px 10px;
+    }
+
+    .meio .icons a span {
+        padding: 4px;
+        font-size: 24px;
+    }
+
+    .mapa {
+        height: 200px;
+    }
 }
