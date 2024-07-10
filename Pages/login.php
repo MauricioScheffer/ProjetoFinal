@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       
         if ($dados_usuario = $usuario->login($email, $senha)) {
             $_SESSION['usuario_id'] = $dados_usuario['id'];
-            header('Location: index.php');
+            header('Location: perfil.php');
             exit();
         } else {
             $mensagem_erro = "Credenciais inválidas";

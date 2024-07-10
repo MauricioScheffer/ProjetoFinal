@@ -79,11 +79,11 @@ class Usuario
     }
 
 
-    public function atualizar($id, $nome, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo)
+    public function atualizar($nome, $email, $telefone, $sexo, $foto, $nascimento, $adm, $ativo, $id)
     {
-        $query = "UPDATE " . $this->table_name . " SET nome = ?, email = ?, telefone = ?, sexo = ?, senha = ?, foto = ?, nascimento = ?, adm = ?, ativo = ? WHERE id = ?";
+        $query = "UPDATE " . $this->table_name . " SET nome = ?, email = ?, telefone = ?, sexo = ?, foto = ?, nascimento = ?, adm = ?, ativo = ? WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$id, $nome, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo]);
+        $stmt->execute([$nome, $email, $telefone, $sexo, $foto, $nascimento, $adm, $ativo, $id]);
         return $stmt;
     }
 
@@ -91,8 +91,6 @@ class Usuario
 
 
 }
-
-
 
 
 ?>
