@@ -32,7 +32,7 @@ include_once './classes/Usuario.php';
             <div class="create">
                 <a href=""><input class="btn btn-primary" value="Criar"></a>
                 <a href="contato.php"><input class="btn btn-primary" value="Contato"></a>
-                <a href="editarUsuario.php"><input class="btn btn-primary" value="Editar perfil"></a>
+                <a href="editarUsuario.phpid=<?php echo $row['id']; ?>"><input class="btn btn-primary" value="Editar perfil"></a>
                 <div class="profile-photo">
                     <img src="../img/perfil.jpg" alt="">
                 </div>
