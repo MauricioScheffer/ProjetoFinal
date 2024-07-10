@@ -23,7 +23,7 @@
                 <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
                 <a href="contato.php"> <label class="btn btn-primary">Contato</label></a>
                 <div class="profile-photo">
-                    <img src="../img/perfil.jpg" alt="">
+                    <a href="perfil.php"><img src="../img/perfil.jpg" alt=""></a>
                 </div>
             </div>
         </div>

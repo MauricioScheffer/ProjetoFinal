@@ -46,30 +46,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Rede Social
                 </h2>
             </a>
-            <!-- <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Pesquisar">
-            </div> -->
             <div class="create">
                 <a href="index.php"><label class="btn btn-primary" for="create-post">Voltar</label></a>
-                <div class="profile-photo">
-                    <img src="img/perfil.jpg" alt="">
-                </div>
             </div>
         </div>
     </nav>
 
     <!-- main -->
     <main>
-
         <div class="container">
             <form method="POST">
                 <div class="meio">
                     <h2>Entrar</h2>
                     <div class="caixas">
                         <input type="text" placeholder="E-mail" name="email" required>
+                        <div class="senha">
                         <input type="password" id="senha" placeholder="Senha" name="senha" required>
                         <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
+                        </div>
                     </div>
                     <div class="botao">
                         <input class="btn btn-primary entrar" type="submit" name="login" value="Entrar">

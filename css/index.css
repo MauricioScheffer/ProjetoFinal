@@ -729,6 +729,14 @@ main .container .right{
 
 @media screen and (max-width: 992px){
 
+    .container .create{
+        gap: 0;
+    }
+
+    .container .create label{
+        padding: 10px;
+    }
+
     nav .search-bar{
         display: none;
     }
@@ -762,8 +770,9 @@ main .container .right{
     }
 
     main .container .middle{
-        grid-column: 2/3;
-        right: 0;
+        grid-column: 4/4;
+        bottom: 0;
+        left: 0;
     }
 
     main .container .right{
