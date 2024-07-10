@@ -4,9 +4,13 @@ if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.php');
     exit();
 }
-include_once './config/config.php';
-include_once './classes/Usuario.php';
+include_once '../config/config.php';
+include_once '../classes/Usuario.php';
 
+$usuario = new Usuario($db);
+$dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
+$usuario_adm = $dados_usuario['adm'];
+$idUsuario = $dados_usuario['id'];
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +36,9 @@ include_once './classes/Usuario.php';
             <div class="create">
                 <a href=""><input class="btn btn-primary" value="Criar"></a>
                 <a href="contato.php"><input class="btn btn-primary" value="Contato"></a>
-                <a href="editarUsuario.phpid=<?php echo $row['id']; ?>"><input class="btn btn-primary" value="Editar perfil"></a>
+                <?php if ($usuario_adm == 1 || $idUsuario == $_SESSION['usuario_id']): ?>
+                <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil"></a>
+                <?php endif; ?>
                 <div class="profile-photo">
                     <img src="../img/perfil.jpg" alt="">
                 </div>
