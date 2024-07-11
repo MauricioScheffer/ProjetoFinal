@@ -18,9 +18,9 @@ const Bg2 = document.querySelector('.bg-2');
 const Bg3 = document.querySelector('.bg-3');
 
 
-document.querySelector('label[for="backButton"]').addEventListener('click', function() {
-    window.history.back();
-  });
+// document.querySelector('label[for="backButton"]').addEventListener('click', function() {
+//     window.history.back();
+//   });
 
 function mostrarSenha(){
     var inputPass = document.getElementById('senha')
@@ -99,12 +99,6 @@ const closeThemeModal = (e) => {
 }
 themeModal.addEventListener('click', closeThemeModal);
 theme.addEventListener('click', openThemeModal);
-
-
-
-
-
-
 
 // fontes
 const removeSizeSelector = () => {
