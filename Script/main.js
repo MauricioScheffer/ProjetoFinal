@@ -17,6 +17,11 @@ const Bg1 = document.querySelector('.bg-1');
 const Bg2 = document.querySelector('.bg-2');
 const Bg3 = document.querySelector('.bg-3');
 
+
+document.querySelector('label[for="backButton"]').addEventListener('click', function() {
+    window.history.back();
+  });
+
 function mostrarSenha(){
     var inputPass = document.getElementById('senha')
     var btnShowPass = document.getElementById('btn-senha')
