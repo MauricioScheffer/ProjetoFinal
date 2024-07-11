@@ -3,7 +3,7 @@ include_once('../Classes/Usuario.php');
 include_once('../Config/config.php');
 
 if (isset($_POST['sexo']) && $_POST['sexo'] !== "null") {
-   
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $usuario = new Usuario($db);

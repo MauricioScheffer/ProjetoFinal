@@ -174,7 +174,7 @@ main .container {
     cursor: pointer;
     position: absolute;
     right: 40%;
-     top: calc(50% + 38px);
+    top: calc(50% + 8px);
     color: var(--color-black);
 }
 
@@ -204,12 +204,12 @@ footer {
 /* Responsivo */
 @media screen and (max-width: 992px) {
 
-    main{
+    /* main{
         margin: 0;
     }
     .meio {
         padding: 60px;
-    }
+    } */
 
     .meio .caixas input {
         width: 100%;
@@ -227,20 +227,22 @@ footer {
     .meio .senha i{
         position: absolute;
         right: 25%;
-        top: calc(36% + 20px);
+        top: 42%;
         color: var(--color-black);
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 700px) {
 
     .meio h2 {
         font-size: 25px;
     }
 
     .senha i {
-        right: 10px;
-        top: calc(50% + 15px);
+        position: absolute;
+        right: 25%;
+        top: 60%;
+        color: var(--color-black);
     }
 
     .meio .caixas input {
