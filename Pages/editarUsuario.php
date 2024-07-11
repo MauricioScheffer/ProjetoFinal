@@ -1,38 +1,73 @@
 <?php
 session_start();
+require_once '../config/config.php'; // Inclua o arquivo de configuração do banco de dados
+require_once '../classes/Usuario.php';
+
+// Verificar se o usuário está autenticado
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.php');
     exit();
 }
-include_once '../config/config.php';
-include_once '../classes/Usuario.php';
+
+// Incluir o cabeçalho da página (HTML)
+
+
+// Instanciar o objeto Usuario com a conexão ao banco de dados
 $usuario = new Usuario($db);
 
+// Verificar se foi passado o parâmetro 'id' via GET
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $row = $usuario->lerPorId($id);
-}
-
-$dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
-$usuario_adm = $dados_usuario['adm'];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];
-    $usuario = new Usuario($db);
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $foto = "";
-    $telefone = $_POST['telefone'];
-    $nascimento = date($_POST['nascimento']);
-    $sexo = $_POST['sexo'];
-    $adm = isset($_POST['adm']) ? 1 : 0; // 1 = verdadeiro, 0 = falso
-    $ativo = isset($_POST['ativo']) ? 1 : 0; // 1 = verdadeiro, 0 = falso
-
-    $usuario->atualizar($nome, $email, $telefone, $senha, $foto, $nascimento, $adm, $ativo, $id);
+} else {
+    // Redirecionar se não houver ID válido
     header('Location: perfil.php');
     exit();
 }
 
+// Ler dados do usuário logado para verificar permissões
+$dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
+$usuario_adm = $dados_usuario['adm'];
+
+// Verificar se o método de requisição é POST (formulário foi submetido)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obter os dados do formulário
+    $id = $_POST['id'];
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $telefone = $_POST['telefone'];
+    $nascimento = $_POST['nascimento'];
+    $sexo = $_POST['sexo'];
+    $adm = isset($_POST['adm']) ? 1 : 0;
+    $ativo = isset($_POST['ativo']) ? 1 : 0;
+
+    // Verificar se foi enviado um novo arquivo de imagem
+    if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+
+        $nome_arquivo = $_FILES['foto']['name'];
+        $caminho_temporario = $_FILES['foto']['tmp_name'];
+        $caminho_destino = '../img/' . $nome_arquivo;
+        
+        // Mover o arquivo carregado para o destino
+        if (move_uploaded_file($caminho_temporario, $caminho_destino)) {
+            // Atualizar o caminho da imagem no banco de dados
+            $foto = 'img/' . $nome_arquivo; // Salva o caminho relativo da imagem
+
+            // Chamar o método para atualizar os dados do usuário, incluindo a foto
+            $usuario->atualizar($nome, $email, $telefone, $sexo, $foto, $nascimento, $adm, $ativo, $id);
+            header('Location: perfil.php');
+            exit();
+        } else {
+            echo "Erro ao mover o arquivo para o diretório de destino.";
+        }
+    } else {
+        // Se não houver novo arquivo de imagem, atualize os outros campos sem alterar a foto
+        $foto_atual = $usuario->lerPorId($id)['foto']; // Obtém a foto atual do usuário
+        $usuario->atualizar($nome, $email, $telefone, $sexo, $foto_atual, $nascimento, $adm, $ativo, $id);
+        header('Location: perfil.php');
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,27 +82,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <nav>
-        <div class="container">
-            <a href="index.php">
-                <h2 class="log">
-                    Rede Social
-                </h2>
-            </a>
-            <div class="create">
-                <a href="index.php"><label class="btn btn-primary" for="create-post">Voltar</label></a>
-            </div>
-        </div>
-    </nav>
+   
 
     <!-- main -->
     <main>
-
         <div class="container">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                 <div class="meio">
-                    <h2>Cadastrar</h2>
+                    <h2>Editar Perfil</h2>
                     <div class="caixas">
                         <?php if ($usuario_adm == 1) : ?>
                             <div class="adm">
@@ -83,11 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endif; ?>
                         <input type="text" name="nome" value="<?php echo $row['nome']; ?>" required>
                         <input type="text" name="apelido" placeholder="Nome de usuário" value="<?php echo $row['apelido']; ?>" readonly>
+                        <!-- Campo para selecionar a foto -->
+                        <input type="file" name="foto">
                         <input type="email" name="email" value="<?php echo $row['email']; ?>" required>
-
                         <input type="text" name="telefone" value="<?php echo $row['telefone']; ?>" required>
                         <input type="date" name="nascimento" value="<?php echo $row['nascimento']; ?>" required>
-
                         <div class="sexo">
                             <select name="sexo">
                                 <option value="">Sexo:</option>
@@ -97,14 +120,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </select>
                         </div>
                     </div>
-                    <input class="btn btn-primary entrar" type="submit" value="Adicionar">
+                    <input class="btn btn-primary entrar" type="submit" value="Salvar Alterações">
                 </div>
-        </div>
-        </div>
-        </form>
+            </form>
         </div>
     </main>
-    <?php include 'footer.php'; ?>
+    <?php include 'footer.php'; // Inclua o rodapé ?>
     <script src="../Script/main.js"></script>
 </body>
 
