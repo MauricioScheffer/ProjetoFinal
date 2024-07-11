@@ -50,10 +50,7 @@ if (isset($_POST['acao'])) {
 </head>
 
 
-
-
-
-<body style="background-image: url('/img/fundo-pet.jpg');">
+<body>
     <nav>
         <div class="container">
             <a href="index.php">
@@ -61,20 +58,19 @@ if (isset($_POST['acao'])) {
                     Rede Social
                 </h2>
             </a>
-            <!-- <div class="search-bar">
+            <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
             </div>
             <div class="create">
                 <a href=""><input class="btn btn-primary" value="Criar"></a>
-                <a href="contato.php"><input class="btn btn-primary" value="Contato"></a> -->
+                <a href="contato.php"><input class="btn btn-primary" value="Contato"></a>
             <?php if ($usuario_adm == 1 || $idUsuario == $_SESSION['usuario_id']): ?>
                 <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary"
                         value="Editar perfil"></a>
             <?php endif; ?>
             <div class="profile-photo">
                 <a href=""> <?php echo "<img src= '../$foto'>"; ?></a>
-
             </div>
         </div>
         </div>
@@ -83,7 +79,6 @@ if (isset($_POST['acao'])) {
     <!-- main -->
     <main>
         <div class="container">
-
             <!-- LEFT -->
             <div class="left">
                 <a class="profile">
@@ -109,7 +104,7 @@ if (isset($_POST['acao'])) {
                             <textarea class="input" name="" type="text"></textarea>
                             <label for="nome">Meus Pets🐶</label>
                         </div>
-                        <input type="submit" value="Salvar" class="btn btn-primary">
+                        <input type="submit" value="Salvar" class="btn btn-primary btn-post">
                     </div>
                 </a>
             </div>
@@ -122,7 +117,7 @@ if (isset($_POST['acao'])) {
                         <?php echo "<img src= '../$foto'>"; ?>
                     </div>
                     <input type="text" placeholder="O que você está pensando, <?php echo "$nome?"; ?>" id="create-post">
-                    <input type="submit" value="Post" class="btn btn-primary">
+                    <input type="submit" value="Post" class="btn btn-primary btn-post">
                 </form>
 
                 <!-- publicações -->
