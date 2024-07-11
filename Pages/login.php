@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </h2>
             </a>
             <div class="create">
-                <a href="index.php"><label class="btn btn-primary" for="create-post">Voltar</label></a>
+                <a href="index.php"><label class="btn btn-primary" for="backButton">Voltar</label></a>
             </div>
         </div>
     </nav>
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
                     <div class="botao">
-                        <input class="btn btn-primary entrar" type="submit" name="login" value="Entrar">
+                    <input class="btn btn-primary entrar" type="submit" name="login" value="Entrar">
                         <a href="cadastro.php"><label class="btn btn-primary entrar">Cadastrar-se</label></a>
                     </div>
 
