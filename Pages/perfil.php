@@ -11,6 +11,11 @@ $usuario = new Usuario($db);
 $dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
 $usuario_adm = $dados_usuario['adm'];
 $idUsuario = $dados_usuario['id'];
+$foto = $dados_usuario['foto'];
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -23,24 +28,29 @@ $idUsuario = $dados_usuario['id'];
     <title>Responsivo Web Site</title>
 </head>
     
+
+
+
+
 <body style= "background-image: url('/img/fundo-pet.jpg');">
     <nav>
         <div class="container">
         <a href="index.php"><h2 class="log">
                 Rede Social
             </h2></a>
-            <div class="search-bar">
+            <!-- <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
             </div>
             <div class="create">
                 <a href=""><input class="btn btn-primary" value="Criar"></a>
-                <a href="contato.php"><input class="btn btn-primary" value="Contato"></a>
+                <a href="contato.php"><input class="btn btn-primary" value="Contato"></a> -->
                 <?php if ($usuario_adm == 1 || $idUsuario == $_SESSION['usuario_id']): ?>
                 <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil"></a>
                 <?php endif; ?>
                 <div class="profile-photo">
-                    <img src="../img/perfil.jpg" alt="">
+                  <a href=""> <?php  echo"<img src= '../$foto'>"; ?></a>
+                  
                 </div>
             </div>
         </div>
@@ -54,7 +64,7 @@ $idUsuario = $dados_usuario['id'];
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
-                        <img src="../img/perfil.jpg" alt="">
+                    <a href=""><?php echo"<img src= '../$foto'>"; ?></a>
                     </div>
                     <div class="handle">
                         <h4>Mauricio Scheffer</h4>

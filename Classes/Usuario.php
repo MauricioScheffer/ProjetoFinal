@@ -1,49 +1,48 @@
-
-
 <?php
 class Usuario
 {
     private $conn;
     private $table_name = "usuario";
 
-
     public function __construct($db)
     {
         $this->conn = $db;
     }
 
-    public function criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento,  $adm, $ativo) {
+    // Método para criar um novo usuário
+    public function criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento,  $adm, $ativo)
+    {
         $query = "INSERT INTO " . $this->table_name . " (nome, apelido, email, telefone, sexo, senha, foto, nascimento, adm, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         $hashed_password = password_hash($senha, PASSWORD_BCRYPT);
         $stmt->execute([$nome, $apelido, $email, $telefone, $sexo, $hashed_password, $foto, $nascimento,  $adm, $ativo]);
         return $stmt;
     }
-    
 
-    public function deletarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $nascimento, $adm, $ativo){
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = ? ON DELETE CASCADE";
+    // Método para deletar um usuário
+    public function deletarUsuario($id)
+    {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$$nome, $apelido, $email, $telefone, $sexo, $senha, $nascimento, $adm, $ativo]);
+        $stmt->execute([$id]);
         return $stmt;
-
     }
 
-    public function login($email, $senha){
-        
+    // Método para fazer login
+    public function login($email, $senha)
+    {
         $query = "SELECT * FROM " . $this->table_name . " WHERE email = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-     
-        if ($usuario && password_verify($senha, $usuario['senha'])){
-            
+
+        if ($usuario && password_verify($senha, $usuario['senha'])) {
             return $usuario;
-            
         }
         return false;
     }
 
+    // Método para ler todos os usuários ou filtrar por pesquisa e ordenação
     public function ler($search = '', $order_by = '')
     {
         $query = "SELECT * FROM " . $this->table_name;
@@ -70,6 +69,7 @@ class Usuario
         return $stmt;
     }
 
+    // Método para ler um usuário específico por ID
     public function lerPorId($id)
     {
         $query = "SELECT * FROM " . $this->table_name . " WHERE id = ?";
@@ -78,7 +78,7 @@ class Usuario
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
+    // Método para atualizar dados de um usuário
     public function atualizar($nome, $email, $telefone, $sexo, $foto, $nascimento, $adm, $ativo, $id)
     {
         $query = "UPDATE " . $this->table_name . " SET nome = ?, email = ?, telefone = ?, sexo = ?, foto = ?, nascimento = ?, adm = ?, ativo = ? WHERE id = ?";
@@ -86,11 +86,5 @@ class Usuario
         $stmt->execute([$nome, $email, $telefone, $sexo, $foto, $nascimento, $adm, $ativo, $id]);
         return $stmt;
     }
-
-
-
-
 }
-
-
 ?>

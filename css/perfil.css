@@ -145,24 +145,19 @@ main .container .left{
     top: var(--sticky-top-left);
 }
 
-main .container .left .profile{
+/* main .container .left .profile{
     padding: var(--card-padding);
-    background: var(--color-white);
+    /* background: transparent; 
     border-radius: var(--card-border-radius);
     display: block;
     align-items: center;
     column-gap: 1rem;
     width: 350px;
-}
+} */
 
-.profile{
-    height: 420px;
+main .container .left .profile .profile-photo a{
+    size: 600px;
 }
-
-.profile .profile-photo{
-    padding: 125px;
-}
-
 
 .handle h4{
     font-size: 25px;
@@ -213,11 +208,9 @@ main .container .left .profile{
     color: var(--color-primary);
 }
 
-
-/* main .container .left .profile .profile-photo{
-    width: 280px;
-    height: 400px;
-} */
+ main .container .left .profile .profile-photo{
+    z-index: 100;
+} 
 
 
 /* .left .btn{
