@@ -175,7 +175,7 @@
                                     <small>Cachoerinha, 10 minutos atrás</small>
                                 </div>
                             </div>
-                            <span class="edit">
+                            <span class="edit" id="edit">
                                 <i class="fa-solid fa-ellipsis"></i>
                             </span>
                         </div>
@@ -266,7 +266,7 @@
             </div>
 
             <!-- direito -->
-                <div class="right">
+                <!-- <div class="right">
                     <div class="messages">
                     <div class="heading">
                         <h4>Mensagens<h4><i class="fa-solid fa-pen-to-square"></i>
@@ -301,9 +301,9 @@
                             </div>  
                         </div>
                     </div>
-                <!-- fim das mensagens -->
+                 fim das mensagens 
 
-                 <!-- solicitações de amigos  -->
+                  solicitações de amigos 
                  <div class="friend-requests">
                     <h4>Solicitações</h4>
                     <div class="request">
@@ -328,7 +328,7 @@
                             </div>
                         </div>
                     </div>
-                 </div>
+                 </div> -->
             </div>
         </div>
     </main>
@@ -345,8 +345,8 @@
             <h6>Aa</h6>
                 <div class="choose-size">
                     <span class="font-size-1"></span>
-                    <span class="font-size-2 active"></span>
-                    <span class="font-size-3"></span>
+                    <span class="font-size-2"></span>
+                    <span class="font-size-3 active"></span>
                     <span class="font-size-4"></span>
                     <span class="font-size-5"></span>
                 </div>
@@ -386,7 +386,22 @@
                 </div>
         </div>
     </div>
+
+    <div class="pontinhos">
+            <div class="editar">
+                <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
+            </div>
+            <div class="deletar">
+                <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+            </div>
+    </div>
+
+    <div class="foto-user">
+            <div class="deletar">
+                <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+            </div>
+    </div>
+
     <script src="../Script/main.js"></script>
 </body>
-
 </html>
