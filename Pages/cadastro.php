@@ -1,11 +1,10 @@
 <?php
-include_once('../Classes/Usuario.php');
-include_once('../Config/config.php');
+include_once ('../Classes/Usuario.php');
+include_once ('../Config/config.php');
 
-if (isset($_POST['sexo']) && $_POST['sexo'] !== "null") {
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['sexo']) && $_POST['sexo'] !== "null") {
         $usuario = new Usuario($db);
         $nome = $_POST['nome'];
         $apelido = $_POST['apelido'];
@@ -20,13 +19,13 @@ if (isset($_POST['sexo']) && $_POST['sexo'] !== "null") {
         $usuario->criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo);
         header('Location: login.php');
         exit();
-    }
-} else {
-    echo '<script>
+    } else {
+        echo '<script>
      window.onload= function() {
       alert("Informe um gênero!");
      }
      </script>';
+    }
 }
 
 
@@ -79,7 +78,7 @@ if (isset($_POST['sexo']) && $_POST['sexo'] !== "null") {
 
                         <div class="sexo">
                             <select name="sexo">
-                                <option value= null>Sexo:</option>
+                                <option value=null>Sexo:</option>
                                 <option value="M">Masculino</option>
                                 <option value="F">Feminino</option>
                                 <option value="O">Outro</option>
