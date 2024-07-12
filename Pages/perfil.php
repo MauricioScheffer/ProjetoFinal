@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario_id'])) {
 include_once '../config/config.php';
 include_once '../classes/Usuario.php';
 include_once '../Classes/Seguidor.php';
+include_once '../classes/Post.php';
 
 $usuario = new Usuario($db);
 //o dados do usuario deve ler o id enviado pela tela index assim apresentando o perfil selecionado e não do usuario logado
@@ -34,6 +35,9 @@ if (isset($_POST['acao'])) {
         $seguindo = $seguidor->ler($idUsuario, $_SESSION['usuario_id']);
     }
 }
+
+$postagem = new Post($db);
+$postagens = $postagem->lerPorUsuario($idUsuario);
 
 
 ?>
@@ -63,16 +67,17 @@ if (isset($_POST['acao'])) {
                 <input type="search" placeholder="Pesquisar">
             </div>
             <div class="create">
-                <a href=""><input class="btn btn-primary" value="Criar"></a>
+                <?php if ($idUsuario == $_SESSION['usuario_id']) : ?>
+                    <a href="postagem.php"><input class="btn btn-primary" value="Criar"></a>
+                <?php endif; ?>
                 <a href="contato.php"><input class="btn btn-primary" value="Contato"></a>
-            <?php if ($usuario_adm == 1 || $idUsuario == $_SESSION['usuario_id']): ?>
-                <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary"
-                        value="Editar perfil"></a>
-            <?php endif; ?>
-            <div class="profile-photo">
-                <a href=""> <?php echo "<img src= '../$foto'>"; ?></a>
+                <?php if ($usuario_adm == 1 || $idUsuario == $_SESSION['usuario_id']) : ?>
+                    <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil"></a>
+                <?php endif; ?>
+                <div class="profile-photo">
+                    <a href=""> <?php echo "<img src= '../$foto'>"; ?></a>
+                </div>
             </div>
-        </div>
         </div>
     </nav>
 
@@ -91,11 +96,11 @@ if (isset($_POST['acao'])) {
                             <?php echo "@$apelido"; ?>
                         </p>
                         <!-- Removido o != $_SESSION['usuario_id'] do if para realizar testes  -->
-                        <?php if ($idUsuario): ?>
+                        <?php if ($idUsuario) : ?>
                             <form method="post">
-                                <?php if ($seguindo): ?>
-                                    <button type="submit" name="acao" value="desseguir">Desseguir</button>
-                                <?php else: ?>
+                                <?php if ($seguindo) : ?>
+                                    <button type="submit" name="acao" value="desseguir">Seguindo</button>
+                                <?php else : ?>
                                     <button type="submit" name="acao" value="seguir">Seguir</button>
                                 <?php endif; ?>
                             </form>
@@ -120,108 +125,64 @@ if (isset($_POST['acao'])) {
                     <input type="submit" value="Post" class="btn btn-primary btn-post">
                 </form>
 
-                <!-- publicações -->
-                <div class="feeds">
-                    <!-- publicação -->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="../img/jeferson.jpg" alt="">
+                <?php while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) : ?>
+                    <?php
+                    $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);        
+                    ?>
+                    <!-- publicações -->
+                    <div class="feeds">
+                        <!-- publicação -->
+                        <div class="feed">
+                            <div class="head">
+                                <div class="user">
+                                    <div class="profile-photo">
+                                        
+                                    <?php echo "<img src='../{$usuarioPostagem['foto']}' />"; ?>
+                                    </div>
+                                    <div class="ingo">
+                                        <h3><?php echo $usuarioPostagem['nome']; ?></h3>
+                                        <small><?php echo $post['titulo']; ?></small>
+                                    </div>
                                 </div>
-                                <div class="ingo">
-                                    <h3>Xiru Master</h3>
-                                    <small>Cachoerinha, 10 minutos atrás</small>
+                                <span class="edit">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </span>
+                            </div>
+
+                            <div class="photo">
+                            <?php echo "<img src='{$post['imagem']}' />"; ?>
+                            </div>
+
+                            <div class="action-buttons">
+                                <div class="interaction-buttons">
+                                    <span><i class="fa-regular fa-heart"></i></span>
+                                    <span><i class="fa-regular fa-comment"></i></span>
+                                    <span><i class="fa-solid fa-square-share-nodes"></i></span>
+                                </div>
+
+                                <div class="bookmark">
+                                    <span><i class="fa-regular fa-bookmark"></i></span>
                                 </div>
                             </div>
-                            <span class="edit">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </span>
-                        </div>
 
-                        <div class="photo">
-                            <img src="../img/pinguim.jpg" alt="">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="fa-regular fa-heart"></i></span>
-                                <span><i class="fa-regular fa-comment"></i></span>
-                                <span><i class="fa-solid fa-square-share-nodes"></i></span>
+                            <div class="liked-by">
+                                <span><img src="../img/perfil.jpg"></span>
+                                <span><img src="../img/kauaV.jpg"></span>
+                                <span><img src="../img/arthur.jpg"></span>
+                                <p>Curtido por <b>Dalmo Xiru</b> e <b>1,564 outros</b></p>
                             </div>
 
-                            <div class="bookmark">
-                                <span><i class="fa-regular fa-bookmark"></i></span>
+                            <div class="caption">
+                                <p><b><?php echo $usuarioPostagem['nome']; ?></b><?php echo $post['descricao']; ?>
+                                </p>
                             </div>
-                        </div>
 
-                        <div class="liked-by">
-                            <span><img src="../img/perfil.jpg"></span>
-                            <span><img src="../img/kauaV.jpg"></span>
-                            <span><img src="../img/arthur.jpg"></span>
-                            <p>Curtido por <b>Dalmo Xiru</b> e <b>1,564 outros</b></p>
-                        </div>
+                            <div class="comments text-muted">Ver todos os comentários</div>
 
-                        <div class="caption">
-                            <p><b>Xiru Master</b>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                <span class="harsh-tag">#lifestyle</span>
-                            </p>
                         </div>
-
-                        <div class="comments text-muted">Ver todos os comentários</div>
 
                     </div>
-
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="../img/kauaV.jpg">
-                                </div>
-                                <div class="ingo">
-                                    <h3>Kaua Valim</h3>
-                                    <small>Sapucaia do Sul, 2 dias atrás</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="../img/gato.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="fa-regular fa-heart"></i></span>
-                                <span><i class="fa-regular fa-comment"></i></span>
-                                <span><i class="fa-solid fa-square-share-nodes"></i></span>
-                            </div>
-
-                            <div class="bookmark">
-                                <span><i class="fa-regular fa-bookmark"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="../img/jeferson.jpg"></span>
-                            <span><img src="../img/leo.jpg"></span>
-                            <span><img src="../img/perfil.jpg"></span>
-                            <p>Curtido por <b>Xiru Master</b> e <b>1,120 outros</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Xiru Master</b>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                <span class="harsh-tag">#lifestyle</span>
-                            </p>
-                        </div>
-
-                        <div class="comments text-muted">Ver todos os comentários</div>
-                        <!-- fim da publicação -->
-                        <!-- fim do meio do site -->
-                    </div>
-                </div>
+                <?php endwhile; ?>
             </div>
         </div>
     </main>
