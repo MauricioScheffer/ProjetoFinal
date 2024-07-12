@@ -18,6 +18,7 @@ const Bg2 = document.querySelector('.bg-2');
 const Bg3 = document.querySelector('.bg-3');
 
 const pontos = document.querySelector('#edit');
+const editModal = document.querySelector('.pontinhos-popup');
 
 
 // document.querySelector('label[for="backButton"]').addEventListener('click', function() {
@@ -101,6 +102,26 @@ const closeThemeModal = (e) => {
 }
 themeModal.addEventListener('click', closeThemeModal);
 theme.addEventListener('click', openThemeModal);
+
+// Pontos
+// abrir
+const openEditModal = (e) => {
+    e.stopPropagation(); // Evitar que o evento clique se propague
+    editModal.style.display = 'grid';
+}
+
+// fechar
+const closeEditModal = (e) => {
+    if (!editModal.contains(e.target)) {
+        editModal.style.display = 'none';
+    }
+}
+
+document.addEventListener('click', closeEditModal);
+pontos.addEventListener('click', openEditModal);
+
+
+
 
 // fontes
 const removeSizeSelector = () => {

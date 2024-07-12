@@ -165,6 +165,23 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                 </span>
                             </div>
 
+                            <a class="edit-item" id="edit">
+                                <span><i class="fa-solid fa-ellipsis"></i></span>
+                            <div class="pontinhos-popup">
+                                <div class="editar">
+                                    <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
+                                </div>
+                                <div class="deletar">
+                                    <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+
+                        <div class="photo">
+                            <img src="../img/pinguim.jpg" alt="">
+                        </div>
+
                             <div class="photo">
                             <?php echo "<img src='{$post['imagem']}' />"; ?>
                             </div>
