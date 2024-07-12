@@ -134,9 +134,17 @@ if (isset($_POST['acao'])) {
                                     <small>Cachoerinha, 10 minutos atrás</small>
                                 </div>
                             </div>
-                            <span class="edit">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </span>
+                            <a class="edit-item" id="edit">
+                                <span><i class="fa-solid fa-ellipsis"></i></span>
+                            <div class="pontinhos-popup">
+                                <div class="editar">
+                                    <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
+                                </div>
+                                <div class="deletar">
+                                    <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+                                </div>
+                            </div>
+                            </a>
                         </div>
 
                         <div class="photo">
