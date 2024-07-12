@@ -9,18 +9,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $email = $_POST['email'];
         $senha = $_POST['senha'];
-      
-      
+
+
         if ($dados_usuario = $usuario->login($email, $senha)) {
             $_SESSION['usuario_id'] = $dados_usuario['id'];
-            header('Location: index.php');
-            exit();
+            if ($dados_usuario['ativo'] == 1) {
+                header('Location: index.php');
+                exit();
+            }else{
+                $mensagem_erro = "Conta inativada";
+            }
         } else {
             $mensagem_erro = "Credenciais inválidas";
         }
+
     }
 
-    
+
 }
 
 
@@ -61,18 +66,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="caixas">
                         <input type="text" placeholder="E-mail" name="email" required>
                         <div class="senha">
-                        <input type="password" id="senha" placeholder="Senha" name="senha" required>
-                        <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
+                            <input type="password" id="senha" placeholder="Senha" name="senha" required>
+                            <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
                         </div>
                     </div>
                     <div class="botao">
-                    <input class="btn btn-primary entrar" type="submit" name="login" value="Entrar">
+                        <input class="btn btn-primary entrar" type="submit" name="login" value="Entrar">
                         <a href="cadastro.php"><label class="btn btn-primary entrar">Cadastrar-se</label></a>
                     </div>
 
                     <div class="mensagem">
-                        <?php if(isset($mensagem_erro))
-                        echo '<p>' . $mensagem_erro . '</p>';?> 
+                        <?php if (isset($mensagem_erro))
+                            echo '<p>' . $mensagem_erro . '</p>'; ?>
                     </div>
                     <a class="esqueci" href="">Esqueci minha senha</a>
                 </div>
