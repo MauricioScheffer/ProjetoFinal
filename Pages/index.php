@@ -190,7 +190,6 @@ if ($search) {
 
             <!-- meio -->
             <div class="middle">
-
                 <form class="create-post">
                     <div class="profile-photo">
                         <?php echo "<img src= '../$foto'>"; ?>
@@ -228,9 +227,7 @@ if ($search) {
                             <div class="head">
                                 <div class="user">
                                     <div class="profile-photo">
-
-                                        <a
-                                            href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='../{$usuarioPostagem['foto']}' />"; ?></a>
+                                        <a href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='../{$usuarioPostagem['foto']}' />"; ?></a>
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
@@ -246,20 +243,19 @@ if ($search) {
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
-                                <a class="edit-item" id="edit">
-                                <span><i class="fa-solid fa-ellipsis"></i></span>
-                            <div class="pontinhos-popup">
-                                <div class="editar">
-                                    <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
-                                </div>
-                                <div class="deletar">
-                                    <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-                                </div>
-                            </div>
-                            </a>
+                                    <a class="edit-item" id="edit">
+                                    <span><i class="fa-solid fa-ellipsis"></i></span>
+                                    <div class="pontinhos-popup">
+                                        <div class="editar">
+                                            <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
+                                        </div>
+                                        <div class="deletar">
+                                            <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+                                        </div>
+                                    </div>
+                                    </a>
                             </div>
                         
-
                             <div class="photo">
                                 <?php echo "<img src='{$post['imagem']}' />"; ?>
                             </div>
@@ -292,75 +288,9 @@ if ($search) {
 
                         </div>
                         </div>
-                    </div>
                 <?php endwhile; ?>
+                </div>
             </div>
-
-            <!-- direito -->
-            <!-- <div class="right">
-                    <div class="messages">
-                    <div class="heading">
-                        <h4>Mensagens<h4><i class="fa-solid fa-pen-to-square"></i>
-                    </div>
-                    Pesquisar
-                     <div class="search-bar">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="search" placeholder="Procure mensagens" id="message-search">
-                     </div>
-                      <div class="category">
-                        <h6 class="active">Primeiro</h6>
-                        <h6>Geral</h6>
-                        <h6 class="message-requests">Solicitações(8)</h6>
-                      </div>
-                       Mensagem 
-                       <div class="message">
-                        <div class="profile-photo">
-                            <img src="../img/jeferson.jpg" alt="">
-                        </div>
-                        <div class="message-body">
-                            <h5>Jeferson Leon</h5>
-                            <p class="text-muted">Projeto pra entregar hein xiruzão</p>
-                        </div>
-                       </div>
-                       <div class="message">
-                            <div class="profile-photo">
-                                <img src="../img/jeferson.jpg" alt="">
-                            </div>
-                        <div class="message-body">
-                            <h5>Jeferson Leon</h5>
-                            <p class="text-bold">3 mensagens</p>
-                            </div>  
-                        </div>
-                    </div>
-                 fim das mensagens 
-
-                  solicitações de amigos 
-                 <div class="friend-requests">
-                    <h4>Solicitações</h4>
-                    <div class="request">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="../img/vitor.jpg" alt="">
-                            </div>
-                            <div>
-                                <h5>Vitinho</h5>
-                                <p class="text-muted">
-                                    4 amigos em comum
-                                </p>
-                                </div>
-                            </div>
-                            <div class="action">
-                                    <button class="btn btn-primary">
-                                        Aceitar
-                                    </button>
-                                    <button class="btn">
-                                        Recusar
-                                    </button>
-                            </div>
-                        </div>
-                    </div>
-                 </div> -->
-        </div>
         </div>
     </main>
 
@@ -423,7 +353,6 @@ if ($search) {
             <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
         </div>
     </div> -->
-
     <script src="../Script/main.js"></script>
 </body>
 
