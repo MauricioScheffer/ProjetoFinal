@@ -2,10 +2,10 @@
 const menuItems = document.querySelectorAll('.menu-item');
 
 // MENSAGENS
-const messagesNotification = document.querySelector('#messages-notifications');
-const messages = document.querySelector('.messages');
-const message = messages.querySelectorAll('.message');
-const messageSearch = document.querySelector('#message-search');
+// const messagesNotification = document.querySelector('#messages-notifications');
+// const messages = document.querySelector('.messages');
+// const message = messages.querySelectorAll('.message');
+// const messageSearch = document.querySelector('#message-search');
 
 // TEMA
 const theme = document.querySelector('#theme');
@@ -16,6 +16,8 @@ const colorPalette = document.querySelectorAll('.choose-color span');
 const Bg1 = document.querySelector('.bg-1');
 const Bg2 = document.querySelector('.bg-2');
 const Bg3 = document.querySelector('.bg-3');
+
+const pontos = document.querySelector('#edit');
 
 
 // document.querySelector('label[for="backButton"]').addEventListener('click', function() {
@@ -58,29 +60,29 @@ menuItems.forEach(item => {
 
 // MENSAGENS
 // pesquisar outras conversas
-const searchMessage = () => {
-    const val = messageSearch.value.toLowerCase();
-    message.forEach(user => {
-        let name = user.querySelector('h5').textContent.toLowerCase();
-        if(name.indexOf(val) != -1){
-            user.style.display = 'flex';
-        }else{
-            user.style.display = 'none';
-        }
-    })
-}
+// const searchMessage = () => {
+//     const val = messageSearch.value.toLowerCase();
+//     message.forEach(user => {
+//         let name = user.querySelector('h5').textContent.toLowerCase();
+//         if(name.indexOf(val) != -1){
+//             user.style.display = 'flex';
+//         }else{
+//             user.style.display = 'none';
+//         }
+//     })
+// }
 
 // pesquisar conversa
-messageSearch.addEventListener('keyup', searchMessage);
+// messageSearch.addEventListener('keyup', searchMessage);
 
 // click
-messagesNotification.addEventListener('click', () => {
-    messages.style.boxShadow = '0 0 1rem var(--color-primary)';
-    messagesNotification.querySelector('.notification-count').style.display = 'none';
-    setTimeout(() => {
-        messages.style.boxShadow = 'none';
-    }, 5000);
-})
+// messagesNotification.addEventListener('click', () => {
+//     messages.style.boxShadow = '0 0 1rem var(--color-primary)';
+//     messagesNotification.querySelector('.notification-count').style.display = 'none';
+//     setTimeout(() => {
+//         messages.style.boxShadow = 'none';
+//     }, 5000);
+// })
 
 
 // TEMA CUSTOMIZADO

@@ -23,8 +23,8 @@
     --search-padding: 0.6rem 1rem;
     --card-padding: 1rem;
 
-    --sticky-top-left: 5.4rem;
-    --sticky-top-right: -18rem;
+    --sticky-top-left: 1.4rem;
+    --sticky-top-right: 7.4rem;
 }
 
 *, *::before, *::after{
@@ -137,7 +137,7 @@ main{
 
 main .container{
     display: grid;
-    grid-template-columns: 18vw auto 20vw;
+    grid-template-columns: 22vw auto 11vw;
     column-gap: 2rem;
     position: relative;
 }
@@ -146,7 +146,7 @@ main .container{
 
 main .container .left{
     height: max-content;
-    position: sticky;
+    position: relative;
     top: var(--sticky-top-left);
 }
 
@@ -677,6 +677,10 @@ main .container .right{
     border: 2px solid var(--color-grey);
     border-radius: 50%;
     margin-right: 1rem;
+}
+
+.pontinhos{
+    
 }
 
 
