@@ -39,5 +39,13 @@ class Seguidor
         return $stmt;
     }
 
+    public function seguidores($idUsuario)
+    {
+        $query = "SELECT COUNT(idSeguidor) AS totalSeguidores FROM ". $this->table_name . " WHERE idUsuario = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$idUsuario]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado['totalSeguidores'];
+    }
 }
 ?>

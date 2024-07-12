@@ -10,29 +10,45 @@ include_once '../Classes/Seguidor.php';
 include_once '../classes/Post.php';
 
 $usuario = new Usuario($db);
-//o dados do usuario deve ler o id enviado pela tela index assim apresentando o perfil selecionado e não do usuario logado
-$dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
+//dados do dono do perfil
+// Verificar se foi passado o parâmetro 'id' via GET
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $dados_usuario = $usuario->lerPorId($id);
+} else {
+    // Redirecionar se não houver ID válido
+    header('Location: index.php');
+    exit();
+}
 $idUsuario = $dados_usuario['id'];
 $foto = $dados_usuario['foto'];
 $nome = $dados_usuario['nome'];
 $apelido = $dados_usuario['apelido'];
 
-//o adm deve ser buscado pelo $_SESSION['usuario_id']
-$usuario_adm = $dados_usuario['adm'];
+//Dados do usuário logado
+$usuario_logado = $usuario->lerPorId($_SESSION['usuario_id']);
+$usuario_adm = $usuario_logado['adm'];
+$fotoLogado = $usuario_logado['foto'];
 
 // referenciando para saber se o usuário segue ou não o perfil
 $seguidor = new Seguidor($db);
 
+// Consulta para saber se o usuário já segue o perfil
 $seguindo = $seguidor->ler($idUsuario, $_SESSION['usuario_id']);
+
+// Consulta para sabwer quantos seguidores o perfil tem
+$seguidores = $seguidor->seguidores($idUsuario);
 
 //seguir ou deixar de seguir
 if (isset($_POST['acao'])) {
-    if ($_POST['acao'] == 'seguir') {
+    if ($_POST['acao'] == 'seguir' && !$seguindo) {
         $seguidor->seguir($idUsuario, $_SESSION['usuario_id']);
         $seguindo = $seguidor->ler($idUsuario, $_SESSION['usuario_id']);
+        $seguidores = $seguidor->seguidores($idUsuario);
     } elseif ($_POST['acao'] == 'desseguir') {
         $seguidor->desseguir($idUsuario, $_SESSION['usuario_id']);
         $seguindo = $seguidor->ler($idUsuario, $_SESSION['usuario_id']);
+        $seguidores = $seguidor->seguidores($idUsuario);
     }
 }
 
@@ -68,14 +84,14 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
             </div>
             <div class="create">
                 <?php if ($idUsuario == $_SESSION['usuario_id']) : ?>
-                    <a href="postagem.php"><input class="btn btn-primary" value="Criar"></a>
+                    <a href="postagem.php"><input class="btn btn-primary" value="Criar" readonly></a>
                 <?php endif; ?>
-                <a href="contato.php"><input class="btn btn-primary" value="Contato"></a>
+                <a href="contato.php"><input class="btn btn-primary" value="Contato" readonly></a>
                 <?php if ($usuario_adm == 1 || $idUsuario == $_SESSION['usuario_id']) : ?>
-                    <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil"></a>
+                    <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil" readonly></a>
                 <?php endif; ?>
                 <div class="profile-photo">
-                    <a href=""> <?php echo "<img src= '../$foto'>"; ?></a>
+                    <a href=""> <?php echo "<img src= '../$fotoLogado'>"; ?></a>
                 </div>
             </div>
         </div>
@@ -93,10 +109,10 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                     <div class="handle">
                         <h4><?php echo "$nome"; ?></h4>
                         <p class="text-muted">
-                            <?php echo "@$apelido"; ?>
+                            <?php echo "@$apelido"; ?> 
                         </p>
-                        <!-- Removido o != $_SESSION['usuario_id'] do if para realizar testes  -->
-                        <?php if ($idUsuario) : ?>
+                        <h3><?php echo "Seguidores $seguidores"; ?></h3>
+                        <?php if ($idUsuario != $_SESSION['usuario_id']) : ?>
                             <form method="post">
                                 <?php if ($seguindo) : ?>
                                     <button type="submit" name="acao" value="desseguir">Seguindo</button>
