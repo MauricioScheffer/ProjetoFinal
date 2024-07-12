@@ -246,13 +246,7 @@ if ($search) {
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
-                                <span class="edit">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </span>
-                            </div>
-
-
-                            <a class="edit-item" id="edit">
+                                <a class="edit-item" id="edit">
                                 <span><i class="fa-solid fa-ellipsis"></i></span>
                             <div class="pontinhos-popup">
                                 <div class="editar">
@@ -263,12 +257,8 @@ if ($search) {
                                 </div>
                             </div>
                             </a>
-
-                        </div>
-
-                        <div class="photo">
-                            <img src="../img/pinguim.jpg" alt="">
-                        </div>
+                            </div>
+                        
 
                             <div class="photo">
                                 <?php echo "<img src='{$post['imagem']}' />"; ?>
@@ -301,7 +291,7 @@ if ($search) {
                             <div class="comments text-muted">Ver todos os comentários</div>
 
                         </div>
-
+                        </div>
                     </div>
                 <?php endwhile; ?>
             </div>
@@ -428,20 +418,11 @@ if ($search) {
         </div>
     </div>
 
-    <div class="pontinhos">
-        <div class="editar">
-            <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
-        </div>
+    <!-- <div class="foto-user">
         <div class="deletar">
             <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
         </div>
-    </div>
-
-    <div class="foto-user">
-        <div class="deletar">
-            <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-        </div>
-    </div>
+    </div> -->
 
     <script src="../Script/main.js"></script>
 </body>

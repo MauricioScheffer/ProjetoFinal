@@ -160,12 +160,8 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
-                                <span class="edit">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </span>
-                            </div>
 
-                            <a class="edit-item" id="edit">
+                                <a class="edit-item" id="edit">
                                 <span><i class="fa-solid fa-ellipsis"></i></span>
                             <div class="pontinhos-popup">
                                 <div class="editar">
@@ -176,6 +172,8 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                 </div>
                             </div>
                             </a>
+                            
+                            </div>
                         </div>
 
                         <div class="photo">
