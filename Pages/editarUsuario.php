@@ -29,6 +29,12 @@ if (isset($_GET['id'])) {
 $dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
 $usuario_adm = $dados_usuario['adm'];
 
+//evitar que usuarios comuns tenham acesso a conta de outro usuário
+if ($usuario_adm == 0 && $id != $_SESSION['usuario_id']) {
+    header('Location: index.php');
+    exit();
+}
+
 // Verificar se o método de requisição é POST (formulário foi submetido)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obter os dados do formulário
@@ -98,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="checkbox" id="adm" name="adm" value="1" <?php echo ($row['adm'] == 1) ? 'checked' : ''; ?>>
                             </div>
                         <?php endif; ?>
-                        <?php if ($usuario_adm == 1) : ?>
+                        <?php if ($usuario_adm == 1 || $id == $_SESSION['usuario_id']) : ?>
                             <div class="ativo">
                                 <label for="ativo">Ativo</label>
                                 <input type="checkbox" id="ativo" name="ativo" value="1" <?php echo ($row['ativo'] == 1) ? 'checked' : ''; ?>>

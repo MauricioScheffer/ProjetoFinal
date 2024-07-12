@@ -18,6 +18,27 @@ public function criar($idUsuario, $titulo, $descricao, $imagem, $data)
 
 }
 
+public function ler($search = '') {
+    $query = "SELECT * FROM " . $this->table_name;
+    $conditions = [];
+    $params = [];
+
+    if ($search) {
+       $conditions[] = " (titulo LIKE :search OR descricao LIKE :search)";
+        $params[':search'] = '%' . $search . '%';
+    }
+
+    if (count($conditions) > 0) {
+        $query .= " WHERE " . implode(' AND ', $conditions ) . "ORDER BY id DESC";
+    }else{
+        $query .= " ORDER BY id DESC";
+    }
+
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute($params);
+    return $stmt;
+}
+
 public function lerPorUsuario($idUsu){
     $query = "SELECT * FROM " . $this->table_name . " WHERE idUsuario = ? ORDER BY id DESC";
     $stmt = $this->conn->prepare($query);
@@ -25,11 +46,11 @@ public function lerPorUsuario($idUsu){
     return $stmt;
 }
 
-public function lerPorSeguidor($idUsu){
-$query = "SELECT p.* FROM postagem p INNER JOIN seguidor ON p.idusu = idseguido ";
-$query .= "WHERE seguidor = ?";
+public function lerPorSeguidor($idUsuario){
+$query = "SELECT p.* FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? or p.idUsuario = ? ORDER BY p.id DESC";
 $stmt = $this->conn->prepare($query);
-    $stmt->execute([$idUsu]);
+    $stmt->execute([$idUsuario, $idUsuario]);
+    return $stmt;
 }
 
 }
