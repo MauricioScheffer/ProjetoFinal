@@ -174,11 +174,6 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                             </a>
                             
                             </div>
-                        </div>
-
-                        <div class="photo">
-                            <img src="../img/pinguim.jpg" alt="">
-                        </div>
 
                             <div class="photo">
                             <?php echo "<img src='{$post['imagem']}' />"; ?>
@@ -211,10 +206,10 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                             <div class="comments text-muted">Ver todos os comentários</div>
 
                         </div>
-
-                    </div>
-                <?php endwhile; ?>
-            </div>
+                        </div>
+            <?php endwhile; ?>
+        </div>
+        </div>
         </div>
     </main>
 </body>

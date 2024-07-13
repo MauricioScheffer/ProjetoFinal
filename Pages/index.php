@@ -62,7 +62,21 @@ if ($search) {
                 <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
                 <a href="contato.php"> <label class="btn btn-primary">Contato</label></a>
                 <div class="profile-photo">
-                    <a href="perfil.php?id=<?php echo $idUsuario; ?>"><?php echo "<img src= '../$foto'>";?></a>
+
+                    <a class="nav-theme"><?php echo "<img src= '../$foto'>";?>
+                        <div class="nav-popup">
+                            <div class="perfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-regular fa-user"></i>Perfil</span></a>
+                            </div>
+                            <div class="editarPerfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
+                            </div>
+                            <div class="logout">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
+                            </div>
+                        </div>
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -243,7 +257,7 @@ if ($search) {
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
-                                    <a class="edit-item" id="edit">
+                                    <a class="edit-item">
                                     <span><i class="fa-solid fa-ellipsis"></i></span>
                                     <div class="pontinhos-popup">
                                         <div class="editar">
