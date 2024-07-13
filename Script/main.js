@@ -17,8 +17,8 @@ const Bg1 = document.querySelector('.bg-1');
 const Bg2 = document.querySelector('.bg-2');
 const Bg3 = document.querySelector('.bg-3');
 
-const pontos = document.querySelector('#edit');
-const editModal = document.querySelector('.pontinhos-popup');
+// const pontos = document.querySelector('.edit-item');
+// const editModal = document.querySelector('.pontinhos-popup');
 
 
 // document.querySelector('label[for="backButton"]').addEventListener('click', function() {
@@ -103,22 +103,86 @@ const closeThemeModal = (e) => {
 themeModal.addEventListener('click', closeThemeModal);
 theme.addEventListener('click', openThemeModal);
 
-// Pontos
-// abrir
-const openEditModal = (e) => {
-    e.stopPropagation(); // Evitar que o evento clique se propague
-    editModal.style.display = 'grid';
-}
+// // Pontos
+document.addEventListener('DOMContentLoaded', () => {
+    const pontos = document.querySelectorAll('.edit-item');
+    const editModals = document.querySelectorAll('.pontinhos-popup');
 
-// fechar
-const closeEditModal = (e) => {
-    if (!editModal.contains(e.target)) {
-        editModal.style.display = 'none';
-    }
-}
+    // Função para abrir o modal de edição
+    const openEditModal = (e) => {
+        e.stopPropagation(); // Evitar que o evento clique se propague
+        closeAllEditModals(); // Fechar todos os modais antes de abrir o atual
+        const modal = e.currentTarget.querySelector('.pontinhos-popup');
+        if (modal) {
+            modal.style.display = 'grid';
+        }
+    };
 
-document.addEventListener('click', closeEditModal);
-pontos.addEventListener('click', openEditModal);
+    // Função para fechar todos os modais de edição
+    const closeAllEditModals = () => {
+        editModals.forEach(modal => {
+            modal.style.display = 'none';
+        });
+    };
+
+    // Fechar modal ao clicar fora
+    const closeEditModal = (e) => {
+        if (!e.target.closest('.edit-item')) {
+            closeAllEditModals();
+        }
+    };
+
+    // Adicionar eventos de clique a todos os itens de edição
+    pontos.forEach(ponto => {
+        ponto.addEventListener('click', openEditModal);
+    });
+
+    // Adicionar evento de clique ao documento para fechar o modal quando clicar fora
+    document.addEventListener('click', closeEditModal);
+});
+
+// Perfil Nav
+document.addEventListener('DOMContentLoaded', () => {
+    const navThemes = document.querySelectorAll('.nav-theme');
+    const navPopups = document.querySelectorAll('.nav-popup');
+
+    // Função para abrir o popup de navegação
+    const openNavPopup = (e) => {
+        e.stopPropagation(); // Evitar que o evento clique se propague
+        closeAllNavPopups(); // Fechar todos os popups antes de abrir o atual
+        const popup = e.currentTarget.querySelector('.nav-popup');
+        if (popup) {
+            popup.style.display = 'block';
+        }
+    };
+
+    // Função para fechar todos os popups de navegação
+    const closeAllNavPopups = () => {
+        navPopups.forEach(popup => {
+            popup.style.display = 'none';
+        });
+    };
+
+    // Fechar popup ao clicar fora
+    const closeNavPopup = (e) => {
+        if (!e.target.closest('.nav-theme')) {
+            closeAllNavPopups();
+        }
+    };
+
+    // Adicionar eventos de clique a todos os itens de navegação
+    navThemes.forEach(navTheme => {
+        navTheme.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-theme')) {
+                openNavPopup(e);
+            }
+        });
+    });
+
+    // Adicionar evento de clique ao documento para fechar o popup quando clicar fora
+    document.addEventListener('click', closeNavPopup);
+});
+
 
 
 

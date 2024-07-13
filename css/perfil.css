@@ -332,7 +332,6 @@ main .container .left{
     color: var(--color-primary);
     display: none;
     transition: 1s;
-    display: flex;
 }
 
 .pontinhos-popup span{
