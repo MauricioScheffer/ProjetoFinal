@@ -16,6 +16,7 @@ $idUsuario = $dados_usuario['id'];
 $foto = $dados_usuario['foto'];
 $nome = $dados_usuario['nome'];
 $apelido = $dados_usuario['apelido'];
+$admin = $dados_usuario['adm'];
 
 //Postagem 
 $postagem = new Post($db);
@@ -109,7 +110,7 @@ if ($search) {
                         <span><i class="fa-brands fa-wpexplorer"></i></i></span>
                         <h3>Explorar</h3>
                     </a>
-                    <a class="menu-item" id="notifications">
+                    <!-- <a class="menu-item" id="notifications">
                         <span><i class="fa-solid fa-envelope"><small class="notification-count">9</small></i></span>
                         <h3>Notificações</h3>
 
@@ -169,23 +170,14 @@ if ($search) {
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </a> -->
 
-                    <a class="menu-item" id="messages-notifications">
-                        <span><i class="fa-solid fa-message"><small class="notification-count">6</small></i></span>
-                        <h3>Mensagens</h3>
-                    </a>
-
-                    <a class="menu-item">
-                        <span><i class="fa-solid fa-bookmark"></i></span>
-                        <h3>Atividades</h3>
-                    </a>
-
-                    <a class="menu-item">
+                    <?php if($admin == 1){
+                        ?><a class="menu-item">
                         <span><i class="fa-solid fa-chart-simple"></i></span>
                         <h3>Analises</h3>
                     </a>
-
+                    <?php } ?>
                     <a class="menu-item" id="theme">
                         <span><i class="fa-solid fa-circle-half-stroke"></i></span>
                         <h3>Tema</h3>
@@ -205,7 +197,7 @@ if ($search) {
             <!-- meio -->
             <div class="middle">
                 <form class="create-post">
-                    <div class="profile-photo">
+                    <div class="profile-photo2">
                         <?php echo "<img src= '../$foto'>"; ?>
                     </div>
                     <input type="text" placeholder="O que você está pensando, <?php echo "$nome?"; ?>" id="create-post">
@@ -227,7 +219,7 @@ if ($search) {
                     if (isset($_POST['acao'])) {
                         if ($_POST['acao'] == 'seguir' && !$seguindo) {
                             $seguidor->seguir($usuarioPostagem['id'], $idUsuario);
-                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);                       
+                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);                  
                         } elseif ($_POST['acao'] == 'desseguir') {
                             $seguidor->desseguir($usuarioPostagem['id'], $idUsuario);
                             $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
@@ -248,7 +240,7 @@ if ($search) {
                                         <?php if ( $usuarioPostagem['id'] != $idUsuario): ?>
                                             <form method="post">
                                                 <?php if ($seguindo): ?>
-                                                    <button type="submit" name="acao" value="desseguir">Seguindo</button>
+                                                   <button type="submit" name="acao" value="desseguir">Seguindo</button>
                                                 <?php else: ?>
                                                     <button type="submit" name="acao" value="seguir">Seguir</button>
                                                 <?php endif; ?>
