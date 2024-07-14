@@ -10,19 +10,22 @@ class Usuario
     }
 
     // Método para criar um novo usuário
-    public function criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento,  $adm, $ativo)
+    public function criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo)
     {
         $query = "INSERT INTO " . $this->table_name . " (nome, apelido, email, telefone, sexo, senha, foto, nascimento, adm, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         $hashed_password = password_hash($senha, PASSWORD_BCRYPT);
-        $stmt->execute([$nome, $apelido, $email, $telefone, $sexo, $hashed_password, $foto, $nascimento,  $adm, $ativo]);
+        $stmt->execute([$nome, $apelido, $email, $telefone, $sexo, $hashed_password, $foto, $nascimento, $adm, $ativo]);
         return $stmt;
     }
+
+    
+
 
     // Método para deletar um usuário
     public function deletarUsuario($id)
     {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+        $query = "DELETE * FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$id]);
         return $stmt;
@@ -49,9 +52,16 @@ class Usuario
         $conditions = [];
         $params = [];
 
-        if ($search) {
-            $conditions[] = " (nome LIKE :search OR email LIKE :search)";
-            $params[':search'] = '%' . $search . '%';
+        // Verifica se a pesquisa começa com '@' para buscar pelo apelido
+        if (!empty($search)) {
+            if (strpos($search, '@') === 0) {
+                $searchTerm = substr($search, 1); // Remove o '@' do início
+                $conditions[] = "apelido LIKE :search";
+                $params[':search'] = '%' . $searchTerm . '%';
+            } else {
+                $conditions[] = "nome LIKE :search OR apelido LIKE :search";
+                $params[':search'] = '%' . $search . '%';
+            }
         }
 
         if ($order_by === 'nome') {

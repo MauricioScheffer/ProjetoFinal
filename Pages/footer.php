@@ -53,7 +53,8 @@
         footer {
             background-color: var(--color-primary);
             color: #fff;
-            padding: 20px 0;
+            padding: auto 0;
+            /* width: 100%; */
             text-align: center;
             display: block;
         }
@@ -194,7 +195,7 @@
             
         </div>
         <section class="bottom-fotter">
-                <hr>
+                <hr></hr>
                 <div class="copyright">
                     <p>© 2024 - Todos Os Direitos Reservados</p>
                     <p>Pensado, projetado e desenvolvido pelos Colaboradores</p>
