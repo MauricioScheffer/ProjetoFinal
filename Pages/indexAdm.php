@@ -1,45 +1,112 @@
-<?php include_once '../Classes/Usuario.php';
-include_once '../Config/config.php';
+<?php
+session_start();
+include_once '../config/config.php'; // Ajuste o caminho conforme necessário
+include_once '../classes/Usuario.php'; // Ajuste o caminho conforme necessário
 
-$usuario = new Usuario($db);
-
-// Processar exclusão de usuário
-if (isset($_GET['deletar'])) {
-    $id = $_GET['deletar'];
-    $usuario->deletar($id);
-    header('Location: ');
+// Verifica se o usuário está logado
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: index.php');
     exit();
 }
 
-// Obter parâmetros de pesquisa e filtros
-$search = isset($_GET['search']) ? $_GET['search'] : '';
-$order_by = isset($_GET['order_by']) ? $_GET['order_by'] : '';
-
-// if para evitar que ocorra erro na pesquisa por digitarem e pesquisarem por order_by
-if ($order_by) {
-    $search = '';
-}
-
-// Obter dados dos usuários com filtros
-$dados = $usuario->ler($search, $order_by);
-
-// Obter dados do usuário logado
-$dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
-$nome_usuario = $dados_usuario['nome']
-
+// Obtendo todos os usuários
+$usuario = new Usuario($db);
+$lista_usuarios = $usuario->ler(); // Chamada ao método ler() para buscar todos os usuários
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/indexAdm.css">
-    <script src="https://kit.fontawesome.com/1c1bb96ec4.js" crossorigin="anonymous"></script>
-    <title>Lista de Usuários</title>
+    <link rel="stylesheet" type="text/css" href="../css/indexAdm.css" />
+    <title>Administração de Usuários</title>
+    <script>
+        function confirmarExclusao(id) {
+            if (confirm('Tem certeza que deseja deletar este usuário e todas as suas notícias?')) {
+                fetch('deletar_usuario.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + id,
+                }).then(response => {
+                    if (response.ok) {
+                        document.getElementById('user_' + id).remove();
+                    } else {
+                        alert('Erro ao excluir usuário.');
+                    }
+                }).catch(error => {
+                    console.error('Erro ao tentar excluir usuário:', error);
+                });
+            }
+        }
+
+        function editarUsuario(id) {
+            window.location.href = 'editarUsuario.php?id=' + id;
+        }
+
+        function buscarUsuarios() {
+            var input = document.getElementById('searchInput').value.toUpperCase();
+            var table = document.querySelector('table');
+            var tr = table.getElementsByTagName('tr');
+
+            for (var i = 0; i < tr.length; i++) {
+                var td = tr[i].getElementsByTagName('td')[1]; // Coluna do nome
+
+                if (td) {
+                    var nome = td.textContent || td.innerText;
+                    if (nome.toUpperCase().indexOf(input) > -1) {
+                        tr[i].style.display = '';
+                    } else {
+                        tr[i].style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        function limparFiltro() {
+            document.getElementById('searchInput').value = '';
+            buscarUsuarios();
+        }
+
+        function filtrarUsuarios(tipo) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.querySelector('table');
+            switching = true;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName('td')[1]; // Coluna do nome
+                    y = rows[i + 1].getElementsByTagName('td')[1]; // Próxima coluna do nome
+
+                    if (tipo === 'ordem-alfabetica') {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (tipo === 'ordem-reversa') {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
 </head>
 <body>
-    <nav>
+<nav>
         <div class="container">
             <a href="index.php">
                 <h2 class="log">
@@ -47,79 +114,81 @@ $nome_usuario = $dados_usuario['nome']
                 </h2>
             </a>
             <div class="create">
-                <a href="index.php"><label class="btn btn-primary">Voltar</label></a>
+                <a href="cadastro.php"><label class="btn btn-primary">Cadastrar Usuário</label></a>
+                <a href="logout.php"><label class="btn btn-primary">Sair</label></a>
+                <div class="profile-photo">
+
+                    <!-- <a class="nav-theme"><?php echo "<img src= '../$foto'>";?>
+                        <div class="nav-popup">
+                            <div class="perfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-regular fa-user"></i>Perfil</span></a>
+                            </div>
+                            <div class="editarPerfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
+                            </div>
+                            <div class="logout">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
+                            </div>
+                        </div>
+                    </a> -->
+
+                </div>
             </div>
         </div>
     </nav>
-    <main>
-    <div class="container">
-        <form method="GET">
-            <div class="filtro">
-                <label>
-                    <input type="radio" name="order_by" value="" <?php if ($order_by == '')
-                        echo 'checked'; ?>> Normal
-                </label>
-                <label>
-                    <input type="radio" name="order_by" value="nome" <?php if ($order_by == 'nome')
-                        echo 'checked'; ?>> Ordem
-                    Alfabética
-                </label>
-                <label>
-                    <input type="radio" name="order_by" value="sexo" <?php if ($order_by == 'sexo')
-                        echo 'checked'; ?>> Sexo
-                </label>
-            </div>
-            <div class="search-bar">
-            <i class="fa-solid fa-magnifying-glass btn btn-primary i"></i>
-            <input type="search" name="search" placeholder="Pesquisar por nome ou email"
-                value="<?php echo htmlspecialchars($search); ?>">
-                <!-- <button class="btn btn-primary" type="submit">Pesquisar</button> -->
-            </div>
-            
-            <div class="botao">
-                
-            </div>
 
-        </form>
-        <h1>Lista de Usuários</h1>
+    <div class="container-main">
+        <h1>Administração de Usuários</h1>
 
-        <form action="" method="POST">
-        <div class="user-list">
-        <table border="2">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Sexo</th>
-            <th>Fone</th>
-            <th>Email</th>
-            <th>Ações</th>
-        </tr>
-        <?php while ($row = $dados_usuario->fetch(PDO::FETCH_ASSOC)): ?>
-            <tr>
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo $row['nome']; ?></td>
-                <td><?php echo $row['apelido']; ?></td>
-                <td><?php echo ($row['sexo'] === 'M') ? 'Masculino' : 'Feminino'; ?></td>
-                <td><?php echo $row['fone']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td>
-                    <div class="edicao">
-                        <div class="editar">
-                            <a href="editar.php?id=<?php echo $row['id']; ?>">Editar</a>
-                        </div>
-                        <div class="deletar">
-                            <a href="deletar.php?id=<?php echo $row['id']; ?>">Deletar</a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <?php endwhile; ?>
-        </table>
-
+        <div class="nav">
+            <input class="search-bar" type="search" id="searchInput" placeholder="Pesquisar..." onkeyup="buscarUsuarios()">
+            <button onclick="filtrarUsuarios('ordem-alfabetica')">Ordem alfabética</button>
+            <button onclick="filtrarUsuarios('ordem-reversa')">Ordem reversa</button>
+            <button onclick="limparFiltro()">Limpar</button>
         </div>
-        </form>
 
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Apelido</th>
+                    <th>Sexo</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Iterando sobre a lista de usuários
+                while ($dados_usuario = $lista_usuarios->fetch(PDO::FETCH_ASSOC)) {
+                    echo '<tr id="user_' . $dados_usuario['id'] . '">';
+                    echo '<td>' . $dados_usuario['id'] . '</td>';
+                    echo '<td>' . $dados_usuario['nome'] . '</td>';
+                    echo '<td>' . $dados_usuario['apelido'] . '</td>';
+                    echo '<td>' . ($dados_usuario['sexo'] === 'M' ? 'Masculino' : 'Feminino') . '</td>';
+                    echo '<td>' . $dados_usuario['telefone'] . '</td>';
+                    echo '<td>' . $dados_usuario['email'] . '</td>';
+                    echo '<td>';
+                    if ($_SESSION['usuario_id'] != $dados_usuario['id']) {
+                        echo '<button onclick="confirmarExclusao(' . $dados_usuario['id'] . ')">Deletar</button>';
+                        echo '<button onclick="editarUsuario(' . $dados_usuario['id'] . ')">Editar</button>';
+                    } else {
+                        echo '<button disabled>Deletar</button>';
+                        echo '<button onclick="editarUsuario(' . $dados_usuario['id'] . ')">Editar</button>';
+                    }
+                    echo '</td>';
+                    
+                    echo '</tr>';
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
-    </main>
+
+    <footer>
+    <?php include 'footer.php'; // Inclua o rodapé ?>
+    </footer>
 </body>
 </html>

@@ -1,3 +1,4 @@
+/* admin.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
 
 
@@ -23,8 +24,8 @@
     --search-padding: 0.6rem 1rem;
     --card-padding: 1rem;
 
-    --sticky-top-left: 5.4rem;
-    --sticky-top-right: -18rem;
+    --sticky-top-left: 1.4rem;
+    --sticky-top-right: 7.4rem;
 }
 
 *, *::before, *::after{
@@ -48,23 +49,18 @@ body{
     width: 80%;
     margin: 0 auto;
 }
-main{
-    position: relative;
-    top: 5.4rem;
+
+.container-main{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 100px;
 }
 
-.profile-photo {
-    width: 2.7rem;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    overflow: hidden;
-}
-img {
-    display: block;
-    width: 100%;
+h1{
+    text-align: center;
 }
 
-.btn {
+.btn{
     display: inline-block;
     padding: var(--btn-padding);
     font-weight: 500;
@@ -74,25 +70,25 @@ img {
     font-size: 0.9rem;
 }
 
-.btn:hover {
+.btn:hover{
     opacity: 0.8;
 }
 
-.btn-primary {
+.btn-primary{
     background: var(--color-primary);
     color: white;
 }
 
-.text-bold {
+.text-bold{
     font-weight: 500;
 }
 
-.text-muted {
+.text-muted{
     color: var(--color-grey);
 }
 
 /* navbar */
-nav {
+nav{
     width: 100%;
     background: var(--color-white);
     padding: 0.7rem 0;
@@ -101,77 +97,127 @@ nav {
     z-index: 10;
 }
 
-nav .container {
+nav .container{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-main .container form .i{
-    font-size: 25px;
-    border-radius: var(--border-radius);
-} 
-main .container form .search-bar input[type="search"]{
-    border-radius: var(--border-radius);
-    padding: var(--search-padding);
-    background: var(--color-secundary);
-    width: 78%;
-    font-size: 20px;
-    color: var(--color-dark);
-}
-
-main .container form .search-bar input[type="search"]::placeholder {
-    color: var(--color-primary);
-}
-
-nav .create {
+nav .create{
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
+.nav-main{
+    display: flex;
+}
 
-.container form{
+.nav{
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
-.container form .filtro label{
-    margin: 10px;
-}
-
-.container .botao{
-    margin: 10px;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-.user-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.user-card {
-    padding: var(--card-padding);
-    background: var(--color-primary);
-    color: var(--color-white);
+.search-bar{
+    background: var(--color-secundary);
     border-radius: var(--border-radius);
-    text-align: left;
+    padding: var(--search-padding);
 }
 
-.user-card p {
-    margin: 5px 0;
+.search-bar input[type="search"]{
+    background: transparent;
+    width: 30vw;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark);
 }
 
-/* Responsivo */
-@media (max-width: 480px) {
-    .container {
-        padding: 10px;
-    }
-
-    .user-card {
-        padding: 10px;
-    }
+.nav .search-bar input[type="search"]::placeholder{
+    color: var(--color-grey);
 }
+
+
+
+.left {
+    flex: 1; /* Ocupa todo o espaço disponível à esquerda */
+}
+
+.right {
+    display: flex; /* Permite alinhar os botões à direita */
+}
+
+.links {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.links a {
+    text-decoration: none;
+    color: var(--color-primary); /* Cor dos links no header */
+    margin-right: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.links a:hover {
+    text-decoration: underline;
+    color: #ccc; /* Cor dos links no hover */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 60px; /* Ajustei para um espaço padrão */
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid var(--color-primary);
+}
+
+th {
+    background-color: var(--color-secundary);
+}
+
+button {
+    font-size: 14px;
+    margin: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition: color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+button:focus, button:hover {
+    color: var(--color-primary);
+}
+
+button:focus:after, button:hover:after {
+    width: 100%;
+    left: 0%;
+}
+
+button:after {
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+footer {
+    bottom: 0;
+    margin-top: 30px;
+} 
