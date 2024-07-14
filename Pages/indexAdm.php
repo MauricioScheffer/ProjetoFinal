@@ -4,12 +4,12 @@ include_once '../Config/config.php';
 $usuario = new Usuario($db);
 
 // Processar exclusão de usuário
-// if (isset($_GET['deletar'])) {
-//     $id = $_GET['deletar'];
-//     $usuario->deletar($id);
-//     header('Location: ');
-//     exit();
-// }
+if (isset($_GET['deletar'])) {
+    $id = $_GET['deletar'];
+    $usuario->deletar($id);
+    header('Location: ');
+    exit();
+}
 
 // Obter parâmetros de pesquisa e filtros
 $search = isset($_GET['search']) ? $_GET['search'] : '';
@@ -21,11 +21,11 @@ if ($order_by) {
 }
 
 // Obter dados dos usuários com filtros
-// $dados = $usuario->ler($search, $order_by);
+$dados = $usuario->ler($search, $order_by);
 
 // Obter dados do usuário logado
-// $dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
-// $nome_usuario = $dados_usuario['nome']
+$dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
+$nome_usuario = $dados_usuario['nome']
 
 ?>
 
@@ -94,7 +94,7 @@ if ($order_by) {
             <th>Email</th>
             <th>Ações</th>
         </tr>
-        <?php while ($row = $dados->fetch(PDO::FETCH_ASSOC)): ?>
+        <?php while ($row = $dados_usuario->fetch(PDO::FETCH_ASSOC)): ?>
             <tr>
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['nome']; ?></td>
