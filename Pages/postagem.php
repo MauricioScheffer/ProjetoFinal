@@ -60,14 +60,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/cadastro.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/postagem.css">
     <title>Criar Postagem</title>
 </head>
 
 <body>
-   
+<nav>
+        <div class="container">
+            <a href="index.php">
+                <h2 class="log">
+                    Rede Social
+                </h2>
+            </a>
 
+            <div class="create">
+                <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
+                <a href="contato.php"><label class="btn btn-primary">Voltar</label></a>
+                <div class="profile-photo">
+
+                    <a class="nav-theme"><?php echo "<img src= '../$foto'>"; ?>
+                        <div class="nav-popup">
+                            <div class="perfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
+                                            class="fa-regular fa-user"></i>Perfil</span></a>
+                            </div>
+                            <div class="editarPerfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
+                                            class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
+                            </div>
+                            <div class="logout">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
+                                            class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
     <!-- main -->
     <main>
         <div class="container">

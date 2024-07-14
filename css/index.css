@@ -166,7 +166,7 @@ main{
 
 main .container{
     display: grid;
-    grid-template-columns: 22vw auto 11vw;
+    grid-template-columns: 18vw auto 17vw;
     column-gap: 2rem;
     position: relative;
 }

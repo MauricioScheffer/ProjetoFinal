@@ -45,6 +45,32 @@ class Usuario
         return false;
     }
 
+    public function lerUsuarios($search)
+    {
+        $query = "SELECT * FROM " . $this->table_name;
+        $conditions = [];
+        $params = [];
+
+        // Verifica se a pesquisa começa com '@' para buscar pelo apelido
+        if (!empty($search)) {
+            if (strpos($search, '@') === 0) {
+                $searchTerm = substr($search, 1); // Remove o '@' do início
+                $conditions[] = "apelido LIKE :search";
+                $params[':search'] = $searchTerm . '%';
+            } else {
+                $conditions[] = "nome LIKE :search OR apelido LIKE :search";
+                $params[':search'] = '%' . $search . '%';
+            }
+        }
+        if (count($conditions) > 0) {
+            $query .= " WHERE " . implode(' AND ', $conditions);
+        }
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($params);
+        return $stmt;
+    }
+
     // Método para ler todos os usuários ou filtrar por pesquisa e ordenação
     public function ler($search = '', $order_by = '')
     {
@@ -94,6 +120,15 @@ class Usuario
         $query = "UPDATE " . $this->table_name . " SET nome = ?, email = ?, telefone = ?, sexo = ?, foto = ?, nascimento = ?, adm = ?, ativo = ? WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$nome, $email, $telefone, $sexo, $foto, $nascimento, $adm, $ativo, $id]);
+        return $stmt;
+    }
+
+    // Método para trazer os 5 usuários mais seguidos 
+    public function maisSeguidos()
+    {
+        $query = "SELECT u.* FROM usuario u LEFT JOIN seguidor s ON u.id = s.idUsuario ORDER BY s.idUsuario DESC limit 5";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
         return $stmt;
     }
 }
