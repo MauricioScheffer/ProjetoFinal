@@ -75,7 +75,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
         <div class="container">
             <a href="index.php">
                 <h2 class="log">
-                    Rede Social
+                    <img src="../img/LogoBlack.png" alt="">
                 </h2>
             </a>
             <div class="search-bar">
@@ -104,7 +104,21 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
-                        <a href=""><?php echo "<img src= '../$foto'>"; ?></a>
+
+                        <a class="nav-theme"><?php echo "<img src= '../$foto'>"; ?>
+                        <div class="nav-popup">
+                            <div class="perfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-regular fa-user"></i>Perfil</span></a>
+                            </div>
+                            <div class="editarPerfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
+                            </div>
+                            <div class="logout">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
+                            </div>
+                        </div>
+                    </a>
+                    
                     </div>
                     <div class="handle">
                         <h4><?php echo "$nome"; ?></h4>
