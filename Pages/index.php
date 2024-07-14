@@ -22,6 +22,7 @@ $admin = $dados_usuario['adm'];
 $postagem = new Post($db);
 $postagens = $postagem->lerPorSeguidor($idUsuario);
 
+
 // Obter parâmetros de pesquisa e filtros
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
@@ -30,6 +31,17 @@ if ($search) {
     $postagens = $postagem->ler($search);
 }
 
+// Obter os usuários mais seguidos quando não pesquisado nenhum amigo 
+
+$usuarios = $usuario->maisSeguidos();
+
+// Obter dados dos usuários
+$searchPeople = isset($_GET['search-people']) ? $_GET['search-people'] : '';
+if ($searchPeople) {
+    // Buscar usuários com base na pesquisa de pessoas
+    $usuarios = $usuario->lerUsuarios($searchPeople);
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,16 +76,19 @@ if ($search) {
                 <a href="contato.php"> <label class="btn btn-primary">Contato</label></a>
                 <div class="profile-photo">
 
-                    <a class="nav-theme"><?php echo "<img src= '../$foto'>";?>
+                    <a class="nav-theme"><?php echo "<img src= '../$foto'>"; ?>
                         <div class="nav-popup">
                             <div class="perfil">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-regular fa-user"></i>Perfil</span></a>
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
+                                            class="fa-regular fa-user"></i>Perfil</span></a>
                             </div>
                             <div class="editarPerfil">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
+                                            class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
                             </div>
                             <div class="logout">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
+                                            class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
                             </div>
                         </div>
                     </a>
@@ -91,12 +106,12 @@ if ($search) {
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
-                        <?php echo "<img src= '../$foto'>";?>
+                        <?php echo "<img src= '../$foto'>"; ?>
                     </div>
                     <div class="handle">
                         <h4><?php echo "$nome"; ?></h4>
                         <p class="text-muted">
-                            <?php echo "@$apelido";?>
+                            <?php echo "@$apelido"; ?>
                         </p>
                     </div>
                 </a>
@@ -172,11 +187,11 @@ if ($search) {
                         </div>
                     </a> -->
 
-                    <?php if($admin == 1){
+                    <?php if ($admin == 1) {
                         ?><a class="menu-item">
-                        <span><i class="fa-solid fa-chart-simple"></i></span>
-                        <h3>Analises</h3>
-                    </a>
+                            <span><i class="fa-solid fa-chart-simple"></i></span>
+                            <h3>Analises</h3>
+                        </a>
                     <?php } ?>
                     <a class="menu-item" id="theme">
                         <span><i class="fa-solid fa-circle-half-stroke"></i></span>
@@ -190,19 +205,19 @@ if ($search) {
 
                 </div>
                 <!-- cabou a sidebar -->
-                <a href="postagem.php"><input for="create-post" class="btn btn-primary" value="Criar publicação" readonly></a>
+                <a href="postagem.php"><input for="create-post" class="btn btn-primary" value="Criar publicação"
+                        readonly></a>
             </div>
             <!-- fim da esquerda -->
 
             <!-- meio -->
             <div class="middle">
-                <form class="create-post">
-                    <div class="profile-photo2">
-                        <?php echo "<img src= '../$foto'>"; ?>
-                    </div>
-                    <input type="text" placeholder="O que você está pensando, <?php echo "$nome?"; ?>" id="create-post">
-                    <input type="submit" value="Post" class="btn btn-primary">
+                <form class="create-post" method="GET">
+                    <input type="text" placeholder="Busque amigos aqui..." name="search-people"
+                        value="<?php echo htmlspecialchars($searchPeople); ?>">
+                    <input type="submit" value="Buscar" class="btn btn-primary">
                 </form>
+
 
                 <?php while ($post = $postagens->fetch(PDO::FETCH_ASSOC)): ?>
                     <?php
@@ -219,7 +234,7 @@ if ($search) {
                     if (isset($_POST['acao'])) {
                         if ($_POST['acao'] == 'seguir' && !$seguindo) {
                             $seguidor->seguir($usuarioPostagem['id'], $idUsuario);
-                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);                  
+                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
                         } elseif ($_POST['acao'] == 'desseguir') {
                             $seguidor->desseguir($usuarioPostagem['id'], $idUsuario);
                             $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
@@ -233,14 +248,15 @@ if ($search) {
                             <div class="head">
                                 <div class="user">
                                     <div class="profile-photo">
-                                        <a href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='../{$usuarioPostagem['foto']}' />"; ?></a>
+                                        <a
+                                            href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='../{$usuarioPostagem['foto']}' />"; ?></a>
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
-                                        <?php if ( $usuarioPostagem['id'] != $idUsuario): ?>
+                                        <?php if ($usuarioPostagem['id'] != $idUsuario): ?>
                                             <form method="post">
                                                 <?php if ($seguindo): ?>
-                                                   <button type="submit" name="acao" value="desseguir">Seguindo</button>
+                                                    <button type="submit" name="acao" value="desseguir">Seguindo</button>
                                                 <?php else: ?>
                                                     <button type="submit" name="acao" value="seguir">Seguir</button>
                                                 <?php endif; ?>
@@ -249,7 +265,7 @@ if ($search) {
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
-                                    <a class="edit-item">
+                                <a class="edit-item">
                                     <span><i class="fa-solid fa-ellipsis"></i></span>
                                     <div class="pontinhos-popup">
                                         <div class="editar">
@@ -259,9 +275,9 @@ if ($search) {
                                             <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
                                         </div>
                                     </div>
-                                    </a>
+                                </a>
                             </div>
-                        
+
                             <div class="photo">
                                 <?php echo "<img src='{$post['imagem']}' />"; ?>
                             </div>
@@ -293,11 +309,75 @@ if ($search) {
                             <div class="comments text-muted">Ver todos os comentários</div>
 
                         </div>
-                        </div>
+                    </div>
                 <?php endwhile; ?>
+            </div>
+
+            <div class="right">
+                <div class="messages">
+                    <div class="heading">
+                        <?php
+                        if ($searchPeople) {
+                            echo "<h4>Procurando amigo pet huber<h4>";
+                        } else {
+                            echo "<h4>pet hubers mais seguidos<h4>";
+                        }
+                        ?>
+                        <!-- classe mudar -->
+                    </div>
+                    <?php
+                    while ($usu = $usuarios->fetch(PDO::FETCH_ASSOC)): ?>
+                        <!-- mensagem -->
+                        <div class="message">
+                            <div class="profile-photo">
+                                <?php echo "<img src='../{$usu['foto']}' />"; ?>
+                            </div>
+                            <div class="handle">
+                                <h4><?php echo $usu['nome']; ?></h4>
+                                <p class="text-muted">
+                                    <?php echo "@{$usu['apelido']}"; ?>
+                                </p>
+                                <a href="perfil.php?id=<?php echo $usu['id']; ?>">
+                                    <p class="text-bold"> Ver Perfil</p>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endwhile;
+
+                    ?>
                 </div>
+                <!-- fim das mensagens -->
+
+                <!-- solicitações de amigos -->
+                <!-- <div class="friend-requests">
+                    <h4>Solicitações</h4>
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-photo">
+                                <img src="../img/vitor.jpg" alt="">
+                            </div>
+                            <div>
+                                <h5>Vitinho</h5>
+                                <p class="text-muted">
+                                    4 amigos em comum
+                                </p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">
+                                Aceitar
+                            </button>
+                            <button class="btn">
+                                Recusar
+                            </button>
+                        </div>
+                    </div>
+                 </div> -->
             </div>
         </div>
+
+        <!-- fim direito -->
+
     </main>
 
     <div class="customize-theme">

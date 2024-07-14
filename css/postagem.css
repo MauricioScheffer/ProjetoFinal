@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
+
+:root{
+    --color-white: hsl(252, 30%, 100%);
+    --color-light: hsl(252, 30%, 95%);
+    --color-grey: hsl(252, 15%, 65%);
+    --color-primary: hsl(252, 75%, 60%);
+    --color-secundary: hsl(252, 100%, 90%);
+    --color-sucess: hsl(120, 95%, 65%);
+    --color-danger: hsl(0, 95%, 65%);
+    --color-dark: hsl(252, 30%, 17%);
+    --color-black: hsl(252, 30%, 10%);
+
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem;
+}
+
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+body{
+    font-family: "Poppins", sans-serif;
+    color: var(--color-dark);
+    background-color: url('pet-git.gif');
+    background-size: cover; /* Ajusta a imagem para cobrir toda a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Impede que a imagem se repita */
+}
+
+.container:not(footer .container){
+    width: 80%;
+    margin: 0 auto;
+}
+
+.profile-photo{
+    width: 2.7rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+main{
+    margin-top: 100px;
+}
+
+img{
+    display: block;
+    width: 100%;
+}
+
+.btn{
+    display: inline-block;
+    padding: var(--btn-padding);
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 300ms ease;
+    font-size: 0.9rem;
+}
+
+.btn:hover{
+    opacity: 0.8;
+}
+
+.btn-primary{
+    background: var(--color-primary);
+    color: white;
+}
+
+.text-bold{
+    font-weight: 500;
+}
+
+.text-muted{
+    color: var(--color-grey);
+}
+
+/* navbar */
+nav{
+    width: 100%;
+    background: var(--color-light);
+    padding: 0.7rem 0;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+nav .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-bar{
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    padding: var(--search-padding);
+}
+
+.search-bar input[type="search"]{
+    background: transparent;
+    width: 30vw;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark);
+}
+
+nav .search-bar input[type="search"]::placeholder{
+    color: var(--color-grey);
+}
+
+nav .create{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* main */
+main{
+    position: relative;
+    top: 5.4rem;
+}
+
+main .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2rem;
+}
+
+.meio{
+    padding: 70px;
+    width: 470px;
+    background: var(--color-white);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+    margin-bottom: 52px;
+    text-align: center;
+}
+
+.meio h2{
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.meio .caixas input,
+.meio .caixas textarea{
+    display: block;
+    width: calc(100% + 20px);
+    margin: 16px auto;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--color-secundary);
+    font-size: 20px;
+}
+
+.senha i{
+    font-size: 25px;
+    cursor: pointer;
+    position: absolute;
+    right: 37%;
+    top: 45%;
+    color: var(--color-black);
+}
+
+.meio .senha{
+    justify-content: center;
+    align-items: center;
+}
+
+.meio .sexo label,
+.meio .sexo input{
+    display: flex;
+}
+
+.meio textarea{
+    width: 350px;
+    height: 100px;
+    max-height: 100px;
+    max-width: 350px;
+    resize: none;
+}
+
+footer {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    width: 100%;
+    padding: 30px 0px;
+    margin-top: 180px;
+}
+
+footer .container p{
+    text-align: center;
+}
+
+
+@media screen and (max-width: 992px){
+
+    .meio{
+        width: 370px;
+    }
+
+    .meio .caixas input,
+    .meio .caixas select{
+    padding: 12px;
+    font-size: 18px;
+}
+
+    .senha i{
+        font-size: 25px;
+        cursor: pointer;
+        position: absolute;
+        right: 20%;
+        top: 46%;
+        color: var(--color-black);
+    }
+
+    .meio .sexo option{
+        font-size: 12px;
+    }
+}
