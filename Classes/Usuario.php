@@ -126,7 +126,7 @@ class Usuario
     // Método para trazer os 5 usuários mais seguidos 
     public function maisSeguidos()
     {
-        $query = "SELECT u.* FROM usuario u LEFT JOIN seguidor s ON u.id = s.idUsuario ORDER BY s.idUsuario DESC limit 5";
+        $query = "SELECT u.* FROM usuario u left JOIN seguidor s ON u.id = s.idUsuario GROUP BY s.idUsuario order by count(s.idUsuario) DESC limit 5";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;

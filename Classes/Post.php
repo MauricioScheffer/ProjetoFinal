@@ -46,6 +46,14 @@ public function lerPorUsuario($idUsu){
     return $stmt;
 }
 
+public function lerPostagem($id){
+    $query = "SELECT * FROM " . $this->table_name . " WHERE id = ?";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
 public function lerPorSeguidor($idUsuario){
 $query = "SELECT p.* FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? or p.idUsuario = ? ORDER BY p.id DESC";
 $stmt = $this->conn->prepare($query);

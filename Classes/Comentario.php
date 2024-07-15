@@ -23,7 +23,7 @@ class Comentario
         $query = "SELECT * FROM " . $this->table_name . " WHERE idPostagem = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$idPostagem]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt;
     }
 
     
