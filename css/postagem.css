@@ -193,6 +193,7 @@ main .container{
     max-height: 100px;
     max-width: 350px;
     resize: none;
+    border-radius: 0px var(--border-radius) var(--border-radius) var(--border-radius);
 }
 
 footer {

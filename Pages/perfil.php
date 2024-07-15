@@ -91,7 +91,9 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                     <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil" readonly></a>
                 <?php endif; ?>
                 <div class="profile-photo">
-                    <a href=""> <?php echo "<img src= '../$fotoLogado'>"; ?></a>
+                    <a><?php echo "<img id='profile-img' src= '../$fotoLogado'>"; ?>
+                
+                </a>
                 </div>
             </div>
         </div>
@@ -175,17 +177,17 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                     </div>
                                 </div>
 
-                                <a class="edit-item" id="edit">
-                                <span><i class="fa-solid fa-ellipsis"></i></span>
-                            <div class="pontinhos-popup">
-                                <div class="editar">
-                                    <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
-                                </div>
-                                <div class="deletar">
-                                    <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-                                </div>
-                            </div>
-                            </a>
+                                <a class="edit-item">
+                                    <span><i class="fa-solid fa-ellipsis" id="pontos-popup"></i></span>
+                                    <div class="pontinhos-popup" id="pontinhos-popup">
+                                        <div class="editar">
+                                            <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
+                                        </div>
+                                        <div class="deletar">
+                                            <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+                                        </div>
+                                    </div>
+                                </a>
                             
                             </div>
 
@@ -213,7 +215,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                             </div>
 
                             <div class="caption">
-                                <p><b><?php echo $usuarioPostagem['nome']; ?></b><?php echo $post['descricao']; ?>
+                                <p><b><?php echo $usuarioPostagem['nome']; ?></b> <?php echo $post['descricao']; ?>
                                 </p>
                             </div>
 
@@ -226,6 +228,9 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
         </div>
         </div>
     </main>
+    <div class="footer">
+    <?php include 'footer.php'; // Inclua o rodapé ?>
+    </div>
+    <script src="../Script/main.js"></script>
 </body>
-
 </html>

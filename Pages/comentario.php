@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/comentario.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/1c1bb96ec4.js" crossorigin="anonymous"></script>
@@ -107,8 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="create">
                 <div class="profile-photo">
 
-                    <a class="nav-theme"><?php echo "<img src= '../$foto'>"; ?>
-                        <div class="nav-popup">
+                    <a class="nav-theme"><?php echo "<img id='profile-img' src= '../$foto'>"; ?>
+                        <div class="nav-popup" id="nav-popup">
                             <div class="perfil">
                                 <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
                                             class="fa-regular fa-user"></i>Perfil</span></a>
@@ -127,9 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </nav>
-    <br><br><br>
+    <br><br><br><br>
     <div class="container">
-
         <!-- meio -->
         <div class="middle">
             <!-- publicações -->
@@ -157,8 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
                         <a class="edit-item">
-                            <span><i class="fa-solid fa-ellipsis"></i></span>
-                            <div class="pontinhos-popup">
+                            <span><i id="pontos-popup" class="fa-solid fa-ellipsis"></i></span>
+                            <div class="pontinhos-popup" id="pontinhos-popup">
                                 <div class="editar">
                                     <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
                                 </div>
@@ -193,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="caption">
-                        <p><b><?php echo $usuarioPostagem['nome']; ?></b><?php echo $post['descricao']; ?>
+                        <p><b><?php echo $usuarioPostagem['nome']; ?></b> <?php echo $post['descricao']; ?>
                         </p>
                     </div>
 
@@ -253,14 +252,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </div>
                                     </div>
                                     <a class="edit-item">
-                                        <span><i class="fa-solid fa-ellipsis"></i></span>
-                                        <div class="pontinhos-popup">
+                                    <span><i id="comentario-popup" class="fa-solid fa-ellipsis"></i></span>
+                                        <div class="pontinhos-popup" id="comentario-popup-div">
                                             <div class="editar">
                                                 <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
                                             </div>
                                             <div class="deletar">
                                                 <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-                                            </div>
+                                            </div>  
                                         </div>
                                     </a>
                                 </div>
@@ -269,8 +268,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <?php echo $comentado['descricao']; ?>
                                     </p>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -294,7 +291,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
 
         </div>
-        <br><br><br>
     </div>
 
 

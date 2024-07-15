@@ -67,9 +67,9 @@ body{
 
 
 /* FOTO DOIS */
-.profile-photo2 {
+/* .profile-photo2 {
     width: 2.7rem;
-    height: 2.7rem; /* Adicionado para garantir a proporção */
+    height: 2.7rem; /* Adicionado para garantir a proporção 
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -81,8 +81,8 @@ body{
     height: 30px;
     border-radius: 50%;
     float: left;
-    object-fit: cover; /* Garante que a imagem cubra o elemento sem distorção */
-}
+    object-fit: cover; /* Garante que a imagem cubra o elemento sem distorção 
+} */
 
 img{
     display: block;
@@ -423,6 +423,10 @@ main .container .left .profile{
     border-radius: var(--card-border-radius);
     overflow: hidden;
     margin: 0.7rem 0;
+    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+    height: auto;    /* Mantém a proporção da imagem */
+    max-height: 500px; /* Limite de altura da imagem */
+    object-fit: cover; /* Cobre a área, mantendo a proporção */
 }
 
 .middle .feed .action-buttons{
@@ -562,6 +566,10 @@ main .container .right{
     gap: 1rem;
 }
 
+/* Footer */
+.footer{
+    margin-top: 300px;
+}
 
 /* cutomização */
 /* temas */
@@ -720,7 +728,7 @@ main .container .right{
 }
 
 .nav-popup{
-    display: block;
+    display: none;
     position: absolute;
     top: 55px;
     width: 190px;
@@ -779,8 +787,6 @@ main .container .right{
     font-size: 20px;
 }
     
-.edit-item:hover{
-}
     
 .pontinhos-popup{
     display: none;
@@ -797,10 +803,6 @@ main .container .right{
     font-size: 17px;
     color: var(--color-primary);
     transition: 1s;
-    /* display: flex; */
-}
-
-.pontinhos-popup span{
 }
 
 .pontinhos-popup span:hover{

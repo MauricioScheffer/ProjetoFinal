@@ -72,12 +72,14 @@ if ($searchPeople) {
                 </form>
             </div>
             <div class="create">
-                <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
-                <a href="contato.php"> <label class="btn btn-primary">Contato</label></a>
+                
+                <!-- <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
+                <a href="contato.php"> <label class="btn btn-primary">Contato</label></a> -->
+
                 <div class="profile-photo">
 
-                    <a class="nav-theme"><?php echo "<img src= '../$foto'>"; ?>
-                        <div class="nav-popup">
+                    <a class="nav-theme"><?php echo "<img id='profile-img' src= '../$foto'>"; ?>
+                        <div class="nav-popup" id="nav-popup">
                             <div class="perfil">
                                 <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
                                             class="fa-regular fa-user"></i>Perfil</span></a>
@@ -266,8 +268,8 @@ if ($searchPeople) {
                                     </div>
                                 </div>
                                 <a class="edit-item">
-                                    <span><i class="fa-solid fa-ellipsis"></i></span>
-                                    <div class="pontinhos-popup">
+                                    <span><i class="fa-solid fa-ellipsis" id="pontos-popup"></i></span>
+                                    <div class="pontinhos-popup" id="pontinhos-popup">
                                         <div class="editar">
                                             <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
                                         </div>
@@ -302,7 +304,7 @@ if ($searchPeople) {
                             </div>
 
                             <div class="caption">
-                                <p><b><?php echo $usuarioPostagem['nome']; ?></b><?php echo $post['descricao']; ?>
+                                <p><b><?php echo $usuarioPostagem['nome']; ?></b> <?php echo $post['descricao']; ?>
                                 </p>
                             </div>
 
@@ -439,8 +441,10 @@ if ($searchPeople) {
             <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
         </div>
     </div> -->
-    <br><br><br><br>
+
+    <div class="footer">
     <?php include 'footer.php'; // Inclua o rodapé ?>
+    </div>
     <script src="../Script/main.js"></script>
 </body>
 

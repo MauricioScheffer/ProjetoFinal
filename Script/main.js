@@ -85,10 +85,7 @@ menuItems.forEach(item => {
 //     }, 5000);
 // })
 
-
 // TEMA CUSTOMIZADO
-
-
 // abrir
 const openThemeModal = () => {
     themeModal.style.display = 'grid';
@@ -103,48 +100,11 @@ const closeThemeModal = (e) => {
 themeModal.addEventListener('click', closeThemeModal);
 theme.addEventListener('click', openThemeModal);
 
-// // Pontos
-document.addEventListener('DOMContentLoaded', () => {
-    const pontos = document.querySelectorAll('.edit-item');
-    const editModals = document.querySelectorAll('.pontinhos-popup');
-
-    // Função para abrir o modal de edição
-    const openEditModal = (e) => {
-        e.stopPropagation(); // Evitar que o evento clique se propague
-        closeAllEditModals(); // Fechar todos os modais antes de abrir o atual
-        const modal = e.currentTarget.querySelector('.pontinhos-popup');
-        if (modal) {
-            modal.style.display = 'grid';
-        }
-    };
-
-    // Função para fechar todos os modais de edição
-    const closeAllEditModals = () => {
-        editModals.forEach(modal => {
-            modal.style.display = 'none';
-        });
-    };
-
-    // Fechar modal ao clicar fora
-    const closeEditModal = (e) => {
-        if (!e.target.closest('.edit-item')) {
-            closeAllEditModals();
-        }
-    };
-
-    // Adicionar eventos de clique a todos os itens de edição
-    pontos.forEach(ponto => {
-        ponto.addEventListener('click', openEditModal);
-    });
-
-    // Adicionar evento de clique ao documento para fechar o modal quando clicar fora
-    document.addEventListener('click', closeEditModal);
-});
 
 // Perfil Nav
 document.addEventListener('DOMContentLoaded', () => {
     const navThemes = document.querySelectorAll('.nav-theme');
-    const navPopups = document.querySelectorAll('.nav-popup');
+    // const navPopups = document.querySelectorAll('.nav-popup');
 
     // Função para abrir o popup de navegação
     const openNavPopup = (e) => {
@@ -259,7 +219,6 @@ let lightColorLightness;
 let whiteColorLightness;
 let darkColorLightness;
 
-
 const changeBG = () => {
     root.style.setProperty('--light-color-lightness', lightColorLightness);
     root.style.setProperty('--white-color-lightness', whiteColorLightness);
@@ -298,3 +257,21 @@ Bg3.addEventListener('click', () => {
     Bg2.classList.remove('active');
     changeBG();
 })
+
+// Perfil POPUP PROFILE
+document.getElementById('profile-img').addEventListener('click', function() {
+    const navPopup = document.getElementById('nav-popup');
+    navPopup.style.display = navPopup.style.display === 'block' ? 'none' : 'block';
+});
+
+// PUBLICAÇÃO POPUP ...
+document.getElementById('pontos-popup').addEventListener('click', function() {
+    const pontosPopup = document.getElementById('pontinhos-popup');
+    pontosPopup.style.display = pontosPopup.style.display === 'block' ? 'none' : 'block';
+});
+
+// COMENTÁRIO POPUP ...
+document.getElementById('comentario-popup').addEventListener('click', function() {
+    const comentarioPopup = document.getElementById('comentario-popup-div');
+    comentarioPopup.style.display = comentarioPopup.style.display === 'block' ? 'none' : 'block';
+});
