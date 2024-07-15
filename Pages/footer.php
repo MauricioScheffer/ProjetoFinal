@@ -46,13 +46,12 @@
         body{
             font-family: "Poppins", sans-serif;
             color: var(--color-dark);
-            
             overflow-x: hidden;
         }
 
         footer {
             background-color: var(--color-primary);
-            color: #fff;
+            color: var(--color-white);
             padding: auto 0;
             /* width: 100%; */
             text-align: center;
@@ -61,9 +60,9 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: 20px auto 18px;
+            grid-template-columns: 20px auto 30px;
             max-width: 960px;
-            margin: 0 auto;
+            margin: 0 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -98,6 +97,7 @@
         .footer-content .Perfil li{
             list-style-type: none;
             color: var(--color-black);
+            font-weight: bold;
         }
 
         .footer-content .Sobre,
@@ -144,13 +144,31 @@
             justify-content: space-between;
         }
 
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+
+            .footer-content > div {
+                flex: 1;
+                margin: 1rem;
+            }
+
+            .bottom-footer .copyright {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
     </style>
 </head>
 <body>
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="../img/Logo.png" alt="Logo">
+                <img src="../img/LogoWhite.png" alt="Logo">
             </div>
             
             <div class="Sobre">
@@ -174,15 +192,15 @@
             <div class="Perfil">
             <ul>
                 <li>Colaboradores</li>
-                <p>Mauricio Scheffer <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <p>Mauricio Scheffer<a href=""><i class="fa-brands fa-instagram"></i></a>
                 <a href=""><i class="fa-brands fa-linkedin"></i></a>
                 <a href=""><i class="fa-brands fa-github"></i></a></p>
 
-                <p>Gustavo Rizon <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <p>Gustavo Rizon<a href=""><i class="fa-brands fa-instagram"></i></a>
                 <a href=""><i class="fa-brands fa-linkedin"></i></a>
                 <a href=""><i class="fa-brands fa-github"></i></a></p>
 
-                <p>Vitor de Souza <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <p>Vitor de Souza<a href=""><i class="fa-brands fa-instagram"></i></a>
                 <a href=""><i class="fa-brands fa-linkedin"></i></a>
                 <a href=""><i class="fa-brands fa-github"></i></a></p>
 
