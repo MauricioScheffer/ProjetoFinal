@@ -83,11 +83,11 @@ if ($searchPeople) {
                                             class="fa-regular fa-user"></i>Perfil</span></a>
                             </div>
                             <div class="editarPerfil">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
+                                <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><span><i
                                             class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
                             </div>
                             <div class="logout">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
+                                <a href="logout.php"><span><i
                                             class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
                             </div>
                         </div>
@@ -306,7 +306,7 @@ if ($searchPeople) {
                                 </p>
                             </div>
 
-                            <div class="comments text-muted">Ver todos os comentários</div>
+                            <a href="comentario.php?postagem=<?php echo $post['id']; ?>"><div class="comments text-muted">Ver todos os comentários</div></a>
 
                         </div>
                     </div>
@@ -439,6 +439,8 @@ if ($searchPeople) {
             <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
         </div>
     </div> -->
+    <br><br><br><br>
+    <?php include 'footer.php'; // Inclua o rodapé ?>
     <script src="../Script/main.js"></script>
 </body>
 

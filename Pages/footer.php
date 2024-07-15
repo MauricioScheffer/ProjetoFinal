@@ -157,7 +157,7 @@
             <ul>
                 <li>Rede Social</li>
                 <p><a href="">Sobre</a></p>
-                <p><a href="">Contato</a></p>
+                <p><a href="contato.php">Contato</a></p>
                 <p><a href="">Endereço</a></p>
             </ul>
             </div>
