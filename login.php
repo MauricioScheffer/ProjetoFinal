@@ -85,11 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
     </main>
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Rede Social. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    <div class="footer">
+    <?php include 'footer.php'; // Inclua o rodapé ?>
+    </div>
 </body>
 <script src="Script/main.js"></script>
 

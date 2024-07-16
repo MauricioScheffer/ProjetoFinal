@@ -362,6 +362,7 @@ textarea{
     margin-bottom: 2rem;
     resize: none;
     border-radius: 0px var(--border-radius) var(--border-radius) var(--border-radius);
+    font-size: 19px;
 }
 
 .footer{
