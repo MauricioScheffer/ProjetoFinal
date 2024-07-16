@@ -4,10 +4,10 @@ if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.php');
     exit();
 }
-include_once '../config/config.php';
-include_once '../classes/Usuario.php';
-include_once '../Classes/Seguidor.php';
-include_once '../classes/Post.php';
+include_once 'config/config.php';
+include_once 'classes/Usuario.php';
+include_once 'Classes/Seguidor.php';
+include_once 'classes/Post.php';
 
 //Obtendo dados do usuário logado
 $usuario = new Usuario($db);
@@ -48,7 +48,7 @@ if ($searchPeople) {
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="css/index.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/1c1bb96ec4.js" crossorigin="anonymous"></script>
@@ -78,7 +78,7 @@ if ($searchPeople) {
 
                 <div class="profile-photo">
 
-                    <a class="nav-theme"><?php echo "<img id='profile-img' src= '../$foto'>"; ?>
+                    <a class="nav-theme"><?php echo "<img id='profile-img' src= '$foto'>"; ?>
                         <div class="nav-popup" id="nav-popup">
                             <div class="perfil">
                                 <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
@@ -108,7 +108,7 @@ if ($searchPeople) {
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
-                        <?php echo "<img src= '../$foto'>"; ?>
+                        <?php echo "<img src= '$foto'>"; ?>
                     </div>
                     <div class="handle">
                         <h4><?php echo "$nome"; ?></h4>
@@ -134,7 +134,7 @@ if ($searchPeople) {
                         <div class="notifications-popup">
                             <div>
                                 <div class="profile-photo">
-                                    <img src="../img/vitor.jpg" alt="">
+                                    <img src="img/vitor.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Vitor de Abreu</b> aceitou sua solicitação de amigo!
@@ -143,7 +143,7 @@ if ($searchPeople) {
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="../img/jeferson.jpg" alt="">
+                                    <img src="img/jeferson.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Jeferson Leon</b> comentou em sua publicação
@@ -152,7 +152,7 @@ if ($searchPeople) {
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="../img/kauaV" alt="">
+                                    <img src="img/kauaV" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Kaua Valim</b> começou a te seguir
@@ -161,7 +161,7 @@ if ($searchPeople) {
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="../img/murilo.jpg" alt="">
+                                    <img src="img/murilo.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Murilo Torres</b> reagiu sua publicação
@@ -170,7 +170,7 @@ if ($searchPeople) {
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="../img/arthur.jpg" alt="">
+                                    <img src="img/arthur.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Arthur Maciel</b> enviou uma solicitação para te seguir
@@ -179,7 +179,7 @@ if ($searchPeople) {
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="../img/leo.jpg" alt="">
+                                    <img src="img/leo.jpg" alt="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Leonardo Brum</b> comentou na sua publicação
@@ -214,12 +214,6 @@ if ($searchPeople) {
 
             <!-- meio -->
             <div class="middle">
-                <form class="create-post" method="GET">
-                    <input type="text" placeholder="Busque amigos aqui..." name="search-people"
-                        value="<?php echo htmlspecialchars($searchPeople); ?>">
-                    <input type="submit" value="Buscar" class="btn btn-primary">
-                </form>
-
 
                 <?php while ($post = $postagens->fetch(PDO::FETCH_ASSOC)): ?>
                     <?php
@@ -251,7 +245,7 @@ if ($searchPeople) {
                                 <div class="user">
                                     <div class="profile-photo">
                                         <a
-                                            href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='../{$usuarioPostagem['foto']}' />"; ?></a>
+                                            href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?></a>
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
@@ -297,9 +291,9 @@ if ($searchPeople) {
                             </div>
 
                             <div class="liked-by">
-                                <span><img src="../img/perfil.jpg"></span>
-                                <span><img src="../img/kauaV.jpg"></span>
-                                <span><img src="../img/arthur.jpg"></span>
+                                <span><img src="img/perfil.jpg"></span>
+                                <span><img src="img/kauaV.jpg"></span>
+                                <span><img src="img/arthur.jpg"></span>
                                 <p>Curtido por <b>Dalmo Xiru</b> e <b>1,564 outros</b></p>
                             </div>
 
@@ -316,8 +310,16 @@ if ($searchPeople) {
             </div>
 
             <div class="right">
+            <form method="GET" class="search-bar-right">
+            <button type="submit" class="search-bar-icone"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="search" placeholder="Busque amigos aqui..." name="search-people"
+                        value="<?php echo htmlspecialchars($searchPeople); ?>">
+            </form>
                 <div class="messages">
                     <div class="heading">
+                    
+
+
                         <?php
                         if ($searchPeople) {
                             echo "<h4>Procurando amigo pet huber<h4>";
@@ -332,7 +334,7 @@ if ($searchPeople) {
                         <!-- mensagem -->
                         <div class="message">
                             <div class="profile-photo">
-                                <?php echo "<img src='../{$usu['foto']}' />"; ?>
+                                <?php echo "<img src='{$usu['foto']}' />"; ?>
                             </div>
                             <div class="handle">
                                 <h4><?php echo $usu['nome']; ?></h4>
@@ -356,7 +358,7 @@ if ($searchPeople) {
                     <div class="request">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="../img/vitor.jpg" alt="">
+                                <img src="img/vitor.jpg" alt="">
                             </div>
                             <div>
                                 <h5>Vitinho</h5>
@@ -425,11 +427,11 @@ if ($searchPeople) {
                     </div>
                     <div class="bg-2">
                         <span></span>
-                        <h5>Escuro</h5>
+                        <h5>Sombreado</h5>
                     </div>
                     <div class="bg-3">
                         <span></span>
-                        <h5>Semi-Claro</h5>
+                        <h5>Dark</h5>
                     </div>
                 </div>
             </div>
@@ -445,7 +447,7 @@ if ($searchPeople) {
     <div class="footer">
     <?php include 'footer.php'; // Inclua o rodapé ?>
     </div>
-    <script src="../Script/main.js"></script>
+    <script src="Script/main.js"></script>
 </body>
 
 </html>

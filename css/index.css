@@ -138,6 +138,18 @@ nav .container{
     padding: var(--search-padding);
 }
 
+.search-bar-right{
+    background: var(--color-white);
+    border-radius: var(--border-radius);
+    padding: var(--search-padding);
+    margin: 1rem;
+}
+
+.search-bar-icone{
+    background: var(--color-white);
+    padding: var(--search-padding);
+}
+
 .search-bar input[type="search"]{
     background: transparent;
     width: 30vw;
@@ -166,7 +178,7 @@ main{
 
 main .container{
     display: grid;
-    grid-template-columns: 18vw auto 17vw;
+    grid-template-columns: 17vw auto 21vw;
     column-gap: 2rem;
     position: relative;
 }
@@ -305,8 +317,7 @@ main .container .left .profile{
     display: block;
 }
 
-/* meio */
-/* 
+/* meio 
 .middle .stories{
     display: flex;
     justify-content: space-between;
@@ -379,18 +390,19 @@ main .container .left .profile{
 } */
 
 /* create post */
-.middle .create-post{
+.right .create-post{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     background: var(--color-white);
-    padding: 0.4rem var(--card-padding);
+    padding: 0.2rem var(--card-padding);
     border-radius: var(--border-radius);;
 }
 
-.middle .create-post input[type="text"]{
+.right .create-post input[type="text"]{
     justify-content: start;
     width: 100%;
     padding-left: 1rem;
@@ -572,7 +584,6 @@ main .container .right{
 }
 
 /* cutomização */
-/* temas */
 .customize-theme{
     background: rgba(255,255,255,0.5);
     width: 100vw;

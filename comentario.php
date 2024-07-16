@@ -4,11 +4,11 @@ if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.php');
     exit();
 }
-include_once '../config/config.php';
-include_once '../classes/Usuario.php';
-include_once '../Classes/Seguidor.php';
-include_once '../classes/Post.php';
-include_once '../classes/Comentario.php';
+include_once 'config/config.php';
+include_once 'classes/Usuario.php';
+include_once 'Classes/Seguidor.php';
+include_once 'classes/Post.php';
+include_once 'classes/Comentario.php';
 
 //Obtendo dados do usuário logado
 $usuario = new Usuario($db);
@@ -88,11 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../css/comentario.css">
+    <link rel="stylesheet" href="css/comentario.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/1c1bb96ec4.js" crossorigin="anonymous"></script>
-    <title>Responsivo Web Site</title>
+    <title>PetHub Social</title>
 </head>
 
 <body>
@@ -100,14 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container">
             <a href="index.php">
                 <h2 class="log">
-                    Rede Social
+                    <img src="img/LogoBlack.png">
                 </h2>
             </a>
-
             <div class="create">
                 <div class="profile-photo">
-
-                    <a class="nav-theme"><?php echo "<img id='profile-img' src= '../$foto'>"; ?>
+                    <a class="nav-theme"><?php echo "<img id='profile-img' src= '$foto'>"; ?>
                         <div class="nav-popup" id="nav-popup">
                             <div class="perfil">
                                 <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
@@ -127,8 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </nav>
-    <br><br><br><br>
-    <div class="container">
+    <div class="container-meio">
         <!-- meio -->
         <div class="middle">
             <!-- publicações -->
@@ -138,8 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <a
-                                    href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='../{$usuarioPostagem['foto']}' />"; ?></a>
+                                <a href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?></a>
                             </div>
                             <div class="ingo">
                                 <h3><?php echo $usuarioPostagem['nome']; ?></h3>
@@ -185,9 +181,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="../img/perfil.jpg"></span>
-                        <span><img src="../img/kauaV.jpg"></span>
-                        <span><img src="../img/arthur.jpg"></span>
+                        <span><img src="img/perfil.jpg"></span>
+                        <span><img src="img/kauaV.jpg"></span>
+                        <span><img src="img/arthur.jpg"></span>
                         <p>Curtido por <b>Dalmo Xiru</b> e <b>1,564 outros</b></p>
                     </div>
 
@@ -236,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <div class="user">
                                         <div class="profile-photo">
                                             <a
-                                                href="perfil.php?id=<?php echo $usuarioComentario['id']; ?>"><?php echo "<img src='../{$usuarioComentario['foto']}' />"; ?></a>
+                                                href="perfil.php?id=<?php echo $usuarioComentario['id']; ?>"><?php echo "<img src='{$usuarioComentario['foto']}' />"; ?></a>
                                         </div>
                                         <div class="ingo">
                                             <h3><?php echo $usuarioComentario['nome']; ?></h3>
@@ -276,7 +272,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endwhile;
             }
             ?>
-
         </div>
 
         <div class="comentar">
@@ -289,13 +284,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input class="btn btn-primary entrar" type="submit" value="comentar">
                 </div>
             </form>
-
         </div>
     </div>
 
-
+    <div class="footer">
     <?php include 'footer.php'; // Inclua o rodapé ?>
-    <script src="../Script/main.js"></script>
-</body>
+    </div>
 
+    <script src="Script/main.js"></script>
+</body>
 </html>

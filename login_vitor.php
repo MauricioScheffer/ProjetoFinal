@@ -2,10 +2,10 @@
 <?php
 
 session_start();
-include_once ('../Classes/Database.php');
-include_once ('../Classes/Post.php');
-include_once ('../Classes/Usuario.php');
-include_once ('../Config/config.php');
+include_once ('Classes/Database.php');
+include_once ('Classes/Post.php');
+include_once ('Classes/Usuario.php');
+include_once ('Config/config.php');
 
 $usuario = new Usuario($db);
 
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Logar</title>
 </head>
@@ -83,5 +83,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </main>
 </body>
-<script src="../Script/main.js"></script>
+<script src="Script/main.js"></script>
 </html>

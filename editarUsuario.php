@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../config/config.php'; // Inclua o arquivo de configuração do banco de dados
-require_once '../classes/Usuario.php';
+require_once 'config/config.php'; // Inclua o arquivo de configuração do banco de dados
+require_once 'classes/Usuario.php';
 
 // Verificar se o usuário está autenticado
 if (!isset($_SESSION['usuario_id'])) {
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $nome_arquivo = $_FILES['foto']['name'];
         $caminho_temporario = $_FILES['foto']['tmp_name'];
-        $caminho_destino = '../img/' . $nome_arquivo;
+        $caminho_destino = './img/' . $nome_arquivo;
         
         // Mover o arquivo carregado para o destino
         if (move_uploaded_file($caminho_temporario, $caminho_destino)) {
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Editar Perfil</title>
 </head>
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </main>
     <?php include 'footer.php'; // Inclua o rodapé ?>
-    <script src="../Script/main.js"></script>
+    <script src="Script/main.js"></script>
 </body>
 
 </html>
