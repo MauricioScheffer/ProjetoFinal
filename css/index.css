@@ -802,7 +802,7 @@ main .container .right{
 .pontinhos-popup{
     display: none;
     position: absolute;
-    top: 30px;
+    top: 70px;
     width: 190px;
     right: 30%; 
     background: var(--color-white);

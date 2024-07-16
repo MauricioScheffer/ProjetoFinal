@@ -65,7 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Criar comentario
         $comentario->criar($idPostagem, $idUsuario, $descricao, $data);
-        header("Location: comentario.php?postagem=$idpostagem");
+        header("Location: comentario.php?postagem=$idPostagem");
+        exit();
     } else if ($_POST['acao'] == '') {
         echo '<script>
      window.onload= function() {

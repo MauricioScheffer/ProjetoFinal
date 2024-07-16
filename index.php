@@ -265,7 +265,7 @@ if ($searchPeople) {
                                     <span><i class="fa-solid fa-ellipsis" id="pontos-popup"></i></span>
                                     <div class="pontinhos-popup" id="pontinhos-popup">
                                         <div class="editar">
-                                            <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
+                                            <a href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
                                         </div>
                                         <div class="deletar">
                                             <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
