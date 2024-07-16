@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once '../config/config.php'; // Ajuste o caminho conforme necessário
-include_once '../classes/Usuario.php'; // Ajuste o caminho conforme necessário
+include_once 'Config/config.php'; // Ajuste o caminho conforme necessário
+include_once 'Classes/Usuario.php'; // Ajuste o caminho conforme necessário
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['usuario_id'])) {

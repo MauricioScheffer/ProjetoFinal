@@ -4,10 +4,10 @@ if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.php');
     exit();
 }
-include_once '../config/config.php';
-include_once '../classes/Usuario.php';
-include_once '../Classes/Seguidor.php';
-include_once '../classes/Post.php';
+include_once 'config/config.php';
+include_once 'classes/Usuario.php';
+include_once 'Classes/Seguidor.php';
+include_once 'classes/Post.php';
 
 $usuario = new Usuario($db);
 //dados do dono do perfil
@@ -64,7 +64,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="css/perfil.css">
     <script src="https://kit.fontawesome.com/1c1bb96ec4.js" crossorigin="anonymous"></script>
     <title>Perfil</title>
 </head>
@@ -75,7 +75,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
         <div class="container">
             <a href="index.php">
                 <h2 class="log">
-                    <img src="../img/LogoBlack.png" alt="">
+                    <img src="img/LogoBlack.png" alt="">
                 </h2>
             </a>
             <div class="search-bar">
@@ -91,7 +91,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                     <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil" readonly></a>
                 <?php endif; ?>
                 <div class="profile-photo">
-                    <a><?php echo "<img id='profile-img' src= '../$fotoLogado'>"; ?>
+                    <a><?php echo "<img id='profile-img' src= '$fotoLogado'>"; ?>
                 
                 </a>
                 </div>
@@ -107,7 +107,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                 <a class="profile">
                     <div class="profile-photo">
 
-                        <a class="nav-theme"><?php echo "<img src= '../$foto'>"; ?>
+                        <a class="nav-theme"><?php echo "<img src= '$foto'>"; ?>
                         <div class="nav-popup">
                             <div class="perfil">
                                 <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-regular fa-user"></i>Perfil</span></a>
@@ -151,7 +151,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
 
                 <form class="create-post">
                     <div class="profile-photo">
-                        <?php echo "<img src= '../$foto'>"; ?>
+                        <?php echo "<img src= '$foto'>"; ?>
                     </div>
                     <input type="text" placeholder="O que você está pensando, <?php echo "$nome?"; ?>" id="create-post">
                     <input type="submit" value="Post" class="btn btn-primary btn-post">
@@ -169,7 +169,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                 <div class="user">
                                     <div class="profile-photo">
                                         
-                                    <?php echo "<img src='../{$usuarioPostagem['foto']}' />"; ?>
+                                    <?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?>
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
@@ -208,9 +208,9 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                             </div>
 
                             <div class="liked-by">
-                                <span><img src="../img/perfil.jpg"></span>
-                                <span><img src="../img/kauaV.jpg"></span>
-                                <span><img src="../img/arthur.jpg"></span>
+                                <span><img src="img/perfil.jpg"></span>
+                                <span><img src="img/kauaV.jpg"></span>
+                                <span><img src="img/arthur.jpg"></span>
                                 <p>Curtido por <b>Dalmo Xiru</b> e <b>1,564 outros</b></p>
                             </div>
 
@@ -231,6 +231,6 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
     <div class="footer">
     <?php include 'footer.php'; // Inclua o rodapé ?>
     </div>
-    <script src="../Script/main.js"></script>
+    <script src="Script/main.js"></script>
 </body>
 </html>

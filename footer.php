@@ -168,7 +168,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="../img/LogoWhite.png" alt="Logo">
+                <img src="img/LogoWhite.png" alt="Logo">
             </div>
             
             <div class="Sobre">

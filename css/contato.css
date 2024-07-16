@@ -86,7 +86,7 @@ img {
 nav {
     width: 100%;
     background: var(--color-white);
-    padding: 0.7rem 0;
+    padding: 0.3rem 0;
     position: fixed;
     top: 0;
     z-index: 10;
@@ -102,6 +102,12 @@ nav .create {
     display: flex;
     align-items: center;
     gap: 2rem;
+}
+
+nav .log img{
+    margin: 2px 0;
+    height: 70px;
+    width: 190px;
 }
 
 /* main */
