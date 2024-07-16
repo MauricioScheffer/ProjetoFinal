@@ -55,11 +55,13 @@ public function lerPostagem($id){
 
 
 public function lerPorSeguidor($idUsuario){
-$query = "SELECT p.* FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? or p.idUsuario = ? ORDER BY p.id DESC";
+$query = "SELECT p.* FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? or p.idUsuario = ? GROUP BY p.id ORDER BY p.id DESC";
 $stmt = $this->conn->prepare($query);
     $stmt->execute([$idUsuario, $idUsuario]);
     return $stmt;
 }
+
+
 
 }
 ?>
