@@ -173,8 +173,8 @@ main .container {
     font-size: 25px;
     cursor: pointer;
     position: absolute;
-    right: 40%;
-    top: calc(50% + 8px);
+    right: 41%;
+    top: calc(50% - 14px);
     color: var(--color-black);
 }
 
@@ -194,12 +194,8 @@ main .container {
     color: var(--color-primary);
 }
 
-footer {
-    background-color: var(--color-dark);
-    color: white;
-    width: 100%;
-    padding: 30px 0;
-    text-align: center;
+.footer {
+    margin-top: 100px;
 }
 /* Responsivo */
 @media screen and (max-width: 992px) {

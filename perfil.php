@@ -78,15 +78,15 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                     <img src="img/LogoBlack.png" alt="">
                 </h2>
             </a>
-            <div class="search-bar">
+            <!-- <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
-            </div>
+            </div> -->
             <div class="create">
                 <?php if ($idUsuario == $_SESSION['usuario_id']) : ?>
                     <a href="postagem.php"><input class="btn btn-primary" value="Criar" readonly></a>
                 <?php endif; ?>
-                <a href="contato.php"><input class="btn btn-primary" value="Contato" readonly></a>
+                
                 <?php if ($usuario_adm == 1 || $idUsuario == $_SESSION['usuario_id']) : ?>
                     <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil" readonly></a>
                 <?php endif; ?>
@@ -137,11 +137,13 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                 <?php endif; ?>
                             </form>
                         <?php endif; ?>
-                        <div class="input-single">
+
+                        <!-- <div class="input-single">
                             <textarea class="input" name="" type="text"></textarea>
                             <label for="nome">Meus Pets🐶</label>
                         </div>
-                        <input type="submit" value="Salvar" class="btn btn-primary btn-post">
+                        <input type="submit" value="Salvar" class="btn btn-primary btn-post"> -->
+                        
                     </div>
                 </a>
             </div>

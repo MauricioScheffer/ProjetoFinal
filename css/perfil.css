@@ -39,8 +39,8 @@ body{
 }
 
 .container{
-    width: 95%;
-    margin: 0 70px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .profile-photo{
@@ -63,7 +63,6 @@ img{
     cursor: pointer;
     transition: all 300ms ease;
     font-size: 0.9rem;
-    text-align: center;
 }
 
 .btn:hover{
@@ -87,7 +86,7 @@ img{
 nav{
     width: 100%;
     background: var(--color-white);
-    padding: 0.7rem 0;
+    padding: 0.3rem 0;
     position: fixed;
     top: 0;
     z-index: 10;
@@ -96,16 +95,10 @@ nav{
 nav .container{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
-nav .container .log img{
-    margin: 0;
-    width: 120px;
-    height: 80px;
-}
-
-.search-bar{
+/* .search-bar{
     background: var(--color-light);
     border-radius: var(--border-radius);
     padding: var(--search-padding);
@@ -120,14 +113,19 @@ nav .container .log img{
 }
 
 nav .search-bar input[type="search"]::placeholder{
-    color: var(--color-grey);
-}
+    color: var(--color-grey); 
+}*/
 
 nav .create{
     display: flex;
-    flex-direction: flex-end;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+}
+
+nav .log img{
+    margin: 2px 0;
+    height: 70px;
+    width: 190px;
 }
 
 /* main */
@@ -139,8 +137,8 @@ main{
 
 main .container{
     display: grid;
-    grid-template-columns: 28vw auto 12vw;
-    column-gap: 2rem;
+    grid-template-columns: 21vw auto 12vw;
+    column-gap: 4rem;
     position: relative;
 }
 
@@ -148,7 +146,7 @@ main .container{
 main .container .left{
     height: max-content;
     padding: 25px;
-    position: sticky;
+    position: relative;
     top: var(--sticky-top-left);
 }
 
