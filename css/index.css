@@ -168,6 +168,12 @@ nav .create{
     gap: 2rem;
 }
 
+nav .log img{
+    margin: 2px 0;
+    height: 70px;
+    width: 190px;
+}
+
 
 /* main */
 
@@ -729,7 +735,6 @@ main .container .right{
 
 /* Perfil Nav */
 .nav-theme{
-    display: flex;
     height: 1rem;
     cursor: pointer;
     transition: all 300ms ease;
@@ -753,8 +758,23 @@ main .container .right{
     transition: 1s;
 }
 
+#nav-popup-logged{
+    height: 4rem;
+    display: none;
+    padding: -10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    right: 20%;
+    top: 10px;
+    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius) ;
+}
+
+#nav-popup-logged .editarPerfil{
+    position: absolute;
+    top: 18px;
+}
+
 .nav-popup span{
-    text-align: left;
     color: var(--color-primary);
 }
 
@@ -773,17 +793,16 @@ main .container .right{
 .nav-popup::before{
     content: "";
     width: 1.2rem;
-    height: 1.2rem;
+    height: 0.1rem;
     display: flex;
     position: absolute;
     transform: rotate(45deg);
 }
 
 .nav-popup > div{
-    display: flex;
-    align-items: start;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    text-align: left;
 }
 
 
@@ -796,6 +815,13 @@ main .container .right{
     transition: all 300ms ease;
     position: relative;
     font-size: 20px;
+}
+
+.edit-item span{
+    background-color: var(--color-primary);
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: var(--border-radius);
 }
     
     

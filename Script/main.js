@@ -258,7 +258,7 @@ Bg3.addEventListener('click', () => {
     changeBG();
 })
 
-// Perfil POPUP PROFILE
+// // Perfil POPUP PROFILE
 document.getElementById('profile-img').addEventListener('click', function() {
     const navPopup = document.getElementById('nav-popup');
     navPopup.style.display = navPopup.style.display === 'block' ? 'none' : 'block';
@@ -269,6 +269,45 @@ document.getElementById('pontos-popup').addEventListener('click', function() {
     const pontosPopup = document.getElementById('pontinhos-popup');
     pontosPopup.style.display = pontosPopup.style.display === 'block' ? 'none' : 'block';
 });
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     // Toggle profile options
+//     const profileButton = document.getElementById('profile-img');
+//     const navPopup = document.getElementById('nav-popup');
+
+//     profileButton.addEventListener('click', function() {
+//         navPopup.classList.toggle('active');
+//     });
+
+//     // Close profile options if clicked outside
+//     document.addEventListener('click', function(event) {
+//         if (!profileButton.contains(event.target) && !navPopup.contains(event.target)) {
+//             navPopup.classList.remove('active');
+//         }
+//     });
+
+//     // Toggle post options
+//     const postButtons = document.querySelectorAll('.pontos-popup');
+//     postButtons.forEach(button => {
+//         button.addEventListener('click', function(event) {
+//             event.stopPropagation(); // Evita que o clique feche o popup imediatamente
+//             const popup = this.closest('.edit-item').querySelector('.pontinhos-popup');
+//             popup.classList.toggle('active');
+//         });
+//     });
+
+//     // Fecha os popups se clicar fora deles
+//     document.addEventListener('click', function(event) {
+//         postButtons.forEach(button => {
+//             const popup = button.closest('.edit-item').querySelector('.pontinhos-popup');
+//             if (!button.contains(event.target) && !popup.contains(event.target)) {
+//                 popup.classList.remove('active');
+//             }
+//         });
+//     });
+// });
+
+
 
 // COMENTÁRIO POPUP ...
 document.getElementById('comentario-popup').addEventListener('click', function() {
