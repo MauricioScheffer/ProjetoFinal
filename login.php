@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Logar</title>
+    <title>PetHub</title>
 </head>
 
 <body>
@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container">
             <a href="index.php">
                 <h2 class="log">
-                    Rede Social
+                    <img src="img/LogoWhite.png" alt="">
                 </h2>
             </a>
-            <div class="create">
+            <!-- <div class="create">
                 <a href="index.php"><label class="btn btn-primary" for="backButton">Voltar</label></a>
-            </div>
+            </div> -->
         </div>
     </nav>
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
                     <div class="botao">
-                        <input class="btn btn-primary entrar" type="submit" name="login" value="Entrar">
+                        <button class="btn btn-primary entrar" type="submit" name="login" value="">Entrar</button>
                         <a href="cadastro.php"><label class="btn btn-primary entrar">Cadastrar-se</label></a>
                     </div>
 
@@ -85,9 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
     </main>
-    <div class="footer">
+    <!-- <div class="footer">
     <?php include 'footer.php'; // Inclua o rodapé ?>
-    </div>
+    </div> -->
 </body>
 <script src="Script/main.js"></script>
 

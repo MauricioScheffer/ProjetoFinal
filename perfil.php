@@ -223,25 +223,25 @@ $curtida = new Curtida($db);
             </div>
 
             <!-- RIGHT -->
-            <div class="right">
+            <!-- <div class="right">
                 <div class="messages">
                     <div class="heading">
                         <h4>Mensagens</h4><i class="fa-regular fa-edit"></i>
                     </div>
-                    <!-- search bar -->
+                    search bar
                     <div class="search-bar">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="search" placeholder="Pesquisar mensagens" id="message-search">
                     </div>
 
-                    <!-- Categorias de mensagem -->
+                    Categorias de mensagem
                     <div class="category">
                         <h6 class="active">Primary</h6>
                         <h6>Geral</h6>
                         <h6>Solicitações</h6>
                     </div>
 
-                    <!-- Mensagens -->
+                    Mensagens
                     <div class="message">
                         <div class="profile-photo">
                             <img src="img/Perfil/FotoPerfil.jpg" alt="">
@@ -273,7 +273,7 @@ $curtida = new Curtida($db);
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </main>
 
