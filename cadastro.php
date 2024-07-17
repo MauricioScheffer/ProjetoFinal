@@ -2,7 +2,6 @@
 include_once ('Classes/Usuario.php');
 include_once ('Config/config.php');
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['sexo']) && $_POST['sexo'] !== "null") {
         $usuario = new Usuario($db);
@@ -10,25 +9,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $apelido = $_POST['apelido'];
         $email = $_POST['email'];
         $senha = $_POST['senha'];
-        $foto = "img/default.jpg"; // essa bosta vai ficar como foto de perfil padrao, ai ele edita depois na edição do perfil.
+        $foto = "img/default.jpg"; // foto de perfil padrão
         $telefone = $_POST['telefone'];
-        $nascimento = date($_POST['nascimento']);
+        $nascimento = $_POST['nascimento'];
         $sexo = $_POST['sexo'];
         $adm = 0;
         $ativo = 1;
-        $usuario->criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo);
-        header('Location: login.php');
-        exit();
+
+        $result = $usuario->criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo);
+
+        if ($result !== true) {
+            echo '<script>
+                window.onload = function() {
+                    alert("' . addslashes($result) . '");
+                }
+            </script>';
+        } else {
+            header('Location: login.php');
+            exit();
+        }
     } else {
         echo '<script>
-     window.onload= function() {
-      alert("Informe um gênero!");
-     }
-     </script>';
+            window.onload = function() {
+                alert("Informe um gênero!");
+            }
+        </script>';
     }
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <nav>
         <div class="container">
             <a href="index.php">
-                <h2 class="log">
-                    Rede Social
-                </h2>
+                <h2 class="log">Rede Social</h2>
             </a>
             <div class="create">
                 <a href="index.php"><label class="btn btn-primary" for="create-post">Voltar</label></a>
@@ -56,9 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </nav>
 
-    <!-- main -->
     <main>
-
         <div class="container">
             <form method="POST">
                 <div class="meio">
@@ -67,15 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="text" name="nome" placeholder="Nome completo" required>
                         <input type="text" name="apelido" placeholder="Nome de usuário" required>
                         <input type="email" name="email" placeholder="E-mail" required>
-
                         <div class="senha">
                             <input type="password" name="senha" id="senha" placeholder="Senha" required>
                             <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
                         </div>
-
                         <input type="text" name="telefone" placeholder="Telefone" required>
                         <input type="date" name="nascimento" placeholder="Data de Nascimento" required>
-
                         <div class="sexo">
                             <select name="sexo">
                                 <option value=null>Sexo:</option>
@@ -89,8 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input class="btn btn-primary entrar" type="submit" value="Adicionar">
                     </div>
                 </div>
-        </div>
-        </form>
+            </form>
         </div>
     </main>
     <?php include 'footer.php'; ?>
