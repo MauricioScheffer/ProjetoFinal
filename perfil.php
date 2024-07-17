@@ -8,6 +8,7 @@ include_once 'config/config.php';
 include_once 'classes/Usuario.php';
 include_once 'Classes/Seguidor.php';
 include_once 'classes/Post.php';
+include_once 'Classes/Curtida.php';
 
 $usuario = new Usuario($db);
 //dados do dono do perfil
@@ -54,6 +55,10 @@ if (isset($_POST['acao'])) {
 
 $postagem = new Post($db);
 $postagens = $postagem->lerPorUsuario($idUsuario);
+
+$curtida = new Curtida($db);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -166,16 +171,25 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                     // Consulta para saber se o usuário já segue o perfil
                     $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
 
-                    // Seguir ou deixar de seguir
-                    if (isset($_POST['acao'])) {
-                        if ($_POST['acao'] == 'seguir' && !$seguindo) {
-                            $seguidor->seguir($usuarioPostagem['id'], $idUsuario);
-                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
-                        } elseif ($_POST['acao'] == 'desseguir') {
-                            $seguidor->desseguir($usuarioPostagem['id'], $idUsuario);
-                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
+    
+                    $jaCurtiu = $curtida->jaCurtiu($post['id'], $_SESSION['usuario_id']);
+                    $totalCurtidas = $curtida->contarCurtidas($post['id']);
+                    $curtidas = $curtida->obterCurtidas($post['id']);
+
+                    if (isset($_POST['acaoCurtida'])) {
+                        if ($_POST['acaoCurtida'] == 'curtir') {
+                            $curtida->curtir($post['id'], $_SESSION['usuario_id']);
+                            $jaCurtiu = $curtida->jaCurtiu($post['id'], $_SESSION['usuario_id']);
+                    $totalCurtidas = $curtida->contarCurtidas($post['id']);
+                    $curtidas = $curtida->obterCurtidas($post['id']);
+                        } elseif ($_POST['acaoCurtida'] == 'descurtir') {
+                            $curtida->descurtir($post['id'], $_SESSION['usuario_id']);
+                            
                         }
                     }
+
+                    
+
                     ?>
                     <!-- Publicações -->
                     <div class="feeds">
@@ -190,15 +204,7 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
-                                        <?php if ($usuarioPostagem['id'] != $idUsuario) : ?>
-                                            <form method="post">
-                                                <?php if ($seguindo) : ?>
-                                                    <button type="submit" name="acao" value="desseguir">Seguindo</button>
-                                                <?php else : ?>
-                                                    <button type="submit" name="acao" value="seguir">Seguir</button>
-                                                <?php endif; ?>
-                                            </form>
-                                        <?php endif; ?>
+                        
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
@@ -222,9 +228,17 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
 
                             <div class="action-buttons">
                                 <div class="interaction-buttons">
-                                    <span><i class="fa-regular fa-heart"></i></span>
-                                    <span><i class="fa-regular fa-comment"></i></span>
-                                    <span><i class="fa-solid fa-square-share-nodes"></i></span>
+                                    <form method="post">
+                                        <?php if ($jaCurtiu) : ?>
+                                            <button type="submit" name="acaoCurtida" value="descurtir">
+                                                <i class="fa-solid fa-heart"></i>
+                                            </button>
+                                        <?php else : ?>
+                                            <button type="submit" name="acaoCurtida" value="curtir">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </button>
+                                        <?php endif; ?>
+                                    </form>
                                 </div>
 
                                 <div class="bookmark">
@@ -233,10 +247,16 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                             </div>
 
                             <div class="liked-by">
-                                <span><img src="img/perfil.jpg"></span>
-                                <span><img src="img/kauaV.jpg"></span>
-                                <span><img src="img/arthur.jpg"></span>
-                                <p>Curtido por <b>Dalmo Xiru</b> e <b>1,564 outros</b></p>
+                                <?php
+                                foreach ($curtidas as $curtida) {
+                                    echo '<span><img src="../' . $curtida['foto'] . '" alt="' . $curtida['nome'] . '"></span>';
+                                }
+                                ?>
+                                <?php echo count($curtidas) > 0 ? '<span> outros</b></p>' : ''; ?>
+                            </div>
+
+                            <div class="likes-count">
+                                <?php echo $totalCurtidas; ?> pessoa(s) curtiram isso
                             </div>
 
                             <div class="caption">
