@@ -32,7 +32,46 @@ if (isset($_GET['postagem'])) {
 //Obtendo dados do usuário da postagem
 $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);
 
+//evitar que usuarios comuns tenham acesso a conta de outro usuário
+if ($admin == 0 && $idUsuario != $_SESSION['usuario_id']) {
+    header('Location: index.php');
+    exit();
+}
 
+// Verificar se o método de requisição é POST (formulário foi submetido)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obter os dados do formulário
+    $titulo = $_POST['titulo'];
+    $descricao = $_POST['descricao'];
+
+    // Verificar se foi enviado um novo arquivo de imagem
+    if ($_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+
+        $nome_arquivo = $_FILES['imagem']['name'];
+        $caminho_temporario = $_FILES['imagem']['tmp_name'];
+        $caminho_destino = './img/' . $nome_arquivo;
+
+        // Mover o arquivo carregado para o destino
+        if (move_uploaded_file($caminho_temporario, $caminho_destino)) {
+            // Atualizar o caminho da imagem no banco de dados
+            $imagem = 'img/' . $nome_arquivo; // Salva o caminho relativo da imagem
+
+            // Chamar o método para atualizar os dados do usuário, incluindo a foto
+            $postagem->atualizar($titulo, $descricao, $imagem, $idPostagem);
+            header('Location: index.php');
+            exit();
+        } else {
+            echo "Erro ao mover o arquivo para o diretório de destino.";
+        }
+    } else {
+        // Se não houver novo arquivo de imagem, atualize os outros campos sem alterar a foto
+        $imagem = $postagem->lerPostagem($idPostagem)['imagem'];
+        $postagem->atualizar($titulo, $descricao, $imagem, $idPostagem);
+        header('Location: index.php');
+        exit();
+    }
+}
+?>
 ?>
 
 <!DOCTYPE html>
@@ -108,6 +147,7 @@ $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);
                 </div>
 
             </div>
+            <input class="btn btn-primary entrar" type="submit" value="Salvar Alterações">
         </form>
     </div>
 

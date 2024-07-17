@@ -62,7 +62,7 @@ $stmt = $this->conn->prepare($query);
 }
 
 public function atualizar($titulo, $descricao, $imagem, $id){
-    $query = "UPDATE " . $this->table_name . " SET titulo = ?, descrição = ?, imagem = ? WHERE id = ?";
+    $query = "UPDATE " . $this->table_name . " SET titulo = ?, descricao = ?, imagem = ? WHERE id = ?";
     $stmt = $this->conn->prepare($query);
     $stmt->execute([$titulo, $descricao, $imagem, $id]);
     return $stmt;
