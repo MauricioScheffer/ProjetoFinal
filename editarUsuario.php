@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar se foi enviado um novo arquivo de imagem
     if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
 
-        $nome_arquivo = $_FILES['foto']['name'];
+        $nome_arquivo = $email;
         $caminho_temporario = $_FILES['foto']['tmp_name'];
         $caminho_destino = './img/' . $nome_arquivo;
         
@@ -82,14 +82,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="stylesheet" href="css/editarUsuario.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Editar Perfil</title>
 </head>
 
 <body>
-   
-
+   <nav>
+        <div class="container">
+            <a href="index.php">
+                <h2 class="log">
+                    <img src="img/LogoWhite.png" alt="">
+                </h2>
+            </a>
+            <!-- <div class="create">
+                <a href="index.php"><label class="btn btn-primary" for="backButton">Voltar</label></a>
+            </div> -->
+        </div>
+   </nav>
     <!-- main -->
     <main>
         <div class="container">
@@ -102,10 +112,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="adm">
                                 <label for="adm">Administrador</label>
                                 <input type="checkbox" id="adm" name="adm" value="1" <?php echo ($row['adm'] == 1) ? 'checked' : ''; ?>>
-                            </div>
                         <?php endif; ?>
                         <?php if ($usuario_adm == 1 || $id == $_SESSION['usuario_id']) : ?>
-                            <div class="ativo">
                                 <label for="ativo">Ativo</label>
                                 <input type="checkbox" id="ativo" name="ativo" value="1" <?php echo ($row['ativo'] == 1) ? 'checked' : ''; ?>>
                             </div>
