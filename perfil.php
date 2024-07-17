@@ -54,8 +54,6 @@ if (isset($_POST['acao'])) {
 
 $postagem = new Post($db);
 $postagens = $postagem->lerPorUsuario($idUsuario);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +67,6 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
     <title>Perfil</title>
 </head>
 
-
 <body>
     <nav>
         <div class="container">
@@ -78,22 +75,36 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                     <img src="img/LogoBlack.png" alt="">
                 </h2>
             </a>
-            <!-- <div class="search-bar">
+            <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
-            </div> -->
+            </div>
             <div class="create">
                 <?php if ($idUsuario == $_SESSION['usuario_id']) : ?>
-                    <a href="postagem.php"><input class="btn btn-primary" value="Criar" readonly></a>
+                    <a href="postagem.php"><label class="btn btn-primary" readonly>Publicar</label></a>
                 <?php endif; ?>
-                
-                <?php if ($usuario_adm == 1 || $idUsuario == $_SESSION['usuario_id']) : ?>
-                    <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><input class="btn btn-primary" value="Editar perfil" readonly></a>
-                <?php endif; ?>
+
                 <div class="profile-photo">
-                    <a><?php echo "<img id='profile-img' src= '$fotoLogado'>"; ?>
-                
-                </a>
+                    <a class="nav-theme">
+                        <?php echo "<img class='profile-img' id='profile-img-{$idUsuario}' src='$fotoLogado'>"; ?>
+                        <div class="nav-popup" id="nav-popup-<?php echo $idUsuario; ?>">
+                            <div class="perfil">
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>">
+                                    <span><i class="fa-regular fa-user"></i>Perfil</span>
+                                </a>
+                            </div>
+                            <div class="editarPerfil">
+                                <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>">
+                                    <span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span>
+                                </a>
+                            </div>
+                            <div class="logout">
+                                <a href="logout.php">
+                                    <span><i class="fa-solid fa-right-from-bracket"></i>Sair</span>
+                                </a>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -106,26 +117,20 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
+                        <a class="nav-theme">
+                            <?php echo "<img class='profile-img' id='profile-img-logged' src= '$fotoLogado'>"; ?>
+                            <div class="nav-popup" id="nav-popup-logged">
+                                <div class="editarPerfil">
+                                    <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
+                                </div>
+                            </div>
+                        </a>
 
-                        <a class="nav-theme"><?php echo "<img src= '$foto'>"; ?>
-                        <div class="nav-popup">
-                            <div class="perfil">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-regular fa-user"></i>Perfil</span></a>
-                            </div>
-                            <div class="editarPerfil">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
-                            </div>
-                            <div class="logout">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
-                            </div>
-                        </div>
-                    </a>
-                    
                     </div>
                     <div class="handle">
                         <h4><?php echo "$nome"; ?></h4>
                         <p class="text-muted">
-                            <?php echo "@$apelido"; ?> 
+                            <?php echo "@$apelido"; ?>
                         </p>
                         <h3><?php echo "Seguidores $seguidores"; ?></h3>
                         <?php if ($idUsuario != $_SESSION['usuario_id']) : ?>
@@ -143,45 +148,64 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                             <label for="nome">Meus Pets🐶</label>
                         </div>
                         <input type="submit" value="Salvar" class="btn btn-primary btn-post"> -->
-                        
+
                     </div>
                 </a>
             </div>
 
             <!-- meio -->
             <div class="middle">
-
-                <form class="create-post">
-                    <div class="profile-photo">
-                        <?php echo "<img src= '$foto'>"; ?>
-                    </div>
-                    <input type="text" placeholder="O que você está pensando, <?php echo "$nome?"; ?>" id="create-post">
-                    <input type="submit" value="Post" class="btn btn-primary btn-post">
-                </form>
-
                 <?php while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) : ?>
                     <?php
-                    $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);        
+                    // Obtendo dados do usuário da postagem
+                    $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);
+
+                    // Referenciando para saber se o usuário segue ou não o usuário da postagem
+                    $seguidor = new Seguidor($db);
+
+                    // Consulta para saber se o usuário já segue o perfil
+                    $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
+
+                    // Seguir ou deixar de seguir
+                    if (isset($_POST['acao'])) {
+                        if ($_POST['acao'] == 'seguir' && !$seguindo) {
+                            $seguidor->seguir($usuarioPostagem['id'], $idUsuario);
+                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
+                        } elseif ($_POST['acao'] == 'desseguir') {
+                            $seguidor->desseguir($usuarioPostagem['id'], $idUsuario);
+                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
+                        }
+                    }
                     ?>
-                    <!-- publicações -->
+                    <!-- Publicações -->
                     <div class="feeds">
-                        <!-- publicação -->
+                        <!-- Publicação -->
                         <div class="feed">
                             <div class="head">
                                 <div class="user">
                                     <div class="profile-photo">
-                                        
-                                    <?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?>
+                                        <a href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>">
+                                            <?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?>
+                                        </a>
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
+                                        <?php if ($usuarioPostagem['id'] != $idUsuario) : ?>
+                                            <form method="post">
+                                                <?php if ($seguindo) : ?>
+                                                    <button type="submit" name="acao" value="desseguir">Seguindo</button>
+                                                <?php else : ?>
+                                                    <button type="submit" name="acao" value="seguir">Seguir</button>
+                                                <?php endif; ?>
+                                            </form>
+                                        <?php endif; ?>
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
 
                                 <a class="edit-item">
-                                    <span><i class="fa-solid fa-ellipsis" id="pontos-popup"></i></span>
-                                    <div class="pontinhos-popup" id="pontinhos-popup">
+                                    <span><i class="fa-solid fa-ellipsis" id="pontos-popup-<?php echo $post['id']; ?>"></i></span>
+                                    <div class="pontinhos-popup" id="pontinhos-popup-<?php echo $post['id']; ?>">
                                         <div class="editar">
                                             <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
                                         </div>
@@ -190,11 +214,10 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                         </div>
                                     </div>
                                 </a>
-                            
                             </div>
 
                             <div class="photo">
-                            <?php echo "<img src='{$post['imagem']}' />"; ?>
+                                <?php echo "<img src='{$post['imagem']}' />"; ?>
                             </div>
 
                             <div class="action-buttons">
@@ -221,18 +244,68 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
                                 </p>
                             </div>
 
-                            <div class="comments text-muted">Ver todos os comentários</div>
+                            <a href="comentario.php?postagem=<?php echo $post['id']; ?>">
+                                <div class="comments text-muted">Ver todos os comentários</div>
+                            </a>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
 
-                        </div>
-                        </div>
-            <?php endwhile; ?>
-        </div>
         </div>
         </div>
     </main>
     <div class="footer">
-    <?php include 'footer.php'; // Inclua o rodapé ?>
+        <?php include 'footer.php'; // Inclua o rodapé 
+        ?>
     </div>
     <script src="Script/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pontosPopups = document.querySelectorAll('.fa-ellipsis');
+            const profileImgs = document.querySelectorAll('.profile-img');
+
+            pontosPopups.forEach(pontosPopup => {
+                pontosPopup.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const popupId = 'pontinhos-popup-' + this.id.split('-').pop();
+                    const popup = document.getElementById(popupId);
+                    if (popup) {
+                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+                    }
+                    closeOtherPopups(popupId);
+                });
+            });
+
+            profileImgs.forEach(profileImg => {
+                profileImg.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const popupId = 'nav-popup-' + this.id.split('-').pop();
+                    const popup = document.getElementById(popupId);
+                    if (popup) {
+                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+                    }
+                    closeOtherPopups(popupId);
+                });
+            });
+
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
+                    popup.style.display = 'none';
+                });
+            });
+
+            function closeOtherPopups(openPopupId) {
+                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
+                    if (popup.id !== openPopupId) {
+                        popup.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+
+
 </body>
+
 </html>

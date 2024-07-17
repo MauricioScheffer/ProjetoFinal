@@ -45,9 +45,11 @@ body{
 
 .profile-photo{
     width: 2.7rem;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
+    height: 2.7rem; /* Adicionado para garantir a proporção */
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 img{
@@ -98,7 +100,7 @@ nav .container{
     justify-content: space-between;
 }
 
-/* .search-bar{
+.search-bar{
     background: var(--color-light);
     border-radius: var(--border-radius);
     padding: var(--search-padding);
@@ -114,7 +116,7 @@ nav .container{
 
 nav .search-bar input[type="search"]::placeholder{
     color: var(--color-grey); 
-}*/
+}
 
 nav .create{
     display: flex;
@@ -137,32 +139,23 @@ main{
 
 main .container{
     display: grid;
-    grid-template-columns: 21vw auto 12vw;
-    column-gap: 4rem;
+    grid-template-columns: 21vw auto 10vw;
+    column-gap: 5rem;
     position: relative;
 }
 
 /* left */
 main .container .left{
     height: max-content;
-    padding: 25px;
+    padding: 25px; 
     position: relative;
     top: var(--sticky-top-left);
-}
-
-main .container .left{
-    padding: var(--card-padding);
     background-color: var(--color-white); 
     border-radius: var(--card-border-radius);
     display: block;
     align-items: center;
-    column-gap: 2rem;
     width: 350px;
 }
-
-/* main .container .left .profile .profile-photo a{
-    font-size: 600px;
-} */
 
 .handle h4{
     font-size: 25px;
@@ -173,7 +166,6 @@ main .container .left{
 }
 
 /* input Pets */
-
 .input-single{
     width: 100%;
     margin: 30px 0;
@@ -213,9 +205,22 @@ main .container .left{
     color: var(--color-primary);
 }
 
- main .container .left .profile .profile-photo{
+ main .container .left .profile .profile-photo img{
+    width: 2.7rem;
+    height: 2.7rem; /* Adicionado para garantir a proporção */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 100;
-} 
+}
+.profile-photo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover; /* Garante que a imagem cubra o elemento sem distorção */
+}
+
 
 
 /* .left .btn{
@@ -228,7 +233,6 @@ main .container .left{
 
 /* create post */
 .middle .create-post{
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -236,19 +240,6 @@ main .container .left{
     background: var(--color-white);
     padding: 0.4rem var(--card-padding);
     border-radius: var(--border-radius);;
-}
-
-.middle .create-post input[type="text"]{
-    justify-content: start;
-    width: 100%;
-    padding-left: 1rem;
-    background: transparent;
-    color: var(--color-dark);
-    margin-right: 1rem;
-}
-
-.btn-post{
-    padding: 0.6rem 1rem;
 }
 
 /* publicações */
@@ -309,7 +300,6 @@ main .container .left{
 
 /* Perfil Nav */
 .nav-theme{
-    display: flex;
     height: 1rem;
     cursor: pointer;
     transition: all 300ms ease;
@@ -333,8 +323,23 @@ main .container .left{
     transition: 1s;
 }
 
+#nav-popup-logged{
+    height: 4rem;
+    display: none;
+    padding: -10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    right: 20%;
+    top: 10px;
+    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius) ;
+}
+
+#nav-popup-logged .editarPerfil{
+    position: absolute;
+    top: 18px;
+}
+
 .nav-popup span{
-    text-align: left;
     color: var(--color-primary);
 }
 
@@ -353,17 +358,16 @@ main .container .left{
 .nav-popup::before{
     content: "";
     width: 1.2rem;
-    height: 1.2rem;
+    height: 0.1rem;
     display: flex;
     position: absolute;
     transform: rotate(45deg);
 }
 
 .nav-popup > div{
-    display: flex;
-    align-items: start;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    text-align: left;
 }
 
 
@@ -386,7 +390,7 @@ main .container .left{
     width: 190px;
     right: 30%; 
     background: var(--color-white);
-    border-radius: var(--card-border-radius);
+    border-radius: var(--card-border-radius) 0 var(--card-border-radius) var(--card-border-radius);
     padding: var(--card-padding);
     /* box-shadow: 0 0 2rem hs1(var(--color-primary), 75%, 60%, 25%); */
     box-shadow: 0 0 1rem var(--color-primary);
