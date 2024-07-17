@@ -9,23 +9,52 @@ class Usuario
         $this->conn = $db;
     }
 
+    // Método para verificar se o apelido já existe
+    public function apelidoExiste($apelido)
+    {
+        $query = "SELECT COUNT(*) FROM " . $this->table_name . " WHERE apelido = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$apelido]);
+        return $stmt->fetchColumn() > 0;
+    }
+
+    // Método para verificar se o email já existe
+    public function emailExiste($email)
+    {
+        $query = "SELECT COUNT(*) FROM " . $this->table_name . " WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$email]);
+        return $stmt->fetchColumn() > 0;
+    }
+
     // Método para criar um novo usuário
     public function criarUsuario($nome, $apelido, $email, $telefone, $sexo, $senha, $foto, $nascimento, $adm, $ativo)
     {
+        // Verificações de apelido e e-mail
+        if ($this->apelidoExiste($apelido)) {
+            return 'Apelido já existe';
+        }
+
+        if ($this->emailExiste($email)) {
+            return 'Email já existe';
+        }
+
         $query = "INSERT INTO " . $this->table_name . " (nome, apelido, email, telefone, sexo, senha, foto, nascimento, adm, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $hashed_password = password_hash($senha, PASSWORD_BCRYPT);
-        $stmt->execute([$nome, $apelido, $email, $telefone, $sexo, $hashed_password, $foto, $nascimento, $adm, $ativo]);
-        return $stmt;
+
+        try {
+            $hashed_password = password_hash($senha, PASSWORD_BCRYPT);
+            $stmt->execute([$nome, $apelido, $email, $telefone, $sexo, $hashed_password, $foto, $nascimento, $adm, $ativo]);
+            return true; // Retorna verdadeiro em caso de sucesso
+        } catch (PDOException $e) {
+            return 'Erro ao cadastrar usuário: ' . $e->getMessage(); // Mensagem genérica para outros erros
+        }
     }
-
-    
-
 
     // Método para deletar um usuário
     public function deletarUsuario($id)
     {
-        $query = "DELETE * FROM " . $this->table_name . " WHERE id = ?";
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$id]);
         return $stmt;
@@ -45,16 +74,16 @@ class Usuario
         return false;
     }
 
+    // Método para ler usuários com pesquisa
     public function lerUsuarios($search)
     {
         $query = "SELECT * FROM " . $this->table_name;
         $conditions = [];
         $params = [];
 
-        // Verifica se a pesquisa começa com '@' para buscar pelo apelido
         if (!empty($search)) {
             if (strpos($search, '@') === 0) {
-                $searchTerm = substr($search, 1); // Remove o '@' do início
+                $searchTerm = substr($search, 1);
                 $conditions[] = "apelido LIKE :search";
                 $params[':search'] = $searchTerm . '%';
             } else {
@@ -78,10 +107,9 @@ class Usuario
         $conditions = [];
         $params = [];
 
-        // Verifica se a pesquisa começa com '@' para buscar pelo apelido
         if (!empty($search)) {
             if (strpos($search, '@') === 0) {
-                $searchTerm = substr($search, 1); // Remove o '@' do início
+                $searchTerm = substr($search, 1);
                 $conditions[] = "apelido LIKE :search";
                 $params[':search'] = '%' . $searchTerm . '%';
             } else {
@@ -123,10 +151,10 @@ class Usuario
         return $stmt;
     }
 
-    // Método para trazer os 5 usuários mais seguidos 
+    // Método para trazer os 5 usuários mais seguidos
     public function maisSeguidos()
     {
-        $query = "SELECT u.* FROM usuario u left JOIN seguidor s ON u.id = s.idUsuario GROUP BY s.idUsuario order by count(s.idUsuario) DESC limit 5";
+        $query = "SELECT u.* FROM usuario u LEFT JOIN seguidor s ON u.id = s.idUsuario GROUP BY s.idUsuario ORDER BY COUNT(s.idUsuario) DESC LIMIT 5";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
