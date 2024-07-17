@@ -25,7 +25,7 @@ class Usuario
     // Método para deletar um usuário
     public function deletarUsuario($id)
     {
-        $query = "DELETE * FROM " . $this->table_name . " WHERE id = ?";
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$id]);
         return $stmt;

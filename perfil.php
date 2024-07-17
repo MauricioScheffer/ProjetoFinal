@@ -177,16 +177,21 @@ $curtida = new Curtida($db);
                                 </div>
 
                                 <a class="edit-item">
-                                    <span><i class="fa-solid fa-ellipsis" id="pontos-popup-<?php echo $post['id']; ?>"></i></span>
-                                    <div class="pontinhos-popup" id="pontinhos-popup-<?php echo $post['id']; ?>">
-                                        <div class="editar">
-                                            <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
-                                        </div>
-                                        <div class="deletar">
-                                            <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-                                        </div>
-                                    </div>
-                                </a>
+                                    <!-- <span><i class="fa-solid fa-ellipsis" class="pontos-popup"></i></span> -->
+                                    <!-- <div class="pontinhos-popup" id="pontinhos-popup"> -->
+                                    <!-- <div class="editar"> -->
+                                    <?php if ($usuario_adm || $_SESSION['usuario_id'] == $usuarioPostagem['id']) : ?>
+                                        <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
+
+                                        <!-- </div> -->
+                                        <!-- <div class="deletar"> -->
+
+                                        <a class="links" href="deletarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+                                        <?php endif; ?>
+                                        <!-- </div> -->
+                                        <!-- </div> -->
+                                        </a>
+
                             </div>
 
                             <div class="photo">
@@ -215,7 +220,9 @@ $curtida = new Curtida($db);
                                 <p><b><?php echo $usuarioPostagem['nome']; ?></b> <?php echo $post['descricao']; ?></p>
                             </div>
                             <div class="comments text-muted">
-                                Ver todos os <?php echo $post['totalComentarios']; ?> comentários
+                                <a href="comentario.php?postagem=<?php echo $post['id']; ?>">
+                                    <div class="comments text-muted">Ver todos os comentários</div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -283,14 +290,14 @@ $curtida = new Curtida($db);
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "like_post.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var response = JSON.parse(xhr.responseText);
                     if (response.success) {
                         var postElement = document.getElementById('post-' + postId);
                         var likeButton = postElement.getElementsByTagName('button')[0];
                         var likeIcon = likeButton.getElementsByTagName('i')[0];
-                        
+
                         // Atualiza o ícone e a ação
                         if (action == 'curtir') {
                             likeButton.setAttribute('onclick', `likePost(${postId}, 'descurtir')`);
@@ -313,7 +320,7 @@ $curtida = new Curtida($db);
         document.addEventListener('DOMContentLoaded', function() {
             var profileImg = document.getElementById('profile-img-logged');
             var navPopup = document.getElementById('nav-popup-logged');
-            
+
             profileImg.addEventListener('click', function() {
                 navPopup.style.display = navPopup.style.display === 'none' || navPopup.style.display === '' ? 'block' : 'none';
             });
