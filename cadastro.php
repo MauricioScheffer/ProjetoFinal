@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $apelido = $_POST['apelido'];
         $email = $_POST['email'];
         $senha = $_POST['senha'];
-        $foto = "";
+        $foto = "img/default.jpg"; // essa bosta vai ficar como foto de perfil padrao, ai ele edita depois na edição do perfil.
         $telefone = $_POST['telefone'];
         $nascimento = date($_POST['nascimento']);
         $sexo = $_POST['sexo'];
