@@ -16,6 +16,7 @@ const colorPalette = document.querySelectorAll('.choose-color span');
 const Bg1 = document.querySelector('.bg-1');
 const Bg2 = document.querySelector('.bg-2');
 const Bg3 = document.querySelector('.bg-3');
+const logo = document.querySelector('#imagem');
 
 // const pontos = document.querySelector('.edit-item');
 // const editModal = document.querySelector('.pontinhos-popup');
@@ -215,25 +216,31 @@ colorPalette.forEach(color => {
 })
 
 // fundo tema
-let lightColorLightness;
-let whiteColorLightness;
-let darkColorLightness;
-
 const changeBG = () => {
     root.style.setProperty('--light-color-lightness', lightColorLightness);
     root.style.setProperty('--white-color-lightness', whiteColorLightness);
     root.style.setProperty('--dark-color-lightness', darkColorLightness);
 }
 
+// Função para trocar o logo
+const changeLogo = (theme) => {
+    if (theme == 'light') {
+        logo.src = 'img/LogoWhite.png';
+    } else {
+        logo.src = 'img/LogoBlack.png';
+    }
+}
+
 Bg1.addEventListener('click', () => {
-    darkColorLightness = '95%';
-    whiteColorLightness = '20%';
-    lightColorLightness = '15%';
+    darkColorLightness = '10%';
+    whiteColorLightness = '100%';
+    lightColorLightness = '95%';
 
     Bg1.classList.add('active');
     Bg2.classList.remove('active');
     Bg3.classList.remove('active');
-    window.location.reload();
+    changeLogo('dark'); // Troca para o logo branco
+    changeBG();
 })
 
 Bg2.addEventListener('click', () => {
@@ -244,6 +251,7 @@ Bg2.addEventListener('click', () => {
     Bg2.classList.add('active');
     Bg1.classList.remove('active');
     Bg3.classList.remove('active');
+    changeLogo('light'); // Troca para o logo branco
     changeBG();
 })
 
@@ -255,6 +263,7 @@ Bg3.addEventListener('click', () => {
     Bg3.classList.add('active');
     Bg1.classList.remove('active');
     Bg2.classList.remove('active');
+    changeLogo('light'); // Troca para o logo preto
     changeBG();
 })
 

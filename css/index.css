@@ -3,7 +3,7 @@
 
 :root{
     --primary-color-hue: 252;
-    --dark-color-lightness: 17%;
+    --dark-color-lightness: 10%;
     --light-color-lightness: 95%;
     --white-color-lightness: 100%;
 
@@ -64,7 +64,6 @@ body{
     border-radius: 50%;
     object-fit: cover; /* Garante que a imagem cubra o elemento sem distorção */
 }
-
 
 /* FOTO DOIS */
 /* .profile-photo2 {
@@ -141,24 +140,24 @@ nav .container{
 .search-bar-right{
     background: var(--color-white);
     border-radius: var(--border-radius);
+    display: flex;
     padding: var(--search-padding);
     margin: 1rem;
 }
 
 .search-bar-icone{
-    background: var(--color-white);
     padding: var(--search-padding);
 }
 
-.search-bar input[type="search"]{
-    background: transparent;
+input[type="search"]{
+    background: var(--color-light);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     width: 30vw;
-    margin-left: 1rem;
     font-size: 0.9rem;
     color: var(--color-dark);
 }
 
-nav .search-bar input[type="search"]::placeholder{
+input[type="search"]::placeholder{
     color: var(--color-grey);
 }
 
@@ -228,7 +227,7 @@ main .container .left .profile{
 }
 
 .left .sidebar i{
-    font-size: 1.4rem;
+    font-size: 1.0rem;
     color: var(--color-grey);
     margin-left: 2rem;
     position: relative;
@@ -498,9 +497,9 @@ main .container .right{
     margin-bottom: 1rem;
 }
 
-.right .messages i{
-    font-style: 1.4rem;
-}
+.right form button i{
+    border-radius: var(--border-radius);
+} 
 
 .right .messages .search-bar{
     display: flex;
