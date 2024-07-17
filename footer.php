@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
 
-        :root{
+        :root {
             --primary-color-hue: 252;
             --dark-color-lightness: 17%;
             --light-color-lightness: 95%;
@@ -33,7 +33,7 @@
             --sticky-top-right: 7.4rem;
         }
 
-        /* *, *::before, *::after{
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             outline: 0;
@@ -41,9 +41,9 @@
             text-decoration: none;
             list-style: none;
             border: none;
-        } */
+        } 
 
-        body{
+        body {
             font-family: "Poppins", sans-serif;
             color: var(--color-dark);
             overflow-x: hidden;
@@ -52,23 +52,21 @@
         footer {
             background-color: var(--color-primary);
             color: var(--color-white);
-            padding: auto 0;
-            /* width: 100%; */
-            text-align: center;
-            display: block;
+            padding: 20px 0;
+            width: 100%;
         }
 
         .footer-content {
-            display: grid;
-            grid-template-columns: 20px auto 30px;
-            max-width: 960px;
-            margin: 0 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            max-width: 960px;
         }
 
+        .footer-content > div{
+            gap: 10rem;
+        }
+            
         .footer-logo img {
             max-height: 200px;
         }
@@ -84,7 +82,7 @@
         }
 
         .footer-links a {
-            color: #fff;
+            color: var(--color-light);
             text-decoration: none;
         }
 
@@ -94,7 +92,7 @@
 
         .footer-content .Sobre li,
         .footer-content .Servicos li,
-        .footer-content .Perfil li{
+        .footer-content .Perfil li {
             list-style-type: none;
             color: var(--color-black);
             font-weight: bold;
@@ -102,63 +100,64 @@
 
         .footer-content .Sobre,
         .footer-content .Servicos,
-        .footer-content .Perfil{
+        .footer-content .Perfil {
             letter-spacing: 1px;
             text-align: left;
         }
 
         .footer-content .Sobre a,
         .footer-content .Servicos a,
-        .footer-content .Perfil a{
+        .footer-content .Perfil a {
             letter-spacing: 1px;
             text-decoration: none;
             color: var(--color-light);
             transition: 1s;
         }
-        
+
         .footer-content .Sobre a:hover,
         .footer-content .Servicos a:hover,
-        .footer-content .Perfil a:hover{
+        .footer-content .Perfil a:hover {
             color: var(--color-black);
         } 
 
-        .footer-content .flecha i{
-            position: absolute;
+        .footer-content .flecha i {
             color: var(--color-white);
             font-size: 2.9rem;
-            right: 10%;
             transition: 1s;
-            cursor: wait;
+            cursor: pointer;
         }
 
-        .footer-content .flecha i:hover{
+        .footer-content .flecha i:hover {
             color: var(--color-black);
         }
 
-        .bottom-fotter{
-            margin: 0 60px;
+        .bottom-footer {
+            margin: 20px 60px;
         }
 
-        .bottom-fotter .copyright{
+        hr {
+            border: 1px solid var(--color-light);
+            margin-bottom: 15px;
+        }
+
+        .bottom-footer .copyright {
             display: flex;
             justify-content: space-between;
         }
 
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
             .footer-content {
-                flex-direction: row;
-                justify-content: space-between;
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
             }
 
             .footer-content > div {
-                flex: 1;
-                margin: 1rem;
+                margin: 10px 0;
             }
 
             .bottom-footer .copyright {
-                flex-direction: row;
-                justify-content: space-between;
+                flex-direction: column;
+                align-items: center;
             }
         }
 
@@ -172,54 +171,52 @@
             </div>
             
             <div class="Sobre">
-            <ul>
-                <li>Rede Social</li>
-                <p><a href="">Sobre</a></p>
-                <p><a href="contato.php">Contato</a></p>
-                <p><a href="">Endereço</a></p>
-            </ul>
+                <ul>
+                    <li>Rede Social</li>
+                    <p><a href="">Sobre</a></p>
+                    <p><a href="contato.php">Contato</a></p>
+                    <p><a href="">Endereço</a></p>
+                </ul>
             </div>
+
 
             <div class="Servicos">
-            <ul>
-                <li>Clientes</li>
-                <p><a href="">Serviços</a></p>
-                <p><a href="">Encontros</a></p>
-                <p><a href="">Pessoas</a></p>
-            </ul>
+                <ul>
+                    <li>Clientes</li>
+                    <p><a href="">Serviços</a></p>
+                    <p><a href="">Encontros</a></p>
+                    <p><a href="">Pessoas</a></p>
+                </ul>
             </div>
+
 
             <div class="Perfil">
-            <ul>
-                <li>Colaboradores</li>
-                <p>Mauricio Scheffer<a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-linkedin"></i></a>
-                <a href=""><i class="fa-brands fa-github"></i></a></p>
+                <ul>
+                    <li>Colaboradores</li>
+                    <p>Mauricio Scheffer<a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                    <a href=""><i class="fa-brands fa-github"></i></a></p>
 
-                <p>Gustavo Rizon<a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-linkedin"></i></a>
-                <a href=""><i class="fa-brands fa-github"></i></a></p>
+                    <p>Gustavo Rizon<a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                    <a href=""><i class="fa-brands fa-github"></i></a></p>
 
-                <p>Vitor de Souza<a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-linkedin"></i></a>
-                <a href=""><i class="fa-brands fa-github"></i></a></p>
-
-                
-            </ul>
-
+                    <p>Vitor de Souza<a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                    <a href=""><i class="fa-brands fa-github"></i></a></p>
+                </ul>
             </div>
-            <a href="" class="flecha"><i class="fa-solid fa-arrow-up"></i></a>
-
-            
+            <a href="#" class="flecha"><i class="fa-solid fa-arrow-up"></i></a>
         </div>
-        <section class="bottom-fotter">
-                <hr></hr>
-                <div class="copyright">
-                    <p>© 2024 - Todos Os Direitos Reservados</p>
-                    <p>Pensado, projetado e desenvolvido pelos Colaboradores</p>
-                    <p>Política de Privacidade</p>
-                </div>
-            </section>
+
+        <section class="bottom-footer">
+            <hr>
+            <div class="copyright">
+                <p>© 2024 - Todos Os Direitos Reservados</p>
+                <p>Pensado, projetado e desenvolvido pelos Colaboradores</p>
+                <p>Política de Privacidade</p>
+            </div>
+        </section>
     </footer>
 </body>
 </html>
