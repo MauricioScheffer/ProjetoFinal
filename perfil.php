@@ -58,7 +58,6 @@ $postagens = $postagem->lerPorUsuario($idUsuario);
 
 $curtida = new Curtida($db);
 
-
 ?>
 
 <!DOCTYPE html>
@@ -130,7 +129,6 @@ $curtida = new Curtida($db);
                                 </div>
                             </div>
                         </a>
-
                     </div>
                     <div class="handle">
                         <h4><?php echo "$nome"; ?></h4>
@@ -147,13 +145,6 @@ $curtida = new Curtida($db);
                                 <?php endif; ?>
                             </form>
                         <?php endif; ?>
-
-                        <!-- <div class="input-single">
-                            <textarea class="input" name="" type="text"></textarea>
-                            <label for="nome">Meus Pets🐶</label>
-                        </div>
-                        <input type="submit" value="Salvar" class="btn btn-primary btn-post"> -->
-
                     </div>
                 </a>
             </div>
@@ -164,35 +155,12 @@ $curtida = new Curtida($db);
                     <?php
                     // Obtendo dados do usuário da postagem
                     $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);
-
-                    // Referenciando para saber se o usuário segue ou não o usuário da postagem
-                    $seguidor = new Seguidor($db);
-
-                    // Consulta para saber se o usuário já segue o perfil
-                    $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
-
-    
                     $jaCurtiu = $curtida->jaCurtiu($post['id'], $_SESSION['usuario_id']);
                     $totalCurtidas = $curtida->contarCurtidas($post['id']);
                     $curtidas = $curtida->obterCurtidas($post['id']);
-
-                    if (isset($_POST['acaoCurtida'])) {
-                        if ($_POST['acaoCurtida'] == 'curtir') {
-                            $curtida->curtir($post['id'], $_SESSION['usuario_id']);
-                            $jaCurtiu = $curtida->jaCurtiu($post['id'], $_SESSION['usuario_id']);
-                    $totalCurtidas = $curtida->contarCurtidas($post['id']);
-                    $curtidas = $curtida->obterCurtidas($post['id']);
-                        } elseif ($_POST['acaoCurtida'] == 'descurtir') {
-                            $curtida->descurtir($post['id'], $_SESSION['usuario_id']);
-                            
-                        }
-                    }
-
-                    
-
                     ?>
                     <!-- Publicações -->
-                    <div class="feeds">
+                    <div class="feeds" id="post-<?php echo $post['id']; ?>">
                         <!-- Publicação -->
                         <div class="feed">
                             <div class="head">
@@ -204,7 +172,6 @@ $curtida = new Curtida($db);
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
-                        
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
@@ -228,104 +195,156 @@ $curtida = new Curtida($db);
 
                             <div class="action-buttons">
                                 <div class="interaction-buttons">
-                                    <form method="post">
-                                        <?php if ($jaCurtiu) : ?>
-                                            <button type="submit" name="acaoCurtida" value="descurtir">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </button>
-                                        <?php else : ?>
-                                            <button type="submit" name="acaoCurtida" value="curtir">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                    </form>
+                                    <button onclick="likePost(<?php echo $post['id']; ?>, '<?php echo $jaCurtiu ? 'descurtir' : 'curtir'; ?>')">
+                                        <i class="<?php echo $jaCurtiu ? 'fa-solid fa-heart' : 'fa-regular fa-heart'; ?>"></i>
+                                    </button>
                                 </div>
-
                                 <div class="bookmark">
                                     <span><i class="fa-regular fa-bookmark"></i></span>
                                 </div>
                             </div>
 
                             <div class="liked-by">
-                                <?php
-                                foreach ($curtidas as $curtida) {
-                                    echo '<span><img src="../' . $curtida['foto'] . '" alt="' . $curtida['nome'] . '"></span>';
-                                }
-                                ?>
-                                <?php echo count($curtidas) > 0 ? '<span> outros</b></p>' : ''; ?>
-                            </div>
-
-                            <div class="likes-count">
-                                <?php echo $totalCurtidas; ?> pessoa(s) curtiram isso
+                                <?php foreach ($curtidas as $curtidor) : ?>
+                                    <span><img src="<?php echo $curtidor['foto']; ?>" alt=""></span>
+                                <?php endforeach; ?>
+                                <p><b><?php echo $totalCurtidas; ?> pessoa(s) curtiram isso</b></p>
                             </div>
 
                             <div class="caption">
-                                <p><b><?php echo $usuarioPostagem['nome']; ?></b> <?php echo $post['descricao']; ?>
-                                </p>
+                                <p><b><?php echo $usuarioPostagem['nome']; ?></b> <?php echo $post['descricao']; ?></p>
                             </div>
-
-                            <a href="comentario.php?postagem=<?php echo $post['id']; ?>">
-                                <div class="comments text-muted">Ver todos os comentários</div>
-                            </a>
+                            <div class="comments text-muted">
+                                Ver todos os <?php echo $post['totalComentarios']; ?> comentários
+                            </div>
                         </div>
                     </div>
                 <?php endwhile; ?>
             </div>
 
-        </div>
+            <!-- RIGHT -->
+            <div class="right">
+                <div class="messages">
+                    <div class="heading">
+                        <h4>Mensagens</h4><i class="fa-regular fa-edit"></i>
+                    </div>
+                    <!-- search bar -->
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="search" placeholder="Pesquisar mensagens" id="message-search">
+                    </div>
+
+                    <!-- Categorias de mensagem -->
+                    <div class="category">
+                        <h6 class="active">Primary</h6>
+                        <h6>Geral</h6>
+                        <h6>Solicitações</h6>
+                    </div>
+
+                    <!-- Mensagens -->
+                    <div class="message">
+                        <div class="profile-photo">
+                            <img src="img/Perfil/FotoPerfil.jpg" alt="">
+                            <div class="active"></div>
+                        </div>
+                        <div class="message-body">
+                            <h5>Stefani Jhonson</h5>
+                            <p class="text-muted">Mensagem recebida</p>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="profile-photo">
+                            <img src="img/Perfil/FotoPerfil.jpg" alt="">
+                            <div class="active"></div>
+                        </div>
+                        <div class="message-body">
+                            <h5>Stefani Jhonson</h5>
+                            <p class="text-muted">Mensagem recebida</p>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="profile-photo">
+                            <img src="img/Perfil/FotoPerfil.jpg" alt="">
+                            <div class="active"></div>
+                        </div>
+                        <div class="message-body">
+                            <h5>Stefani Jhonson</h5>
+                            <p class="text-muted">Mensagem recebida</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-    <div class="footer">
-        <?php include 'footer.php'; // Inclua o rodapé 
-        ?>
-    </div>
-    <script src="Script/main.js"></script>
+
     <script>
+        // Função para curtir/descurtir post
+        function likePost(postId, action) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "like_post.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        var postElement = document.getElementById('post-' + postId);
+                        var likeButton = postElement.getElementsByTagName('button')[0];
+                        var likeIcon = likeButton.getElementsByTagName('i')[0];
+                        
+                        // Atualiza o ícone e a ação
+                        if (action == 'curtir') {
+                            likeButton.setAttribute('onclick', `likePost(${postId}, 'descurtir')`);
+                            likeIcon.className = 'fa-solid fa-heart';
+                        } else {
+                            likeButton.setAttribute('onclick', `likePost(${postId}, 'curtir')`);
+                            likeIcon.className = 'fa-regular fa-heart';
+                        }
+
+                        // Atualiza o contador de likes
+                        var likesCount = postElement.getElementsByClassName('liked-by')[0].getElementsByTagName('p')[0];
+                        likesCount.innerHTML = '<b>' + response.likes + ' pessoa(s) curtiram isso</b>';
+                    }
+                }
+            };
+            xhr.send("id=" + postId + "&acaoCurtida=" + action);
+        }
+
+        // Função para exibir/ocultar popup do menu do usuário
         document.addEventListener('DOMContentLoaded', function() {
-            const pontosPopups = document.querySelectorAll('.fa-ellipsis');
-            const profileImgs = document.querySelectorAll('.profile-img');
-
-            pontosPopups.forEach(pontosPopup => {
-                pontosPopup.addEventListener('click', function(event) {
-                    event.stopPropagation();
-                    const popupId = 'pontinhos-popup-' + this.id.split('-').pop();
-                    const popup = document.getElementById(popupId);
-                    if (popup) {
-                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-                    }
-                    closeOtherPopups(popupId);
-                });
+            var profileImg = document.getElementById('profile-img-logged');
+            var navPopup = document.getElementById('nav-popup-logged');
+            
+            profileImg.addEventListener('click', function() {
+                navPopup.style.display = navPopup.style.display === 'none' || navPopup.style.display === '' ? 'block' : 'none';
             });
 
-            profileImgs.forEach(profileImg => {
-                profileImg.addEventListener('click', function(event) {
-                    event.stopPropagation();
-                    const popupId = 'nav-popup-' + this.id.split('-').pop();
-                    const popup = document.getElementById(popupId);
-                    if (popup) {
-                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+            // Esconder o popup ao clicar fora
+            document.addEventListener('click', function(event) {
+                if (!profileImg.contains(event.target) && !navPopup.contains(event.target)) {
+                    navPopup.style.display = 'none';
+                }
+            });
+        });
+
+        // Função para exibir/ocultar popup dos pontos nas publicações
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.edit-item').forEach(function(editItem) {
+                var pontosPopup = editItem.querySelector('.pontinhos-popup');
+                var pontosIcon = editItem.querySelector('i');
+
+                pontosIcon.addEventListener('click', function() {
+                    pontosPopup.style.display = pontosPopup.style.display === 'none' || pontosPopup.style.display === '' ? 'block' : 'none';
+                });
+
+                // Esconder o popup ao clicar fora
+                document.addEventListener('click', function(event) {
+                    if (!editItem.contains(event.target) && !pontosPopup.contains(event.target)) {
+                        pontosPopup.style.display = 'none';
                     }
-                    closeOtherPopups(popupId);
                 });
             });
-
-            document.addEventListener('click', function() {
-                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
-                    popup.style.display = 'none';
-                });
-            });
-
-            function closeOtherPopups(openPopupId) {
-                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
-                    if (popup.id !== openPopupId) {
-                        popup.style.display = 'none';
-                    }
-                });
-            }
         });
     </script>
-
-
 </body>
 
 </html>

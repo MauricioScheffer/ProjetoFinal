@@ -128,6 +128,8 @@ if ($searchPeople) {
                     <a class="menu-item">
                         <span><i class="fa-brands fa-wpexplorer"></i></i></span>
                         <h3>Explorar</h3>
+
+                        
                     </a>
                     <!-- <a class="menu-item" id="notifications">
                         <span><i class="fa-solid fa-envelope"><small class="notification-count">9</small></i></span>
