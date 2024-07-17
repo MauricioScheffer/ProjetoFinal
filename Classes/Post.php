@@ -68,5 +68,13 @@ public function atualizar($titulo, $descricao, $imagem, $id){
     return $stmt;
 }
 
+public function deletarPostagem($id)
+{
+    $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute([$id]);
+    return $stmt;
+}
+
 }
 ?>

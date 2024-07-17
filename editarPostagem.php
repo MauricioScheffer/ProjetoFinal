@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar se foi enviado um novo arquivo de imagem
     if ($_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
 
-        $nome_arquivo = $_FILES['imagem']['name'];
+        $nome_arquivo = uniqid() .$idUsuario;
         $caminho_temporario = $_FILES['imagem']['tmp_name'];
         $caminho_destino = './img/' . $nome_arquivo;
 
