@@ -40,7 +40,6 @@ $searchPeople = isset($_GET['search-people']) ? $_GET['search-people'] : '';
 if ($searchPeople) {
     // Buscar usuários com base na pesquisa de pessoas
     $usuarios = $usuario->lerUsuarios($searchPeople);
-
 }
 ?>
 
@@ -52,7 +51,7 @@ if ($searchPeople) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/1c1bb96ec4.js" crossorigin="anonymous"></script>
-    <title>Responsivo Web Site</title>
+    <title>PetHub</title>
 </head>
 
 <body>
@@ -60,37 +59,40 @@ if ($searchPeople) {
         <div class="container">
             <a href="index.php">
                 <h2 class="log">
-                    Rede Social
+                    <img id="imagem" src="img/LogoBlack.png" alt="">
                 </h2>
             </a>
 
             <div class="search-bar">
                 <form method="GET">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input type="search" placeholder="Pesquisar" name="search"
-                        value="<?php echo htmlspecialchars($search); ?>">
+                    <input type="search" placeholder="Pesquisar" name="search" value="<?php echo htmlspecialchars($search); ?>">
                 </form>
             </div>
             <div class="create">
-                
+
                 <!-- <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
                 <a href="contato.php"> <label class="btn btn-primary">Contato</label></a> -->
 
                 <div class="profile-photo">
 
-                    <a class="nav-theme"><?php echo "<img id='profile-img' src= '$foto'>"; ?>
-                        <div class="nav-popup" id="nav-popup">
+                <a class="nav-theme">
+                        <?php echo "<img class='profile-img' id='profile-img-{$idUsuario}' src='$foto'>"; ?>
+                        <div class="nav-popup" id="nav-popup-<?php echo $idUsuario; ?>">
                             <div class="perfil">
-                                <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
-                                            class="fa-regular fa-user"></i>Perfil</span></a>
+                                <a href="perfil.php?id=<?php echo $idUsuario; ?>">
+                                    <span><i class="fa-regular fa-user"></i>Perfil</span>
+                                </a>
                             </div>
                             <div class="editarPerfil">
-                                <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><span><i
-                                            class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>
+                                <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>">
+                                    <span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span>
+                                </a>
                             </div>
                             <div class="logout">
-                                <a href="logout.php"><span><i
-                                            class="fa-solid fa-right-from-bracket"></i>Sair</span></a>
+                                <a href="logout.php">
+                                    <span><i class="fa-solid fa-right-from-bracket"></i>Sair</span>
+                                </a>
                             </div>
                         </div>
                     </a>
@@ -190,7 +192,7 @@ if ($searchPeople) {
                     </a> -->
 
                     <?php if ($admin == 1) {
-                        ?><a class="menu-item">
+                    ?><a class="menu-item">
                             <span><i class="fa-solid fa-chart-simple"></i></span>
                             <h3>Analises</h3>
                         </a>
@@ -207,15 +209,14 @@ if ($searchPeople) {
 
                 </div>
                 <!-- cabou a sidebar -->
-                <a href="postagem.php"><input for="create-post" class="btn btn-primary" value="Criar publicação"
-                        readonly></a>
+                <a href="postagem.php"><input for="create-post" class="btn btn-primary" value="Criar publicação" readonly></a>
             </div>
             <!-- fim da esquerda -->
 
             <!-- meio -->
             <div class="middle">
 
-                <?php while ($post = $postagens->fetch(PDO::FETCH_ASSOC)): ?>
+                <?php while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) : ?>
                     <?php
                     //Obtendo dados do usuário da postagem
                     $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);
@@ -244,16 +245,15 @@ if ($searchPeople) {
                             <div class="head">
                                 <div class="user">
                                     <div class="profile-photo">
-                                        <a
-                                            href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?></a>
+                                        <a href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?></a>
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
-                                        <?php if ($usuarioPostagem['id'] != $idUsuario): ?>
+                                        <?php if ($usuarioPostagem['id'] != $idUsuario) : ?>
                                             <form method="post">
-                                                <?php if ($seguindo): ?>
+                                                <?php if ($seguindo) : ?>
                                                     <button type="submit" name="acao" value="desseguir">Seguindo</button>
-                                                <?php else: ?>
+                                                <?php else : ?>
                                                     <button type="submit" name="acao" value="seguir">Seguir</button>
                                                 <?php endif; ?>
                                             </form>
@@ -261,17 +261,23 @@ if ($searchPeople) {
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
+
                                 <a class="edit-item">
-                                    <span><i class="fa-solid fa-ellipsis" id="pontos-popup"></i></span>
-                                    <div class="pontinhos-popup" id="pontinhos-popup">
-                                        <div class="editar">
-                                            <a href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
-                                        </div>
-                                        <div class="deletar">
-                                            <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-                                        </div>
-                                    </div>
+                                    <!-- <span><i class="fa-solid fa-ellipsis" class="pontos-popup"></i></span> -->
+                                    <!-- <div class="pontinhos-popup" id="pontinhos-popup"> -->
+                                    <!-- <div class="editar"> -->
+
+                                            <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
+                                        
+                                        <!-- </div> -->
+                                        <!-- <div class="deletar"> -->
+                                            
+                                            <a href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+                                        
+                                        <!-- </div> -->
+                                    <!-- </div> -->
                                 </a>
+
                             </div>
 
                             <div class="photo">
@@ -302,7 +308,9 @@ if ($searchPeople) {
                                 </p>
                             </div>
 
-                            <a href="comentario.php?postagem=<?php echo $post['id']; ?>"><div class="comments text-muted">Ver todos os comentários</div></a>
+                            <a href="comentario.php?postagem=<?php echo $post['id']; ?>">
+                                <div class="comments text-muted">Ver todos os comentários</div>
+                            </a>
 
                         </div>
                     </div>
@@ -310,15 +318,12 @@ if ($searchPeople) {
             </div>
 
             <div class="right">
-            <form method="GET" class="search-bar-right">
-            <button type="submit" class="search-bar-icone"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input type="search" placeholder="Busque amigos aqui..." name="search-people"
-                        value="<?php echo htmlspecialchars($searchPeople); ?>">
-            </form>
+                <form method="GET" class="search-bar-right">
+                    <button type="submit" class="search-bar-icone"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="search" placeholder="Busque amigos aqui..." name="search-people" value="<?php echo htmlspecialchars($searchPeople); ?>">
+                </form>
                 <div class="messages">
                     <div class="heading">
-                    
-
 
                         <?php
                         if ($searchPeople) {
@@ -330,7 +335,7 @@ if ($searchPeople) {
                         <!-- classe mudar -->
                     </div>
                     <?php
-                    while ($usu = $usuarios->fetch(PDO::FETCH_ASSOC)): ?>
+                    while ($usu = $usuarios->fetch(PDO::FETCH_ASSOC)) : ?>
                         <!-- mensagem -->
                         <div class="message">
                             <div class="profile-photo">
@@ -342,7 +347,7 @@ if ($searchPeople) {
                                     <?php echo "@{$usu['apelido']}"; ?>
                                 </p>
                                 <a href="perfil.php?id=<?php echo $usu['id']; ?>">
-                                    <p class="text-bold"> Ver Perfil</p>
+                                    <p class="text-bold">Ver Perfil</p>
                                 </a>
                             </div>
                         </div>
@@ -445,9 +450,54 @@ if ($searchPeople) {
     </div> -->
 
     <div class="footer">
-    <?php include 'footer.php'; // Inclua o rodapé ?>
+        <?php include 'footer.php'; // Inclua o rodapé 
+        ?>
     </div>
     <script src="Script/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pontosPopups = document.querySelectorAll('.fa-ellipsis');
+            const profileImgs = document.querySelectorAll('.profile-img');
+
+            pontosPopups.forEach(pontosPopup => {
+                pontosPopup.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const popupId = 'pontinhos-popup-' + this.id.split('-').pop();
+                    const popup = document.getElementById(popupId);
+                    if (popup) {
+                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+                    }
+                    closeOtherPopups(popupId);
+                });
+            });
+
+            profileImgs.forEach(profileImg => {
+                profileImg.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const popupId = 'nav-popup-' + this.id.split('-').pop();
+                    const popup = document.getElementById(popupId);
+                    if (popup) {
+                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+                    }
+                    closeOtherPopups(popupId);
+                });
+            });
+
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
+                    popup.style.display = 'none';
+                });
+            });
+
+            function closeOtherPopups(openPopupId) {
+                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
+                    if (popup.id !== openPopupId) {
+                        popup.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
