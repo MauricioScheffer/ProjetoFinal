@@ -50,6 +50,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 10px 0;
 }
 
 img{
@@ -133,6 +134,7 @@ nav .log img{
 /* main */
 
 main{
+    flex: 1;
     position: relative;
     top: 5.4rem;
 }
@@ -205,20 +207,22 @@ main .container .left{
     color: var(--color-primary);
 }
 
- main .container .left .profile .profile-photo img{
-    width: 2.7rem;
-    height: 2.7rem; /* Adicionado para garantir a proporção */
+ /* main .container .left .profile .profile-photo .navtheme .profile-img{
+    width: 7.7rem;
+    height: 7.7rem; /* Adicionado para garantir a proporção 
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 100;
-}
+    background-color: var(--color-primary);
+} */
 .profile-photo img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover; /* Garante que a imagem cubra o elemento sem distorção */
+    font-size: 5rem;
 }
 
 
@@ -311,32 +315,22 @@ main .container .left{
 .nav-popup{
     display: none;
     position: absolute;
-    top: 55px;
-    width: 190px;
-    right: 5%; 
+    top: 20px;
+    width: 170px;
+    right: 30%; 
     background: var(--color-white);
     border-radius: var(--card-border-radius);
     box-shadow: 0 0 1rem var(--color-primary);
     z-index: 8;
     font-size: 19px;
-    color: var(--color-primary);
     transition: 1s;
-}
-
-#nav-popup-logged{
     height: 4rem;
-    display: none;
-    padding: -10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    right: 20%;
-    top: 10px;
-    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius) ;
+    border-radius: var(--border-radius) var(--border-radius) var(--border-radius) 0;
 }
 
 #nav-popup-logged .editarPerfil{
-    position: absolute;
-    top: 18px;
+    position: relative;
+    top: 8px;
 }
 
 .nav-popup span{
@@ -344,7 +338,7 @@ main .container .left{
 }
 
 .nav-popup span:hover{
-    padding: 2px 1px;
+    padding: 2px 5px;
     border-radius: var(--card-border-radius);
     color: var(--color-white);
     background: var(--color-primary);
@@ -372,14 +366,26 @@ main .container .left{
 
 
 /* 3 pontos */
-.edit-item{
+.middle .feed .head .post-items{
     display: flex;
-    align-items: center;
     height: 2rem;
     cursor: pointer;
     transition: all 300ms ease;
     position: relative;
-    font-size: 20px;
+    font-size: 16px;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--color-danger);
+    font-weight: 500;
+}
+
+.middle .feed .head .post-items .links{
+    font-weight: bold;
+}
+
+.middle .feed .head .post-items .links span:hover{
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
 }
     
     
@@ -432,8 +438,5 @@ main .container .left{
 
 /* Footer */
 .footer{
-    margin-top: 300px;
+    margin-top: 400px;
 }
-
-
-

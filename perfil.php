@@ -176,6 +176,7 @@ $curtida = new Curtida($db);
                                     </div>
                                 </div>
 
+                                <div class="post-items">
                                 <a class="edit-item">
                                     <!-- <span><i class="fa-solid fa-ellipsis" class="pontos-popup"></i></span> -->
                                     <!-- <div class="pontinhos-popup" id="pontinhos-popup"> -->
@@ -190,8 +191,8 @@ $curtida = new Curtida($db);
                                         <?php endif; ?>
                                         <!-- </div> -->
                                         <!-- </div> -->
-                                        </a>
-
+                                    </a>
+                                    </div>
                             </div>
 
                             <div class="photo">
@@ -283,7 +284,7 @@ $curtida = new Curtida($db);
             </div> -->
         </div>
     </main>
-
+        
     <script>
         // Função para curtir/descurtir post
         function likePost(postId, action) {
@@ -352,6 +353,9 @@ $curtida = new Curtida($db);
             });
         });
     </script>
+    <footer class="footer">
+        <?php include 'footer.php'?>
+    </footer>
 </body>
 
 </html>

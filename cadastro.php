@@ -52,12 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <nav>
         <div class="container">
+            <div class="logo-container">
             <a href="index.php">
-                <h2 class="log">Rede Social</h2>
+                <h2 class="log">
+                    <img src="img/LogoWhite.png" alt="">
+                </h2>
             </a>
-            <div class="create">
                 <a href="index.php"><label class="btn btn-primary" for="create-post">Voltar</label></a>
-            </div>
+                </div>
         </div>
     </nav>
 
@@ -92,7 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </main>
+    <footer>
     <?php include 'footer.php'; ?>
+    </footer>
     <script src="./Script/main.js"></script>
 </body>
 

@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/editarUsuario.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Editar Perfil</title>
+    <title>PetHub</title>
 </head>
 
 <body>
@@ -108,16 +108,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="meio">
                     <h2>Editar Perfil</h2>
                     <div class="caixas">
+                    
+                    <div class="adm">
                         <?php if ($usuario_adm == 1) : ?>
-                            <div class="adm">
                                 <label for="adm">Administrador</label>
                                 <input type="checkbox" id="adm" name="adm" value="1" <?php echo ($row['adm'] == 1) ? 'checked' : ''; ?>>
+
                         <?php endif; ?>
+
                         <?php if ($usuario_adm == 1 || $id == $_SESSION['usuario_id']) : ?>
+
                                 <label for="ativo">Ativo</label>
                                 <input type="checkbox" id="ativo" name="ativo" value="1" <?php echo ($row['ativo'] == 1) ? 'checked' : ''; ?>>
-                            </div>
                         <?php endif; ?>
+                        </div>
+
+
                         <input type="text" name="nome" value="<?php echo $row['nome']; ?>" required>
                         <input type="text" name="apelido" placeholder="Nome de usuário" value="<?php echo $row['apelido']; ?>" readonly>
                         <!-- Campo para selecionar a foto -->
