@@ -43,6 +43,9 @@
             border: none;
         } 
 
+        *:not(i){
+            font-family: "Poppins", sans-serif;
+        }
         body {
             font-family: "Poppins", sans-serif;
             color: var(--color-dark);

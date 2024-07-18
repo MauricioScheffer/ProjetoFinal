@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
 
-:root{
+:root {
     --color-white: hsl(252, 30%, 100%);
     --color-light: hsl(252, 30%, 95%);
     --color-grey: hsl(252, 15%, 65%);
@@ -10,18 +10,16 @@
     --color-danger: hsl(0, 95%, 65%);
     --color-dark: hsl(252, 30%, 17%);
     --color-black: hsl(252, 30%, 10%);
-
     --border-radius: 2rem;
     --card-border-radius: 1rem;
     --btn-padding: 0.6rem 2rem;
     --search-padding: 0.6rem 1rem;
     --card-padding: 1rem;
-
     --sticky-top-left: 5.4rem;
     --sticky-top-right: -18rem;
 }
 
-*, *::before, *::after{
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     outline: 0;
@@ -31,37 +29,48 @@
     border: none;
 }
 
-body{
+body {
     font-family: "Poppins", sans-serif;
     color: var(--color-dark);
-    background-color: url('pet-git.gif');
-    background-size: cover; /* Ajusta a imagem para cobrir toda a área */
-    background-position: center; /* Centraliza a imagem */
-    background-repeat: no-repeat; /* Impede que a imagem se repita */
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1001%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(94%2c 25%2c 230%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c621.649C113.342%2c603.155%2c203.835%2c529.574%2c299.667%2c466.291C394.245%2c403.837%2c500.562%2c352.715%2c556.518%2c254.153C614.871%2c151.37%2c619.785%2c29.716%2c614.558%2c-88.36C608.879%2c-216.639%2c623.579%2c-372.594%2c525.124%2c-455.023C424.919%2c-538.917%2c269.998%2c-457.102%2c142.092%2c-483.92C28.831%2c-507.667%2c-64.735%2c-630.984%2c-176.822%2c-602.199C-288.639%2c-573.484%2c-326.761%2c-435.738%2c-398.312%2c-345.14C-466.069%2c-259.345%2c-548.911%2c-187.119%2c-585.884%2c-84.237C-628.65%2c34.765%2c-664.248%2c165.208%2c-624.903%2c285.384C-584.01%2c410.289%2c-485.615%2c513.262%2c-369.878%2c575.541C-258.205%2c635.633%2c-125.16%2c642.071%2c0%2c621.649' fill='%234b14b8'%3e%3c/path%3e%3cpath d='M1440 997.543C1528.486 1013.7919999999999 1636.257 1029.5140000000001 1702.893 969.0699999999999 1770.647 907.6120000000001 1734.792 794.21 1760.837 706.521 1782.1109999999999 634.894 1836.342 576.806 1841.541 502.267 1847.517 416.595 1842.002 324.75800000000004 1792.353 254.68400000000003 1741.0059999999999 182.21499999999997 1657.028 134.34199999999998 1569.635 118.505 1486.104 103.368 1407.938 149.781 1325.511 170.086 1238.53 191.51299999999998 1120.201 165.611 1071.969 241.099 1021.9110000000001 319.446 1106.002 419.15 1106.976 512.118 1107.745 585.508 1053.484 656.246 1077.048 725.754 1101.186 796.958 1172.4270000000001 837.643 1232.608 882.7080000000001 1297.167 931.052 1360.672 982.976 1440 997.543' fill='%237e47eb'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1001'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover;
+    /* animation: colors 15s ease-in-out infinite; */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.container:not(footer .container){
+@keyframes colors {
+    0%{background-position: 0% 50%;}
+    50%{background-position: 100% 50%;}
+    100%{background-position: 0% 50%;}
+}
+
+.container:not(footer .container) {
     width: 80%;
     margin: 0 auto;
 }
 
-.profile-photo{
+.profile-photo {
     width: 2.7rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     overflow: hidden;
 }
 
-main{
-    margin-top: 100px;
-}
-
-img{
+img {
     display: block;
     width: 100%;
 }
 
-.btn{
+/* input[type="submit"].btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+} */
+
+.btn {
     display: inline-block;
     padding: var(--btn-padding);
     font-weight: 500;
@@ -69,124 +78,59 @@ img{
     cursor: pointer;
     transition: all 300ms ease;
     font-size: 0.9rem;
+    font-family: "Poppins", sans-serif;
 }
 
-.btn:hover{
+.btn:hover {
     opacity: 0.8;
 }
 
-.btn-primary{
+.btn-primary {
     background: var(--color-primary);
     color: white;
 }
 
-.text-bold{
+.text-bold {
     font-weight: 500;
 }
 
-.text-muted{
+.text-muted {
     color: var(--color-grey);
 }
 
 /* navbar */
-nav{
+nav {
     width: 100%;
-    background: var(--color-light);
+    background: transparent;
     padding: 0.7rem 0;
-    position: fixed;
+    position: static;
     top: 0;
     z-index: 10;
 }
 
-nav .container{
+nav .container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.search-bar{
-    background: var(--color-light);
-    border-radius: var(--border-radius);
-    padding: var(--search-padding);
+nav .container .create{
+    justify-content: flex-end;
 }
 
-.search-bar input[type="search"]{
-    background: transparent;
-    width: 30vw;
-    margin-left: 1rem;
-    font-size: 0.9rem;
-    color: var(--color-dark);
-}
-
-nav .search-bar input[type="search"]::placeholder{
-    color: var(--color-grey);
-}
-
-nav .create{
+nav .create {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
+nav .log img{
+    margin: 2px 0;
+    height: 70px;
+    width: 190px;
+}
+
 /* main */
-main{
-    position: relative;
-    top: 5.4rem;
-}
-
-main .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 2rem;
-}
-
-.meio{
-    padding: 70px;
-    width: 470px;
-    background: var(--color-white);
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border-radius: 10px;
-    margin-bottom: 52px;
-    text-align: center;
-}
-
-.meio h2{
-    font-size: 35px;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.meio .caixas input,
-.meio .caixas textarea{
-    display: block;
-    width: calc(100% + 20px);
-    margin: 16px auto;
-    padding: 15px;
-    border-radius: 10px;
-    background: var(--color-secundary);
-    font-size: 20px;
-}
-
-.senha i{
-    font-size: 25px;
-    cursor: pointer;
-    position: absolute;
-    right: 37%;
-    top: 45%;
-    color: var(--color-black);
-}
-
-.meio .senha{
-    justify-content: center;
-    align-items: center;
-}
-
-.meio .sexo label,
-.meio .sexo input{
-    display: flex;
-}
-
 .meio textarea{
     width: 350px;
     height: 100px;
@@ -194,43 +138,141 @@ main .container{
     max-width: 350px;
     resize: none;
     border-radius: 0px var(--border-radius) var(--border-radius) var(--border-radius);
+    background-color: var(--color-secundary);
+    padding: 1rem;
+    font-family: "Poppins", sans-serif;
 }
 
-footer {
-    background-color: var(--color-dark);
-    color: var(--color-light);
+
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.4rem;
+    margin-bottom: 3.4rem;
+}
+
+main .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 30px 0px;
-    margin-top: 180px;
+    padding: 20px;
 }
 
-footer .container p{
+.meio {
+    width: 100%;
+    max-width: 500px;
+    padding: 70px;
+    background: var(--color-white);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
     text-align: center;
 }
 
-
-@media screen and (max-width: 992px){
-
-    .meio{
-        width: 370px;
-    }
-
-    .meio .caixas input,
-    .meio .caixas select{
-    padding: 12px;
-    font-size: 18px;
+.meio h2 {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
-    .senha i{
-        font-size: 25px;
-        cursor: pointer;
+.meio .caixas input {
+    display: block;
+    width: 100%;
+    margin: 16px 0;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background: var(--color-secundary);
+    font-family: "Poppins", sans-serif;
+}
+
+.senha{
+    display: flex;
+}
+.senha i {
+    font-size: 25px;
+    cursor: pointer;
+    position: absolute;
+    right: 41%;
+    top: calc(50% + 39px);
+    color: var(--color-black);
+}
+
+.botao {
+    margin: 17px;
+}
+
+
+.meio .esqueci {
+    text-align: center;
+    display: block;
+    transition: 1s;
+    font-size: 18px;
+    margin-left: 0;
+}
+
+.meio .esqueci:hover {
+    color: var(--color-primary);
+}
+
+.footer {
+    margin-top: 200px;
+}
+
+/* Responsivo */
+@media screen and (max-width: 992px) {
+
+    body{
+        height: 100%;
+    }
+
+    main{
+        zoom: 105%;
+    }
+
+    .meio .caixas input {
+        width: 100%;
+        margin: 10px 0px;
+        padding: 15px 20px;
+        border-radius: 10px;
+        background: var(--color-secundary);
+        
+    }
+
+    .meio .botao button{
+        padding: 12px 60px;
+        margin: 4px;
+    }
+
+    .meio .senha i{
         position: absolute;
-        right: 20%;
+        right: 25%;
         top: 46%;
         color: var(--color-black);
     }
+}
 
-    .meio .sexo option{
-        font-size: 12px;
+@media screen and (max-width: 700px) {
+
+    main{
+        zoom: calc(30% + 10px);
+    }
+
+    .meio h2 {
+        font-size: 25px;
+    }
+
+    .senha i {
+        position: absolute;
+        right: 25%;
+        top: 60%;
+        color: var(--color-black);
+    }
+
+    .meio .caixas input {
+        padding: 10px 15px;
     }
 }
