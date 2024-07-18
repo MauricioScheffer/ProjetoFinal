@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once '../config/config.php'; // Ajuste o caminho conforme necessário
-include_once '../classes/Usuario.php'; // Ajuste o caminho conforme necessário
+include_once 'Config/config.php'; // Ajuste o caminho conforme necessário
+include_once 'Classes/Usuario.php'; // Ajuste o caminho conforme necessário
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['usuario_id'])) {
@@ -19,7 +19,7 @@ $lista_usuarios = $usuario->ler(); // Chamada ao método ler() para buscar todos
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/indexAdm.css" />
+    <link rel="stylesheet" type="text/css" href="css/indexAdm.css" />
     <title>Administração de Usuários</title>
     <script>
         function confirmarExclusao(id) {
