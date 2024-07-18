@@ -23,6 +23,8 @@ $admin = $dados_usuario['adm'];
 $postagem = new Post($db);
 $postagens = $postagem->lerPorSeguidor($idUsuario);
 
+//Seguidor
+$seguidor = new Seguidor($db);
 
 // Obter parâmetros de pesquisa e filtros
 $search = isset($_GET['search']) ? $_GET['search'] : '';
@@ -263,6 +265,9 @@ $curtida = new Curtida($db);
                     </div>
                     <?php
                     while ($usu = $usuarios->fetch(PDO::FETCH_ASSOC)) : ?>
+                    <?php 
+                     $seguidores = $seguidor->seguidores($usu['id']);
+                     ?>
                         <!-- mensagem -->
                         <div class="message">
                             <div class="profile-photo">
@@ -273,6 +278,7 @@ $curtida = new Curtida($db);
                                 <p class="text-muted">
                                     <?php echo "@{$usu['apelido']}"; ?>
                                 </p>
+                                <h5><?php echo "Seguidores $seguidores"; ?></h5>
                                 <a href="perfil.php?id=<?php echo $usu['id']; ?>">
                                     <p class="text-bold">Ver Perfil</p>
                                 </a>
