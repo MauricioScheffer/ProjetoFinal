@@ -110,7 +110,7 @@ $lista_usuarios = $usuario->ler(); // Chamada ao método ler() para buscar todos
         <div class="container">
             <a href="index.php">
                 <h2 class="log">
-                    Rede Social
+                    <img src="img/LogoBlack.png" alt="">
                 </h2>
             </a>
             <div class="create">

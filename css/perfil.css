@@ -474,7 +474,7 @@ main .container .left{
 @media screen and (max-width: 640px) {
     .left{
         min-width: 90vw;
-        margin-bottom: 2rem;
+        margin: 2rem 0;
     }
     main .container{
         display: block;

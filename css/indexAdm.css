@@ -137,6 +137,11 @@ nav .create{
     color: var(--color-grey);
 }
 
+nav .log img{
+    margin: 2px 0;
+    height: 70px;
+    width: 190px;
+}
 
 
 .left {
@@ -169,6 +174,7 @@ nav .create{
 }
 
 table {
+    display: block;
     width: 100%;
     border-collapse: collapse;
     margin-top: 60px; /* Ajustei para um espaço padrão */
@@ -221,3 +227,22 @@ footer {
     bottom: 0;
     margin-top: 30px;
 } 
+
+/* RESPONSIVO */
+@media screen and (max-width: 992px) {
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    th, td {
+        white-space: normal; /* Permite quebra de linha em telas menores */
+        font-size: 12px; /* Ajuste de fonte para telas menores */
+    }
+
+    .container {
+        width: 100%;
+        padding: 0 10px; /* Ajuste de padding para contêiner em telas menores */
+    }
+}
