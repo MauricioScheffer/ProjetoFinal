@@ -27,10 +27,10 @@
     text-decoration: none;
     list-style: none;
     border: none;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
-    font-family: "Poppins", sans-serif;
     color: var(--color-dark);
     background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1001%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(94%2c 25%2c 230%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c621.649C113.342%2c603.155%2c203.835%2c529.574%2c299.667%2c466.291C394.245%2c403.837%2c500.562%2c352.715%2c556.518%2c254.153C614.871%2c151.37%2c619.785%2c29.716%2c614.558%2c-88.36C608.879%2c-216.639%2c623.579%2c-372.594%2c525.124%2c-455.023C424.919%2c-538.917%2c269.998%2c-457.102%2c142.092%2c-483.92C28.831%2c-507.667%2c-64.735%2c-630.984%2c-176.822%2c-602.199C-288.639%2c-573.484%2c-326.761%2c-435.738%2c-398.312%2c-345.14C-466.069%2c-259.345%2c-548.911%2c-187.119%2c-585.884%2c-84.237C-628.65%2c34.765%2c-664.248%2c165.208%2c-624.903%2c285.384C-584.01%2c410.289%2c-485.615%2c513.262%2c-369.878%2c575.541C-258.205%2c635.633%2c-125.16%2c642.071%2c0%2c621.649' fill='%234b14b8'%3e%3c/path%3e%3cpath d='M1440 997.543C1528.486 1013.7919999999999 1636.257 1029.5140000000001 1702.893 969.0699999999999 1770.647 907.6120000000001 1734.792 794.21 1760.837 706.521 1782.1109999999999 634.894 1836.342 576.806 1841.541 502.267 1847.517 416.595 1842.002 324.75800000000004 1792.353 254.68400000000003 1741.0059999999999 182.21499999999997 1657.028 134.34199999999998 1569.635 118.505 1486.104 103.368 1407.938 149.781 1325.511 170.086 1238.53 191.51299999999998 1120.201 165.611 1071.969 241.099 1021.9110000000001 319.446 1106.002 419.15 1106.976 512.118 1107.745 585.508 1053.484 656.246 1077.048 725.754 1101.186 796.958 1172.4270000000001 837.643 1232.608 882.7080000000001 1297.167 931.052 1360.672 982.976 1440 997.543' fill='%237e47eb'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1001'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
     background-size: cover;
@@ -102,7 +102,7 @@ nav {
     width: 100%;
     background: transparent;
     padding: 0.7rem 0;
-    position: fixed;
+    position: static;
     top: 0;
     z-index: 10;
 }
@@ -132,7 +132,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 5.4rem;
+    margin-top: 2.4rem;
 }
 
 main .container {
@@ -176,7 +176,7 @@ main .container {
     cursor: pointer;
     position: absolute;
     right: 41%;
-    top: calc(50% + 39px);
+    top: calc(51% + 67px);
     color: var(--color-black);
 }
 
@@ -218,7 +218,6 @@ main .container {
         padding: 15px 20px;
         border-radius: 10px;
         background: var(--color-secundary);
-        
     }
 
     .meio .botao button{

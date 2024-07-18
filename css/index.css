@@ -96,6 +96,7 @@ img{
     cursor: pointer;
     transition: all 300ms ease;
     font-size: 0.9rem;
+    font-family: "Poppins", sans-serif;
 }
 
 .btn:hover{

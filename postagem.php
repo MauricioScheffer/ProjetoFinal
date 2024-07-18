@@ -19,6 +19,7 @@ $postagem = new Post($db);
 // Ler dados do usuário logado para verificar permissões
 $dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
 $idUsuario = $dados_usuario['id'];
+$foto = $dados_usuario['foto'];
 
 // Verificar se o método de requisição é POST (formulário foi submetido)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/postagem.css">
-    <title>Criar Postagem</title>
+    <title>PetHub - Criar Postagem</title>
 </head>
 
 <body>
@@ -69,16 +70,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container">
             <a href="index.php">
                 <h2 class="log">
-                    Rede Social
+                    <img src="img/LogoWhite.png" alt="">
                 </h2>
             </a>
 
             <div class="create">
-                <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
-                <a href="contato.php"><label class="btn btn-primary">Voltar</label></a>
+                <!-- <a href="cadastro.php"><label class="btn btn-primary">Cadastrar</label></a>
+                <a href="contato.php"><label class="btn btn-primary">Voltar</label></a> -->
                 <div class="profile-photo">
 
-                    <a class="nav-theme"><?php echo "<img src= '$foto'>"; ?>
+                    <a class="nav-theme" href="index.php"><?php echo "<img src= '$foto'>"; ?>
                         <div class="nav-popup">
                             <div class="perfil">
                                 <a href="perfil.php?id=<?php echo $idUsuario; ?>"><span><i
@@ -117,8 +118,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </main>
+    <footer>
     <?php include 'footer.php'; // Inclua o rodapé ?>
+    </footer>
     <script src="Script/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pontosPopups = document.querySelectorAll('.fa-ellipsis');
+            const profileImgs = document.querySelectorAll('.profile-img');
+
+            pontosPopups.forEach(pontosPopup => {
+                pontosPopup.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const popupId = 'pontinhos-popup-' + this.id.split('-').pop();
+                    const popup = document.getElementById(popupId);
+                    if (popup) {
+                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+                    }
+                    closeOtherPopups(popupId);
+                });
+            });
+
+            profileImgs.forEach(profileImg => {
+                profileImg.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const popupId = 'nav-popup-' + this.id.split('-').pop();
+                    const popup = document.getElementById(popupId);
+                    if (popup) {
+                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+                    }
+                    closeOtherPopups(popupId);
+                });
+            });
+
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
+                    popup.style.display = 'none';
+                });
+            });
+
+            function closeOtherPopups(openPopupId) {
+                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
+                    if (popup.id !== openPopupId) {
+                        popup.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
