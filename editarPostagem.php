@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="css/comentario.css">
+    <link rel="stylesheet" href="css/editarPostagem.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/1c1bb96ec4.js" crossorigin="anonymous"></script>
@@ -133,7 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </div>
                         </div>
-                        <p>Click no botão abaixo para escolher uma nova imagem para a postagem</p><input type="file" name="imagem">
+                        <label for="imagem">Nova Imagem</label>
+                        <input type="file" name="imagem" id="imagem">
                         <div class="photo">
                             <?php echo "<img src='{$post['imagem']}' />"; ?>
                         </div>
@@ -142,7 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <p><b><?php echo $usuarioPostagem['nome']; ?></b> <input name="descricao" value="<?php echo $post['descricao']; ?>" required>
                             </p>
                         </div>
-
                     </div>
                 </div>
 

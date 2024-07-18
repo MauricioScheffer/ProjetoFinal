@@ -1,0 +1,464 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
+
+
+:root{
+    --primary-color-hue: 252;
+    --dark-color-lightness: 17%;
+    --light-color-lightness: 95%;
+    --white-color-lightness: 100%;
+
+    --color-white: hsl(252, 30%, var(--white-color-lightness));
+    --color-light: hsl(252, 30%, var(--light-color-lightness));
+    --color-grey: hsl(var(--primary-color-hue), 15%, 65%);
+    --color-primary: hsl(var(--primary-color-hue), 75%, 60%);
+    --color-secundary: hsl(252, 100%, 90%);
+    --color-sucess: hsl(120, 95%, 65%);
+    --color-danger: hsl(0, 95%, 65%);
+    --color-dark: hsl(252, 30%, var(--dark-color-lightness));
+    --color-black: hsl(252, 30%, 10%);
+
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 1.4rem;
+    --sticky-top-right: 7.4rem;
+}
+
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+body{
+    font-family: "Poppins", sans-serif;
+    color: var(--color-dark);
+    background: var(--color-light);
+    overflow-x: hidden;
+}
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.container-meio:not(.comentar){
+    width: 80%;
+    margin: 10rem auto 0rem auto;
+}
+
+.profile-photo {
+    width: 2.7rem;
+    height: 2.7rem; /* Adicionado para garantir a proporção */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-photo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover; /* Garante que a imagem cubra o elemento sem distorção */
+}
+
+/* FOTO DOIS
+.profile-photo2 {
+    width: 2.7rem;
+    height: 2.7rem; /* Adicionado para garantir a proporção 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-photo2 img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+    object-fit: cover; /* Garante que a imagem cubra o elemento sem distorção 
+} */
+
+img{
+    display: block;
+    width: 100%;
+}
+
+.btn{
+    display: inline-block;
+    padding: var(--btn-padding);
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 300ms ease;
+    font-size: 0.9rem;
+}
+
+.btn:hover{
+    opacity: 0.8;
+}
+
+.btn-primary{
+    background: var(--color-primary);
+    color: white;
+}
+
+.text-bold{
+    font-weight: 500;
+}
+
+.text-muted{
+    color: var(--color-grey);
+}
+
+/* navbar */
+nav{
+    width: 100%;
+    background: var(--color-white);
+    padding: 0.3rem 0;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+nav .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .create{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+nav .log img{
+    margin: 2px 0;
+    height: 70px;
+    width: 190px;
+}
+
+/* Publicação */
+.middle .feeds .feed{
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--btn-padding);
+    margin: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.middle .feed .head{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.middle .feed .user{
+    display: flex;
+    gap: 1rem;
+}
+
+.middle .feed .photo{
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    margin: 0.7rem 0;
+    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+    height: auto;    /* Mantém a proporção da imagem */
+    max-height: 500px; /* Limite de altura da imagem */
+    object-fit: cover; /* Cobre a área, mantendo a proporção */
+}
+
+.middle .feed .action-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-style: 1.4rem;
+    margin: 0.6rem;
+}
+
+.middle .liked-by{
+    display: flex;
+}
+
+.middle .liked-by span{
+    width: 1.4rem;
+    height: 1.4rem;
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-white);
+    margin-left: -0.6rem;
+}
+
+.middle .liked-by span:first-child{
+    margin: 0;
+}
+
+.middle .liked-by p{
+    margin-left: 0.5rem;
+}
+
+/* Perfil Nav */
+.nav-theme{
+    display: flex;
+    height: 1rem;
+    cursor: pointer;
+    transition: all 300ms ease;
+    position: relative;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.nav-popup{
+    display: none;
+    position: absolute;
+    top: 55px;
+    width: 190px;
+    right: 5%; 
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 0 1rem var(--color-primary);
+    z-index: 1000;
+    font-size: 19px;
+    color: var(--color-primary);
+    transition: 1s;
+}
+
+.nav-popup span{
+    text-align: left;
+    color: var(--color-primary);
+}
+
+.nav-popup span:hover{
+    padding: 2px 1px;
+    border-radius: var(--card-border-radius);
+    color: var(--color-white);
+    background: var(--color-primary);
+}
+
+.nav-popup .editar,
+.nav-popup .deletar{
+    margin: 3px;
+}
+
+.nav-popup::before{
+    content: "";
+    width: 1.2rem;
+    height: 1.2rem;
+    display: flex;
+    position: absolute;
+    transform: rotate(45deg);
+}
+
+.nav-popup > div{
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+/* 3 pontos */
+.middle .feeds .feed .head .post-items{
+    display: flex;
+    height: 2rem;
+    cursor: pointer;
+    transition: all 300ms ease;
+    position: relative;
+    font-size: 16px;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--color-danger);
+    font-weight: 500;
+}
+
+.middle .feeds .feed .head .post-items .edit-item .links{
+    font-weight: bold;
+}
+
+.middle .feeds .feed .head .post-items .edit-item .links span:hover{
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+}
+    
+.comentar{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+textarea{
+    width: 550px;
+    height: 100px;
+    max-height: 100px;
+    max-width: 560px;
+    margin-bottom: 2rem;
+    resize: none;
+    border-radius: 0px var(--border-radius) var(--border-radius) var(--border-radius);
+    font-size: 19px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+input[type="file"]:hover{
+    opacity: 0.8;
+}
+
+label {
+    padding: 5px 8px;
+    width: 100px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: center;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+}
+
+input[name="descricao"] {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+input[name="descricao"]:hover{
+    border-bottom: 2px solid var(--color-primary);
+}
+
+input[name="titulo"] {
+    width: 250%;
+    border-radius: 5px;
+}
+
+input[name="titulo"]:hover{
+    border-bottom: 2px solid var(--color-primary);
+}
+
+
+.footer{
+    margin-top: 90px;
+}
+
+/* RESPONSIVO */
+@media screen and (max-width: 992px){
+    nav .search-bar {
+        display: none;
+    }
+
+    main .container{
+        grid-template-columns: 0 auto 5rem;
+        gap: 0;
+    }
+
+    main .container .left {
+        grid-column: 1/4;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+@media screen and (max-width:1200px){
+    .container{
+        width: 96%;
+    }
+
+    input[name="titulo"] {
+        width: 180%;
+    } 
+
+    main .container{
+        grid-template-columns: 5rem auto 30vw;
+        gap: 1rem;
+    }
+
+    .left{
+        width: 5rem;
+        z-index: 5;
+    }
+
+    main .container .left .profile {
+        display: none;
+    }
+
+    .sidebar h3{
+        display: none;
+    }
+
+    .left .btn{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 992px){
+
+    .container .create{
+        gap: 0;
+    }
+
+    .container .create label{
+        padding: 10px;
+    }
+
+    nav .search-bar{
+        display: none;
+    }
+    main .container{
+        grid-template-columns: 0 auto 5rem;
+        gap: 0;
+    }
+
+    main .container .left{
+        grid-column: 1/4;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
+
+    .left .notifications-popup{
+        position: absolute;
+        left: -20rem;
+        width: 20rem;
+    }
+
+    .left .notifications-popup::before{
+        display: absolute;
+        top: 1.3rem;
+        right: calc(20rem - 0.6rem);
+        display: block;
+    }
+
+    main .container .left .sidebar > div h3{
+        display: none;
+    }
+
+    main .container .middle{
+        grid-column: 4/4;
+        bottom: 0;
+        left: 0;
+    }
+
+    main .container .right{
+        display: none;
+    }
+
+    textarea{
+        width: 250px;
+        max-width: 280px;
+    }
+    input[name="titulo"] {
+        width: 100%;
+    } 
+}

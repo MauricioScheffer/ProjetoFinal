@@ -235,6 +235,7 @@ main .container {
     .meio .senha i{
         position: absolute;
         right: 15px;
+        /* top: 50%; */
         color: var(--color-black);
     }
 }
@@ -252,6 +253,7 @@ main .container {
     .senha i {
         position: absolute;
         right: 15px;
+        /* top: 45%; */
         color: var(--color-black);
     }
 

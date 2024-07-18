@@ -949,7 +949,7 @@ main .container .right{
         display: none;
     }
 
-     main .container .right{
+    main .container .right{
         display: relative;
     } 
 
@@ -963,6 +963,9 @@ main .container .right{
 }
 
 @media screen and (max-width: 700px){
+    main .container .right{
+        display: none;
+    }
     .customize-theme{
         width: 120vw;
         margin: 0;
