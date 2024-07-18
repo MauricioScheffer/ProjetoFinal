@@ -46,6 +46,10 @@ $lista_usuarios = $usuario->ler(); // Chamada ao método ler() para buscar todos
             window.location.href = 'editarUsuario.php?id=' + id;
         }
 
+        function deletarUsuario(id) {
+            window.location.href = 'deletar.php?id=' + id;
+        }
+
         function buscarUsuarios() {
             var input = document.getElementById('searchInput').value.toUpperCase();
             var table = document.querySelector('table');
@@ -171,13 +175,9 @@ $lista_usuarios = $usuario->ler(); // Chamada ao método ler() para buscar todos
                     echo '<td>' . $dados_usuario['telefone'] . '</td>';
                     echo '<td>' . $dados_usuario['email'] . '</td>';
                     echo '<td>';
-                    if ($_SESSION['usuario_id'] != $dados_usuario['id']) {
-                        echo '<button onclick="confirmarExclusao(' . $dados_usuario['id'] . ')">Deletar</button>';
+                   
+                        echo '<button onclick="deletarUsuario(' . $dados_usuario['id'] . ')">Deletar</button>';
                         echo '<button onclick="editarUsuario(' . $dados_usuario['id'] . ')">Editar</button>';
-                    } else {
-                        echo '<button disabled>Deletar</button>';
-                        echo '<button onclick="editarUsuario(' . $dados_usuario['id'] . ')">Editar</button>';
-                    }
                     echo '</td>';
                     
                     echo '</tr>';
