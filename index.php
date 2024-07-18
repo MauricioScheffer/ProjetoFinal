@@ -124,19 +124,17 @@ $curtida = new Curtida($db);
                 </a>
                 <!-- sidebar -->
                 <div class="sidebar">
-                    <a class="menu-item active">
+                    <a class="menu-item active" id="inicio">
                         <span><i class="fa-solid fa-house"></i></span>
                         <h3>Inicio</h3>
                     </a>
-                    <a class="menu-item">
+                    <a class="menu-item" id="explorar">
                         <span><i class="fa-brands fa-wpexplorer"></i></i></span>
                         <h3>Explorar</h3>
-
-
                     </a>
 
                     <?php if ($admin == 1) {
-                    ?><a class="menu-item">
+                    ?><a href="indexAdm.php" class="menu-item">
                             <span><i class="fa-solid fa-chart-simple"></i></span>
                             <h3>Analises</h3>
                         </a>
@@ -146,10 +144,10 @@ $curtida = new Curtida($db);
                         <h3>Tema</h3>
                     </a>
 
-                    <a class="menu-item">
+                    <!-- <a class="menu-item">
                         <span><i class="fa-solid fa-gear"></i></span>
                         <h3>Configurações</h3>
-                    </a>
+                    </a> -->
 
                 </div>
                 <!-- cabou a sidebar -->
@@ -166,6 +164,23 @@ $curtida = new Curtida($db);
                     $jaCurtiu = $curtida->jaCurtiu($post['id'], $_SESSION['usuario_id']);
                     $totalCurtidas = $curtida->contarCurtidas($post['id']);
                     $curtidas = $curtida->obterCurtidas($post['id']);
+
+                    // referenciando para saber se o usuário segue ou não o usuário da postagem
+                    $seguidor = new Seguidor($db);
+
+                    // Consulta para saber se o usuário já segue o perfil
+                    $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
+
+                    //seguir ou deixar de seguir
+                    if (isset($_POST['acao'])) {
+                        if ($_POST['acao'] == 'seguir' && !$seguindo) {
+                            $seguidor->seguir($usuarioPostagem['id'], $idUsuario);
+                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
+                        } elseif ($_POST['acao'] == 'desseguir') {
+                            $seguidor->desseguir($usuarioPostagem['id'], $idUsuario);
+                            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
+                        }
+                    }
                     ?>
                     <!-- Publicações -->
                     <div class="feeds" id="post-<?php echo $post['id']; ?>">
@@ -180,21 +195,29 @@ $curtida = new Curtida($db);
                                     </div>
                                     <div class="ingo">
                                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
+                                        <?php if ($usuarioPostagem['id'] != $idUsuario) : ?>
+                                            <form method="post">
+                                                <?php if ($seguindo) : ?>
+                                                    <button type="submit" name="acao" value="desseguir">Seguindo</button>
+                                                <?php else : ?>
+                                                    <button type="submit" name="acao" value="seguir">Seguir</button>
+                                                <?php endif; ?>
+                                            </form>
+                                        <?php endif; ?>
                                         <small><?php echo $post['titulo']; ?></small>
                                     </div>
                                 </div>
 
                                 <a class="edit-item">
-                                    <span><i class="fa-solid fa-ellipsis" id="pontos-popup-<?php echo $post['id']; ?>"></i></span>
-                                    <div class="pontinhos-popup" id="pontinhos-popup-<?php echo $post['id']; ?>">
-                                        <div class="editar">
-                                            <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
-                                        </div>
-                                        <div class="deletar">
-                                            <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-                                        </div>
-                                    </div>
-                                </a>
+                                    <?php if ($admin || $_SESSION['usuario_id'] == $usuarioPostagem['id']) : ?>
+                                        <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
+
+                                        <!-- </div> -->
+                                        <!-- <div class="deletar"> -->
+
+                                        <a class="links" href="deletarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+                                        <?php endif; ?>
+                                        </a>
                             </div>
 
                             <div class="photo">
@@ -413,6 +436,49 @@ $curtida = new Curtida($db);
             };
             xhr.send("id=" + postId + "&acaoCurtida=" + action);
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const inicio = document.getElementById('inicio');
+        const explorar = document.getElementById('explorar');
+
+        inicio.addEventListener('click', function(event) {
+            event.preventDefault(); // Evita o comportamento padrão do link
+
+            // Requisição AJAX para ler postagens por seguidor
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'atualizarPostagens.php?tipo=seguidor&idUsuario=<?php echo $idUsuario; ?>', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Sucesso na requisição
+                    var response = xhr.responseText;
+                    document.querySelector('.middle').innerHTML = response; // Atualiza a área das postagens
+                } else {
+                    // Tratar erro
+                    console.error('Erro ao carregar postagens por seguidor. Status: ' + xhr.status);
+                }
+            };
+            xhr.send();
+        });
+
+        explorar.addEventListener('click', function(event) {
+            event.preventDefault(); // Evita o comportamento padrão do link
+
+            // Requisição AJAX para ler todas as postagens
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'atualizarPostagens.php?tipo=todas', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Sucesso na requisição
+                    var response = xhr.responseText;
+                    document.querySelector('.middle').innerHTML = response; // Atualiza a área das postagens
+                } else {
+                    // Tratar erro
+                    console.error('Erro ao carregar todas as postagens. Status: ' + xhr.status);
+                }
+            };
+            xhr.send();
+        });
+    });
     </script>
 </body>
 
