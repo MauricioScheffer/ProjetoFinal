@@ -121,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
                     </a>
-
                 </div>
             </div>
         </div>
@@ -152,17 +151,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <small><?php echo $post['titulo']; ?></small>
                             </div>
                         </div>
+                        <div class="post-items">
                         <a class="edit-item">
-                            <span><i id="pontos-popup" class="fa-solid fa-ellipsis"></i></span>
-                            <div class="pontinhos-popup" id="pontinhos-popup">
-                                <div class="editar">
-                                    <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
-                                </div>
-                                <div class="deletar">
-                                    <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-                                </div>
-                            </div>
+                                    <a href="" class="links"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
+                                    <a href="" class="links"><span><i class="fa-regular fa-trash-can"></i>Deletar</span></a>
                         </a>
+                        </div>
                     </div>
 
                     <div class="photo">
@@ -248,17 +242,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <?php endif; ?>
                                         </div>
                                     </div>
+
+                                    <div class="post-items">
                                     <a class="edit-item">
-                                    <span><i id="comentario-popup" class="fa-solid fa-ellipsis"></i></span>
-                                        <div class="pontinhos-popup" id="comentario-popup-div">
-                                            <div class="editar">
-                                                <span><i class="fa-regular fa-pen-to-square"></i>Editar</span>
-                                            </div>
-                                            <div class="deletar">
-                                                <span><i class="fa-regular fa-trash-can"></i>Deletar</span>
-                                            </div>  
-                                        </div>
+                                                <a href="" class="links"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
+                                                <a href="" class="links"><span><i class="fa-regular fa-trash-can"></i>Deletar</span></a>
                                     </a>
+                                    </div>
                                 </div>
                                 <div class="caption">
                                     <p>

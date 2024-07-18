@@ -171,8 +171,12 @@ main .container {
 .adm {
     display: flex;
     align-items: center;
+    text-align: left;
 }
 
+.adm input{
+    padding: 10px;
+}
 
 .senha{
     display: flex;

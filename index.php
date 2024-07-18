@@ -208,6 +208,7 @@ $curtida = new Curtida($db);
                                     </div>
                                 </div>
 
+                                <div class="post-items">
                                 <a class="edit-item">
                                     <?php if ($admin || $_SESSION['usuario_id'] == $usuarioPostagem['id']) : ?>
                                         <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
@@ -218,6 +219,7 @@ $curtida = new Curtida($db);
                                         <a class="links" href="deletarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-trash-can"></i>Deletar</span>
                                         <?php endif; ?>
                                         </a>
+                                        </div>
                             </div>
 
                             <div class="photo">
@@ -293,7 +295,6 @@ $curtida = new Curtida($db);
                 </div>
                 <!-- fim das mensagens -->
 
-
             </div>
         </div>
 
@@ -354,13 +355,9 @@ $curtida = new Curtida($db);
             </div>
         </div>
     </div>
-
-
-
-    <div class="footer">
-        <?php include 'footer.php'; // Inclua o rodapé 
-        ?>
-    </div>
+        <footer class="footer">
+        <?php include 'footer.php'; // Inclua o rodapé?>
+        </footer>
     <script src="Script/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
