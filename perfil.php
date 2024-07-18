@@ -68,7 +68,7 @@ $curtida = new Curtida($db);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/perfil.css">
     <script src="https://kit.fontawesome.com/1c1bb96ec4.js" crossorigin="anonymous"></script>
-    <title>Perfil</title>
+    <title>PetHub</title>
 </head>
 
 <body>
@@ -83,6 +83,7 @@ $curtida = new Curtida($db);
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="Pesquisar">
             </div>
+            
             <div class="create">
                 <?php if ($idUsuario == $_SESSION['usuario_id']) : ?>
                     <a href="postagem.php"><label class="btn btn-primary" readonly>Publicar</label></a>

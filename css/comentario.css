@@ -410,4 +410,9 @@ textarea{
     main .container .right{
         display: none;
     }
+
+    textarea{
+        width: 250px;
+        max-width: 280px;
+    }
 }

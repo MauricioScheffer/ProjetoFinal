@@ -438,5 +438,53 @@ main .container .left{
 
 /* Footer */
 .footer{
-    margin-top: 400px;
+    margin-top: 200px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1200px) {
+    .container {
+        width: 96%;
+    } 
+
+    main .container {
+        grid-template-columns: 8rem auto 35vw;
+        gap: 8rem;
+    }
+
+    main .container .left{
+        width: 15rem;
+    }
+
+    main .container .middle{
+        grid-column: 2/4;
+        width: 350px;
+    }
+
+    nav .container{
+        display: flex;
+    }
+
+    nav .search-bar{
+        width: 30vw;
+    }
+
+}
+
+@media screen and (max-width: 640px) {
+    .left{
+        min-width: 90vw;
+        margin-bottom: 2rem;
+    }
+    main .container{
+        display: block;
+        flex-direction: row;
+    }
+    main .container .middle{
+        width: 100%;
+    }
+
+    nav .container .create{
+        display: block;
+    }
 }

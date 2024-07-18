@@ -308,7 +308,7 @@ $curtida = new Curtida($db);
             <p>Organize sua Fonte, Cor e Fundo</p>
 
             <!-- fontes -->
-            <div class="font-size">
+            <!-- <div class="font-size">
                 <h4>Fontes</h4>
                 <div>
                     <h6>Aa</h6>
@@ -321,7 +321,7 @@ $curtida = new Curtida($db);
                     </div>
                     <h3>Aa</h3>
                 </div>
-            </div>
+            </div> -->
 
             <!-- cores -->
             <div class="color">
