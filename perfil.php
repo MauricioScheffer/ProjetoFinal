@@ -123,7 +123,7 @@ $curtida = new Curtida($db);
                 <a class="profile">
                     <div class="profile-photo">
                         <a class="nav-theme">
-                            <?php echo "<img class='profile-img' id='profile-img-logged' src= '$fotoLogado'>"; ?>
+                            <?php echo "<img class='profile-img' id='profile-img-logged' src= '$foto'>"; ?>
                             <div class="nav-popup" id="nav-popup-logged">
                                 <div class="editarPerfil">
                                     <a href="editarUsuario.php?id=<?php echo $idUsuario; ?>"><span><i class="fa-solid fa-user-pen"></i>Editar Perfil</span></a>

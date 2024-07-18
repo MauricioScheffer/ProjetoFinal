@@ -35,23 +35,6 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
     $totalCurtidas = $curtida->contarCurtidas($post['id']);
     $curtidas = $curtida->obterCurtidas($post['id']);
 
-    // Referenciando para saber se o usuário segue ou não o usuário da postagem
-    $seguidor = new Seguidor($db);
-
-    // Consulta para saber se o usuário já segue o perfil
-    $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
-
-    // Seguir ou deixar de seguir
-    if (isset($_POST['acao'])) {
-        if ($_POST['acao'] == 'seguir' && !$seguindo) {
-            $seguidor->seguir($usuarioPostagem['id'], $idUsuario);
-            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
-        } elseif ($_POST['acao'] == 'desseguir') {
-            $seguidor->desseguir($usuarioPostagem['id'], $idUsuario);
-            $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
-        }
-    }
-
     // Montagem da estrutura HTML da postagem
     ?>
     <div class="feeds" id="post-<?php echo $post['id']; ?>">
@@ -66,15 +49,6 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
                     </div>
                     <div class="ingo">
                         <h3><?php echo $usuarioPostagem['nome']; ?></h3>
-                        <?php if ($usuarioPostagem['id'] != $idUsuario) : ?>
-                            <form method="post">
-                                <?php if ($seguindo) : ?>
-                                    <button type="submit" name="acao" value="desseguir">Seguindo</button>
-                                <?php else : ?>
-                                    <button type="submit" name="acao" value="seguir">Seguir</button>
-                                <?php endif; ?>
-                            </form>
-                        <?php endif; ?>
                         <small><?php echo $post['titulo']; ?></small>
                     </div>
                 </div>

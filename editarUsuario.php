@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <?php endif; ?>
 
-                        <?php if ($usuario_adm == 1 || $id == $_SESSION['usuario_id']) : ?>
+                        <?php if ($usuario_adm == 1) : ?>
 
                                 <label for="ativo">Ativo</label>
                                 <input type="checkbox" id="ativo" name="ativo" value="1" <?php echo ($row['ativo'] == 1) ? 'checked' : ''; ?>>

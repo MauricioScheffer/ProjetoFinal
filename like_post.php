@@ -15,9 +15,11 @@ if (isset($_POST['id']) && isset($_POST['acaoCurtida'])) {
     $acaoCurtida = $_POST['acaoCurtida'];
     $usuarioId = $_SESSION['usuario_id'];
 
-    if ($acaoCurtida == 'curtir') {
+    $jaCurtiu = $curtida->jaCurtiu($postId, $usuarioId);
+
+    if ($acaoCurtida == 'curtir' && !$jaCurtiu) {
         $curtida->curtir($postId, $usuarioId);
-    } elseif ($acaoCurtida == 'descurtir') {
+    } elseif ($acaoCurtida == 'descurtir' && $jaCurtiu) {
         $curtida->descurtir($postId, $usuarioId);
     }
 
