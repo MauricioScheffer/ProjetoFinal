@@ -9,9 +9,6 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-// Incluir o cabeçalho da página (HTML)
-
-
 // Instanciar o objeto Usuario com a conexão ao banco de dados
 $usuario = new Usuario($db);
 
@@ -29,7 +26,7 @@ if (isset($_GET['id'])) {
 $dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
 $usuario_adm = $dados_usuario['adm'];
 
-//evitar que usuarios comuns tenham acesso a conta de outro usuário
+// Evitar que usuários comuns tenham acesso a conta de outro usuário
 if ($usuario_adm == 0 && $id != $_SESSION['usuario_id']) {
     header('Location: index.php');
     exit();
@@ -47,38 +44,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $adm = isset($_POST['adm']) ? 1 : 0;
     $ativo = isset($_POST['ativo']) ? 1 : 0;
 
-    // Verificar se foi enviado um novo arquivo de imagem
-    if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+    // Verificar se o novo email já existe
+    if ($usuario->emailExiste($email)) {
+        echo "<script>alert('Email já existe. Por favor, use um email diferente.');</script>";
+    } else {
+        // Verificar se foi enviado um novo arquivo de imagem
+        if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $nome_arquivo = $_FILES['foto']['name'];
+            $caminho_temporario = $_FILES['foto']['tmp_name'];
+            $caminho_destino = './img/' . $nome_arquivo;
 
-        $nome_arquivo = $_FILES['foto']['name'];
-        $caminho_temporario = $_FILES['foto']['tmp_name'];
-        $caminho_destino = './img/' . $nome_arquivo;
-        
-        // Mover o arquivo carregado para o destino
-        if (move_uploaded_file($caminho_temporario, $caminho_destino)) {
-            // Atualizar o caminho da imagem no banco de dados
-            $foto = 'img/' . $nome_arquivo; // Salva o caminho relativo da imagem
-
-            // Chamar o método para atualizar os dados do usuário, incluindo a foto
-            $usuario->atualizar($nome, $email, $telefone, $sexo, $foto, $nascimento, $adm, $ativo, $id);
+            // Mover o arquivo carregado para o destino
+            if (move_uploaded_file($caminho_temporario, $caminho_destino)) {
+                // Atualizar o caminho da imagem no banco de dados
+                $foto = 'img/' . $nome_arquivo; // Salva o caminho relativo da imagem
+                $usuario->atualizar($nome, $email, $telefone, $sexo, $foto, $nascimento, $adm, $ativo, $id);
+                header('Location: perfil.php');
+                exit();
+            } else {
+                echo "Erro ao mover o arquivo para o diretório de destino.";
+            }
+        } else {
+            // Se não houver novo arquivo de imagem, atualize os outros campos sem alterar a foto
+            $foto_atual = $usuario->lerPorId($id)['foto']; // Obtém a foto atual do usuário
+            $usuario->atualizar($nome, $email, $telefone, $sexo, $foto_atual, $nascimento, $adm, $ativo, $id);
             header('Location: perfil.php');
             exit();
-        } else {
-            echo "Erro ao mover o arquivo para o diretório de destino.";
         }
-    } else {
-        // Se não houver novo arquivo de imagem, atualize os outros campos sem alterar a foto
-        $foto_atual = $usuario->lerPorId($id)['foto']; // Obtém a foto atual do usuário
-        $usuario->atualizar($nome, $email, $telefone, $sexo, $foto_atual, $nascimento, $adm, $ativo, $id);
-        header('Location: perfil.php');
-        exit();
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,11 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Editar Perfil</title>
 </head>
-
 <body>
-   
-
-    <!-- main -->
     <main>
         <div class="container">
             <form method="POST" enctype="multipart/form-data">
@@ -134,5 +128,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include 'footer.php'; // Inclua o rodapé ?>
     <script src="Script/main.js"></script>
 </body>
-
 </html>
