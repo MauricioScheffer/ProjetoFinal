@@ -1,23 +1,17 @@
-<?php
+<?php 
 session_start();
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: login.php');
-    exit();
-}
 include_once 'config/config.php';
 include_once 'classes/Post.php';
 include_once 'classes/Curtida.php';
 include_once 'classes/Usuario.php';
-include_once 'classes/Seguidor.php';
 
 $usuario = new Usuario($db);
 $dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
-$admin = $dados_usuario['adm'];
 $idUsuario = $dados_usuario['id'];
 $postagem = new Post($db);
 $curtida = new Curtida($db);
 
-$limit = 25;
+$limit = isset($_GET['limit']) ? $_GET['limit'] : 25;
 $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 
 if ($_GET['tipo'] === 'seguidor') {
@@ -27,21 +21,14 @@ if ($_GET['tipo'] === 'seguidor') {
     $postagens = $postagem->ler("", $limit, $offset);
 }
 
-// Inicializa o buffer de saída
-ob_start();
-
 // Monta a saída HTML das postagens
 while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
-    // Obtendo dados do usuário da postagem
     $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);
     $jaCurtiu = $curtida->jaCurtiu($post['id'], $_SESSION['usuario_id']);
     $totalCurtidas = $curtida->contarCurtidas($post['id']);
     $curtidas = $curtida->obterCurtidas($post['id']);
-
-    // Montagem da estrutura HTML da postagem
     ?>
     <div class="feeds" id="post-<?php echo $post['id']; ?>">
-        <!-- Publicação -->
         <div class="feed">
             <div class="head">
                 <div class="user">
@@ -96,10 +83,4 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
     </div>
     <?php
 }
-
-// Captura o conteúdo do buffer de saída
-$html = ob_get_clean();
-
-// Retorna a saída HTML
-echo $html;
 ?>

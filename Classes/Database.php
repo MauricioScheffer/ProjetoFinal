@@ -3,7 +3,7 @@ class Database {
     private $host = "localhost"; 
     private $db_name = "bdSocial"; 
     private $username = "root";
-    private $password = ""; 
+    private $password = "root"; 
     public $conn; 
 
 

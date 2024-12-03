@@ -20,8 +20,12 @@ $apelido = $dados_usuario['apelido'];
 $admin = $dados_usuario['adm'];
 
 //Postagem 
+
+$limit = 25;
+$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+
 $postagem = new Post($db);
-$postagens = $postagem->lerPorSeguidor($idUsuario);
+$postagens = $postagem->lerPorSeguidor($idUsuario, $limit, $offset);
 
 //Seguidor
 $seguidor = new Seguidor($db);
@@ -29,9 +33,9 @@ $seguidor = new Seguidor($db);
 // Obter parâmetros de pesquisa e filtros
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-// Obter dados da notícia com filtro
+// Obter dados da postagem com filtro
 if ($search) {
-    $postagens = $postagem->ler($search);
+    $postagens = $postagem->ler($search, $limit, $offset);
 }
 
 // Obter os usuários mais seguidos quando não pesquisado nenhum amigo 
@@ -72,7 +76,8 @@ $curtida = new Curtida($db);
             <div class="search-bar">
                 <form method="GET">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input type="search" placeholder="Pesquisar" name="search" value="<?php echo htmlspecialchars($search); ?>">
+                    <input type="search" placeholder="Pesquisar Postagem" name="search"
+                        value="<?php echo htmlspecialchars($search); ?>">
                 </form>
             </div>
             <div class="create">
@@ -136,7 +141,7 @@ $curtida = new Curtida($db);
                     </a>
 
                     <?php if ($admin == 1) {
-                    ?><a href="indexAdm.php" class="menu-item">
+                        ?><a href="indexAdm.php" class="menu-item">
                             <span><i class="fa-solid fa-chart-simple"></i></span>
                             <h3>Analises</h3>
                         </a>
@@ -153,13 +158,14 @@ $curtida = new Curtida($db);
 
                 </div>
                 <!-- cabou a sidebar -->
-                <a href="postagem.php"><input for="create-post" class="btn btn-primary" value="Criar publicação" readonly></a>
+                <a href="postagem.php"><input for="create-post" class="btn btn-primary" value="Criar publicação"
+                        readonly></a>
             </div>
             <!-- fim da esquerda -->
 
             <!-- meio -->
             <div class="middle">
-                <?php while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) : ?>
+                <?php while ($post = $postagens->fetch(PDO::FETCH_ASSOC)): ?>
                     <?php
                     // Obtendo dados do usuário da postagem
                     $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);
@@ -169,10 +175,10 @@ $curtida = new Curtida($db);
 
                     //  // referenciando para saber se o usuário segue ou não o usuário da postagem
                     //  $seguidor = new Seguidor($db);
-
+                
                     //  // Consulta para saber se o usuário já segue o perfil
                     //  $seguindo = $seguidor->ler($usuarioPostagem['id'], $idUsuario);
- 
+                
                     //  //seguir ou deixar de seguir
                     //  if (isset($_POST['acao'])) {
                     //      if ($_POST['acao'] == 'seguir' && !$seguindo) {
@@ -202,15 +208,17 @@ $curtida = new Curtida($db);
                                 </div>
 
                                 <a class="edit-item">
-                                    <?php if ($admin || $_SESSION['usuario_id'] == $usuarioPostagem['id']) : ?>
-                                        <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
+                                    <?php if ($admin || $_SESSION['usuario_id'] == $usuarioPostagem['id']): ?>
+                                        <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i
+                                                    class="fa-regular fa-pen-to-square"></i>Editar</span></a>
 
                                         <!-- </div> -->
                                         <!-- <div class="deletar"> -->
 
-                                        <a class="links" href="deletarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-trash-can"></i>Deletar</span>
+                                        <a class="links" href="deletarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i
+                                                    class="fa-regular fa-trash-can"></i>Deletar</span>
                                         <?php endif; ?>
-                                        </a>
+                                    </a>
                             </div>
 
                             <div class="photo">
@@ -219,8 +227,10 @@ $curtida = new Curtida($db);
 
                             <div class="action-buttons">
                                 <div class="interaction-buttons">
-                                    <button onclick="likePost(<?php echo $post['id']; ?>, '<?php echo $jaCurtiu ? 'descurtir' : 'curtir'; ?>')">
-                                        <i class="<?php echo $jaCurtiu ? 'fa-solid fa-heart' : 'fa-regular fa-heart'; ?>"></i>
+                                    <button
+                                        onclick="likePost(<?php echo $post['id']; ?>, '<?php echo $jaCurtiu ? 'descurtir' : 'curtir'; ?>')">
+                                        <i
+                                            class="<?php echo $jaCurtiu ? 'fa-solid fa-heart' : 'fa-regular fa-heart'; ?>"></i>
                                     </button>
                                 </div>
                                 <div class="bookmark">
@@ -229,7 +239,7 @@ $curtida = new Curtida($db);
                             </div>
 
                             <div class="liked-by">
-                                <?php foreach ($curtidas as $curtidor) : ?>
+                                <?php foreach ($curtidas as $curtidor): ?>
                                     <span><img src="<?php echo $curtidor['foto']; ?>" alt=""></span>
                                 <?php endforeach; ?>
                                 <p><b><?php echo $totalCurtidas; ?> pessoa(s) curtiram isso</b></p>
@@ -244,12 +254,21 @@ $curtida = new Curtida($db);
                         </div>
                     </div>
                 <?php endwhile; ?>
+                <?php if ($offset > $postagem): ?>
+                <div class="load-more">
+                    <a href="index.php?offset=<?php echo $offset + $limit; ?>&search=<?php echo htmlspecialchars($search); ?>"
+                        class="btn-load-more">
+                        Carregar mais postagens
+                    </a>
+                </div>
+                <?php endif; ?>
             </div>
 
             <div class="right">
                 <form method="GET" class="search-bar-right">
                     <button type="submit" class="search-bar-icone"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input type="search" placeholder="Busque amigos aqui..." name="search-people" value="<?php echo htmlspecialchars($searchPeople); ?>">
+                    <input type="search" placeholder="Busque amigos aqui..." name="search-people"
+                        value="<?php echo htmlspecialchars($searchPeople); ?>">
                 </form>
                 <div class="messages">
                     <div class="heading">
@@ -264,10 +283,10 @@ $curtida = new Curtida($db);
                         <!-- classe mudar -->
                     </div>
                     <?php
-                    while ($usu = $usuarios->fetch(PDO::FETCH_ASSOC)) : ?>
-                    <?php 
-                     $seguidores = $seguidor->seguidores($usu['id']);
-                     ?>
+                    while ($usu = $usuarios->fetch(PDO::FETCH_ASSOC)): ?>
+                        <?php
+                        $seguidores = $seguidor->seguidores($usu['id']);
+                        ?>
                         <!-- mensagem -->
                         <div class="message">
                             <div class="profile-photo">
@@ -360,12 +379,12 @@ $curtida = new Curtida($db);
     </div>
     <script src="Script/main.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const pontosPopups = document.querySelectorAll('.fa-ellipsis');
             const profileImgs = document.querySelectorAll('.profile-img');
 
             pontosPopups.forEach(pontosPopup => {
-                pontosPopup.addEventListener('click', function(event) {
+                pontosPopup.addEventListener('click', function (event) {
                     event.stopPropagation();
                     const popupId = 'pontinhos-popup-' + this.id.split('-').pop();
                     const popup = document.getElementById(popupId);
@@ -377,7 +396,7 @@ $curtida = new Curtida($db);
             });
 
             profileImgs.forEach(profileImg => {
-                profileImg.addEventListener('click', function(event) {
+                profileImg.addEventListener('click', function (event) {
                     event.stopPropagation();
                     const popupId = 'nav-popup-' + this.id.split('-').pop();
                     const popup = document.getElementById(popupId);
@@ -388,7 +407,7 @@ $curtida = new Curtida($db);
                 });
             });
 
-            document.addEventListener('click', function() {
+            document.addEventListener('click', function () {
                 document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
                     popup.style.display = 'none';
                 });
@@ -408,7 +427,7 @@ $curtida = new Curtida($db);
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "like_post.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var response = JSON.parse(xhr.responseText);
                     if (response.success) {
@@ -434,17 +453,17 @@ $curtida = new Curtida($db);
             xhr.send("id=" + postId + "&acaoCurtida=" + action);
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const inicio = document.getElementById('inicio');
             const explorar = document.getElementById('explorar');
 
-            inicio.addEventListener('click', function(event) {
+            inicio.addEventListener('click', function (event) {
                 event.preventDefault(); // Evita o comportamento padrão do link
 
                 // Requisição AJAX para ler postagens por seguidor
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', 'atualizarPostagens.php?tipo=seguidor&idUsuario=<?php echo $idUsuario; ?>', true);
-                xhr.onload = function() {
+                xhr.onload = function () {
                     if (xhr.status === 200) {
                         // Sucesso na requisição
                         var response = xhr.responseText;
@@ -457,13 +476,13 @@ $curtida = new Curtida($db);
                 xhr.send();
             });
 
-            explorar.addEventListener('click', function(event) {
+            explorar.addEventListener('click', function (event) {
                 event.preventDefault(); // Evita o comportamento padrão do link
 
                 // Requisição AJAX para ler todas as postagens
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', 'atualizarPostagens.php?tipo=todas', true);
-                xhr.onload = function() {
+                xhr.onload = function () {
                     if (xhr.status === 200) {
                         // Sucesso na requisição
                         var response = xhr.responseText;
@@ -476,6 +495,37 @@ $curtida = new Curtida($db);
                 xhr.send();
             });
         });
+
+        let offset = <?php echo $offset; ?>;
+        const limit = <?php echo $limit; ?>;
+
+        // Função para carregar mais postagens
+        function loadMorePosts() {
+            // Desabilitar o botão para evitar múltiplos cliques
+            document.getElementById('load-more').disabled = true;
+
+            // Fazer a requisição AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'carregar_postagens.php?tipo=<?php echo $_GET['tipo']; ?>&idUsuario=<?php echo isset($_GET['idUsuario']) ? $_GET['idUsuario'] : ''; ?>&offset=' + offset + '&limit=' + limit, true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Adicionar as novas postagens no container
+                    document.getElementById('posts-container').innerHTML += xhr.responseText;
+
+                    // Atualizar o offset
+                    offset += limit;
+
+                    // Se não houver mais postagens, esconder o botão
+                    if (xhr.responseText.trim() === "") {
+                        document.getElementById('load-more-container').style.display = 'none';
+                    } else {
+                        // Reabilitar o botão de carregar mais
+                        document.getElementById('load-more').disabled = false;
+                    }
+                }
+            };
+            xhr.send();
+        }
     </script>
 </body>
 

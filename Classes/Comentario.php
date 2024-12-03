@@ -26,7 +26,13 @@ class Comentario
         return $stmt;
     }
 
-    
+    public function deletar($idComentario)
+    {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$idComentario]);
+        return $stmt;
+    }
 
 }
 
