@@ -5,13 +5,13 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 include_once 'Config/config.php';
-include_once 'Classes/Post.php';
+include_once 'Classes/Comentario.php';
 
 
-$postagem = new Post($db);
-if (isset($_GET['postagem'])) {
-    $id = $_GET['postagem'];
-    $postagem->deletarPostagem($id);
+$comentario = new Comentario($db);
+if (isset($_GET['comentario'])) {
+    $id = $_GET['comentario'];
+    $comentario->deletar($id);
 
     // Verifica se a URL de referência existe
     if (isset($_SERVER['HTTP_REFERER'])) {

@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       alert("O comentário não pode ser vazio!");
      }
      </script>';
-    } else if ($_POST['acao'] == '' && !$_POST['descricao']){
+    } else if ($_POST['acao'] == '' && !$_POST['descricao']) {
         echo '<script>
         window.onload= function() {
          alert("Erro grave, ferrou de vez!");
@@ -135,7 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <a href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?></a>
+                                <a
+                                    href="perfil.php?id=<?php echo $usuarioPostagem['id']; ?>"><?php echo "<img src='{$usuarioPostagem['foto']}' />"; ?></a>
                             </div>
                             <div class="ingo">
                                 <h3><?php echo $usuarioPostagem['nome']; ?></h3>
@@ -151,12 +152,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <small><?php echo $post['titulo']; ?></small>
                             </div>
                         </div>
+                        <?php if ($idUsuario == $usuarioPostagem['id'] || $admin): ?>
                         <div class="post-items">
-                        <a class="edit-item">
-                                    <a href="" class="links"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
-                                    <a href="" class="links"><span><i class="fa-regular fa-trash-can"></i>Deletar</span></a>
-                        </a>
+                            <a class="edit-item">
+                                <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i
+                                            class="fa-regular fa-pen-to-square"></i>Editar</span></a>
+                                <a class="links" href="deletarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-trash-can"></i>Deletar</span></a>
+                            </a>
                         </div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="photo">
@@ -242,13 +246,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <?php endif; ?>
                                         </div>
                                     </div>
-
-                                    <div class="post-items">
-                                    <a class="edit-item">
-                                                <a href="" class="links"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
-                                                <a href="" class="links"><span><i class="fa-regular fa-trash-can"></i>Deletar</span></a>
-                                    </a>
-                                    </div>
+                                    <?php if ($idUsuario == $comentado['idUsuario'] || $admin): ?>
+                                        <div class="post-items">
+                                            <a class="edit-item">
+                                                <a class="links"
+                                                    href="deletarComentario.php?comentario=<?php echo $comentado['id']; ?>"><span><i
+                                                            class="fa-regular fa-trash-can"></i>Deletar</span></a>
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="caption">
                                     <p>
@@ -279,9 +285,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="footer">
-    <?php include 'footer.php'; // Inclua o rodapé ?>
+        <?php include 'footer.php'; // Inclua o rodapé ?>
     </div>
 
     <script src="Script/main.js"></script>
 </body>
+
 </html>

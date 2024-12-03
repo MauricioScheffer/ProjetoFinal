@@ -18,7 +18,7 @@ public function criar($idUsuario, $titulo, $descricao, $imagem, $data)
 
 }
 
-public function ler($search = '') {
+public function ler($search = '',  $limite = 25, $offset = 0) {
     $query = "SELECT * FROM " . $this->table_name;
     $conditions = [];
     $params = [];
@@ -33,6 +33,8 @@ public function ler($search = '') {
     }else{
         $query .= " ORDER BY id DESC";
     }
+
+    $query .= " LIMIT " . $limite . " OFFSET " . $offset;
 
     $stmt = $this->conn->prepare($query);
     $stmt->execute($params);
@@ -54,8 +56,8 @@ public function lerPostagem($id){
 }
 
 
-public function lerPorSeguidor($idUsuario){
-$query = "SELECT p.* FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? or p.idUsuario = ? GROUP BY p.id ORDER BY p.id DESC";
+public function lerPorSeguidor($idUsuario, $limite = 25, $offset = 0){
+$query = "SELECT p.* FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? or p.idUsuario = ? GROUP BY p.id ORDER BY p.id DESC LIMIT  $limite OFFSET $offset";
 $stmt = $this->conn->prepare($query);
     $stmt->execute([$idUsuario, $idUsuario]);
     return $stmt;
