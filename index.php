@@ -21,7 +21,7 @@ $admin = $dados_usuario['adm'];
 
 //Postagem 
 
-$limit = 25;
+$limit = 2;
 $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 
 $postagem = new Post($db);
@@ -36,6 +36,17 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 // Obter dados da postagem com filtro
 if ($search) {
     $postagens = $postagem->ler($search, $limit, $offset);
+}
+
+// Obter total das postagens 
+
+$totalPostagemSeguidas = $postagem->contarTotalPostagensSeguidas($idUsuario);
+
+// Obter o total de postagens seguidas
+if ($search) {
+    $totalPostagemFiltrada = $postagem->contarTotalPostagensFiltrada($search);
+} else {
+    $totalPostagem = $postagem->contarTotalPostagens();
 }
 
 // Obter os usuários mais seguidos quando não pesquisado nenhum amigo 
@@ -254,14 +265,24 @@ $curtida = new Curtida($db);
                         </div>
                     </div>
                 <?php endwhile; ?>
-                <?php if ($offset > $postagem): ?>
-                <div class="load-more">
-                    <a href="index.php?offset=<?php echo $offset + $limit; ?>&search=<?php echo htmlspecialchars($search); ?>"
-                        class="btn-load-more">
-                        Carregar mais postagens
-                    </a>
-                </div>
-                <?php endif; ?>
+
+                <!-- botão para carregar postagens mais antigas -->
+                <?php if ($search != "" && $offset + $limit <= $totalPostagemFiltrada || $search == "" && $offset + $limit <= $totalPostagemSeguidas): ?>
+                    <div class="load-more">
+                        <a href="index.php?offset=<?php echo $offset + $limit; ?>&search=<?php echo htmlspecialchars($search); ?>"
+                            class="btn-load-more">
+                            Carregar mais postagens
+                        </a>
+                    </div>
+                <?php endif ?>
+                <?php if ($offset): ?>
+                    <div class="load-more">
+                        <a href="index.php?offset=<?php echo $offset - $limit; ?>&search=<?php echo htmlspecialchars($search); ?>"
+                            class="btn-load-more">
+                            voltar postagens
+                        </a>
+                    </div>
+                <?php endif ?>
             </div>
 
             <div class="right">
@@ -379,6 +400,8 @@ $curtida = new Curtida($db);
     </div>
     <script src="Script/main.js"></script>
     <script>
+
+
         document.addEventListener('DOMContentLoaded', function () {
             const pontosPopups = document.querySelectorAll('.fa-ellipsis');
             const profileImgs = document.querySelectorAll('.profile-img');
@@ -495,12 +518,25 @@ $curtida = new Curtida($db);
                 xhr.send();
             });
         });
+        
 
-        let offset = <?php echo $offset; ?>;
+    </script>
+</body>
+
+</html>
+
+
+
+    <!-- O Bagulho é islamico meu parsa, o like e o explorar estão funcionando agora que tirei esse código que está a baixo -->
+    <!-- Ele deveria ser responsável pelo carregar mais, porem em um milagre que sópode ser contituido pela proximidade da saturnalha esse demonio que chamamos de código está rodando -->
+    <!-- Seguindo esclarecimentos como nem tudo é perfeito o exprorar ainda não respeita o carregar mais postagens -->
+
+<!-- let offset = <?php echo $offset; ?>;
         const limit = <?php echo $limit; ?>;
 
         // Função para carregar mais postagens
         function loadMorePosts() {
+
             // Desabilitar o botão para evitar múltiplos cliques
             document.getElementById('load-more').disabled = true;
 
@@ -525,8 +561,4 @@ $curtida = new Curtida($db);
                 }
             };
             xhr.send();
-        }
-    </script>
-</body>
-
-</html>
+        } -->
