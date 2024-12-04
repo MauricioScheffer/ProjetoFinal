@@ -45,8 +45,6 @@ $totalPostagemSeguidas = $postagem->contarTotalPostagensSeguidas($idUsuario);
 // Obter o total de postagens seguidas
 if ($search) {
     $totalPostagemFiltrada = $postagem->contarTotalPostagensFiltrada($search);
-} else {
-    $totalPostagem = $postagem->contarTotalPostagens();
 }
 
 // Obter os usuários mais seguidos quando não pesquisado nenhum amigo 
@@ -398,167 +396,27 @@ $curtida = new Curtida($db);
         <?php include 'footer.php'; // Inclua o rodapé 
         ?>
     </div>
+
     <script src="Script/main.js"></script>
-    <script>
 
+    <script src="Script/postagem.js">
+        // irei separar os scrips AJAx em arquivos separados, para facilitar o reparo!
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const pontosPopups = document.querySelectorAll('.fa-ellipsis');
-            const profileImgs = document.querySelectorAll('.profile-img');
-
-            pontosPopups.forEach(pontosPopup => {
-                pontosPopup.addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    const popupId = 'pontinhos-popup-' + this.id.split('-').pop();
-                    const popup = document.getElementById(popupId);
-                    if (popup) {
-                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-                    }
-                    closeOtherPopups(popupId);
-                });
-            });
-
-            profileImgs.forEach(profileImg => {
-                profileImg.addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    const popupId = 'nav-popup-' + this.id.split('-').pop();
-                    const popup = document.getElementById(popupId);
-                    if (popup) {
-                        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-                    }
-                    closeOtherPopups(popupId);
-                });
-            });
-
-            document.addEventListener('click', function () {
-                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
-                    popup.style.display = 'none';
-                });
-            });
-
-            function closeOtherPopups(openPopupId) {
-                document.querySelectorAll('.pontinhos-popup, .nav-popup').forEach(popup => {
-                    if (popup.id !== openPopupId) {
-                        popup.style.display = 'none';
-                    }
-                });
-            }
-        });
-
-
-        function likePost(postId, action) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "like_post.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        var postElement = document.getElementById('post-' + postId);
-                        var likeButton = postElement.getElementsByTagName('button')[0];
-                        var likeIcon = likeButton.getElementsByTagName('i')[0];
-
-                        // Atualiza o ícone e a ação
-                        if (action == 'curtir') {
-                            likeButton.setAttribute('onclick', `likePost(${postId}, 'descurtir')`);
-                            likeIcon.className = 'fa-solid fa-heart';
-                        } else {
-                            likeButton.setAttribute('onclick', `likePost(${postId}, 'curtir')`);
-                            likeIcon.className = 'fa-regular fa-heart';
-                        }
-
-                        // Atualiza o contador de likes
-                        var likesCount = postElement.getElementsByClassName('liked-by')[0].getElementsByTagName('p')[0];
-                        likesCount.innerHTML = '<b>' + response.likes + ' pessoa(s) curtiram isso</b>';
-                    }
-                }
-            };
-            xhr.send("id=" + postId + "&acaoCurtida=" + action);
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const inicio = document.getElementById('inicio');
-            const explorar = document.getElementById('explorar');
-
-            inicio.addEventListener('click', function (event) {
-                event.preventDefault(); // Evita o comportamento padrão do link
-
-                // Requisição AJAX para ler postagens por seguidor
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'atualizarPostagens.php?tipo=seguidor&idUsuario=<?php echo $idUsuario; ?>', true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        // Sucesso na requisição
-                        var response = xhr.responseText;
-                        document.querySelector('.middle').innerHTML = response; // Atualiza a área das postagens
-                    } else {
-                        // Tratar erro
-                        console.error('Erro ao carregar postagens por seguidor. Status: ' + xhr.status);
-                    }
-                };
-                xhr.send();
-            });
-
-            explorar.addEventListener('click', function (event) {
-                event.preventDefault(); // Evita o comportamento padrão do link
-
-                // Requisição AJAX para ler todas as postagens
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'atualizarPostagens.php?tipo=todas', true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        // Sucesso na requisição
-                        var response = xhr.responseText;
-                        document.querySelector('.middle').innerHTML = response; // Atualiza a área das postagens
-                    } else {
-                        // Tratar erro
-                        console.error('Erro ao carregar todas as postagens. Status: ' + xhr.status);
-                    }
-                };
-                xhr.send();
-            });
-        });
-        
-
+        // Comentado pois aparentemente não está mais sendo nescessário, aguardando novos capitulos!                      
     </script>
+
+    <script src="Script/like.js"> // Script responsável pelo Like</script>
+
+    <script>
+        const idUsuario = <?php echo json_encode($idUsuario); ?>;  // Declarando o id usuário como uma variável js para que o atualizarPostagem.js entenda
+        const offset = <?php echo json_encode($offset); ?>;  // Declarando o offset como uma variável js para que o carregar.js entenda
+        const limit = <?php echo json_encode($limit); ?>; // Declarando o limit como uma variável js para que o carregar.js entenda
+        const tipo = <?php echo json_encode($_GET['tipo'] ?? ''); ?>; // Declarando o tipo como uma variável js para que o carregar.js entenda
+    </script>
+
+    <script src="Script/atualizarPostagem.js"> // Script responsável pelo funcionamento do explorar e inicio </script>
+
+    <script src="Script/carregar.js"> // Script responsavel pelo carregar</script>
 </body>
 
 </html>
-
-
-
-    <!-- O Bagulho é islamico meu parsa, o like e o explorar estão funcionando agora que tirei esse código que está a baixo -->
-    <!-- Ele deveria ser responsável pelo carregar mais, porem em um milagre que sópode ser contituido pela proximidade da saturnalha esse demonio que chamamos de código está rodando -->
-    <!-- Seguindo esclarecimentos como nem tudo é perfeito o exprorar ainda não respeita o carregar mais postagens -->
-
-<!-- let offset = <?php echo $offset; ?>;
-        const limit = <?php echo $limit; ?>;
-
-        // Função para carregar mais postagens
-        function loadMorePosts() {
-
-            // Desabilitar o botão para evitar múltiplos cliques
-            document.getElementById('load-more').disabled = true;
-
-            // Fazer a requisição AJAX
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'carregar_postagens.php?tipo=<?php echo $_GET['tipo']; ?>&idUsuario=<?php echo isset($_GET['idUsuario']) ? $_GET['idUsuario'] : ''; ?>&offset=' + offset + '&limit=' + limit, true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    // Adicionar as novas postagens no container
-                    document.getElementById('posts-container').innerHTML += xhr.responseText;
-
-                    // Atualizar o offset
-                    offset += limit;
-
-                    // Se não houver mais postagens, esconder o botão
-                    if (xhr.responseText.trim() === "") {
-                        document.getElementById('load-more-container').style.display = 'none';
-                    } else {
-                        // Reabilitar o botão de carregar mais
-                        document.getElementById('load-more').disabled = false;
-                    }
-                }
-            };
-            xhr.send();
-        } -->
