@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = $_POST['titulo'];
     $descricao = $_POST['descricao'];
     $data = date('Y/m/d');
+    $imagem = "";
 
     // Verificar se foi enviado um novo arquivo de imagem
     if ($_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
@@ -42,14 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Chamar o método para criar os dados da postagem, incluindo a foto
             $postagem->criar($idUsuario, $titulo, $descricao, $imagem, $data);
-            header('Location: perfil.php');
+            header('Location: index.php');
             exit();
         } else {
             echo "Erro ao mover o arquivo para o diretório de destino.";
         }
         // Se não houver arquivo de imagem, criar os outros campos sem adicionar a foto
         $postagem->criar($idUsuario, $titulo, $descricao, $imagem, $data);
-        header('Location: perfil.php');
+        header('Location: index.php');
         exit();
     }
 }

@@ -17,8 +17,18 @@ $idUsuario = $dados_usuario['id'];
 $postagem = new Post($db);
 $curtida = new Curtida($db);
 
-$limit = 25;
+$limit = 2;
 $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+
+
+
+if ($_GET['tipo'] === 'todas') {
+    // Obter total das postagens 
+    $totalPostagem = $postagem->contarTotalPostagens();
+} else{
+// Obter o total de postagens seguidas
+$totalPostagemSeguidas = $postagem->contarTotalPostagensSeguidas($idUsuario);
+}
 
 if ($_GET['tipo'] === 'seguidor') {
     $idUsuario = $_GET['idUsuario'];
@@ -32,16 +42,12 @@ ob_start();
 
 // Monta a saída HTML das postagens
 while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
-    // Obtendo dados do usuário da postagem
     $usuarioPostagem = $usuario->lerPorId($post['idUsuario']);
     $jaCurtiu = $curtida->jaCurtiu($post['id'], $_SESSION['usuario_id']);
     $totalCurtidas = $curtida->contarCurtidas($post['id']);
     $curtidas = $curtida->obterCurtidas($post['id']);
-
-    // Montagem da estrutura HTML da postagem
     ?>
     <div class="feeds" id="post-<?php echo $post['id']; ?>">
-        <!-- Publicação -->
         <div class="feed">
             <div class="head">
                 <div class="user">
@@ -97,9 +103,22 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
     <?php
 }
 
-// Captura o conteúdo do buffer de saída
-$html = ob_get_clean();
+ if ($_GET['tipo'] === 'todas' && $offset + $limit <= $totalPostagemFiltrada || $_GET['tipo'] === 'seguidor' && $offset + $limit <= $totalPostagemSeguidas){
+    ?>
+    <div class="load-more">
+        <a href="index.php?offset=<?php echo $offset + $limit; ?>&tipo=<?php echo $tipo; ?>&search=<?php echo $search; ?>" class="btn-load-more">
+            Carregar mais postagens
+        </a>
+    </div>
+    <?php
+}
 
-// Retorna a saída HTML
-echo $html;
-?>
+if ($offset > 0) {
+    ?>
+    <div class="load-more">
+        <a href="index.php?offset=<?php echo $offset - $limit; ?>&tipo=<?php echo $tipo; ?>&search=<?php echo $search; ?>" class="btn-load-more">
+            Voltar postagens
+        </a>
+    </div>
+    <?php
+}
