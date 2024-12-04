@@ -22,13 +22,13 @@ $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 
 
 
-if ($_GET['tipo'] === 'todas') {
-    // Obter total das postagens 
-    $totalPostagem = $postagem->contarTotalPostagens();
-} else{
+
+// Obter total das postagens 
+$totalPostagem = $postagem->contarTotalPostagens();
+
 // Obter o total de postagens seguidas
 $totalPostagemSeguidas = $postagem->contarTotalPostagensSeguidas($idUsuario);
-}
+
 
 if ($_GET['tipo'] === 'seguidor') {
     $idUsuario = $_GET['idUsuario'];
@@ -63,9 +63,11 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
                 </div>
 
                 <a class="edit-item">
-                    <?php if ($admin || $_SESSION['usuario_id'] == $usuarioPostagem['id']) : ?>
-                        <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-pen-to-square"></i>Editar</span></a>
-                        <a class="links" href="deletarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i class="fa-regular fa-trash-can"></i>Deletar</span></a>
+                    <?php if ($admin || $_SESSION['usuario_id'] == $usuarioPostagem['id']): ?>
+                        <a class="links" href="editarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i
+                                    class="fa-regular fa-pen-to-square"></i>Editar</span></a>
+                        <a class="links" href="deletarPostagem.php?postagem=<?php echo $post['id']; ?>"><span><i
+                                    class="fa-regular fa-trash-can"></i>Deletar</span></a>
                     <?php endif; ?>
                 </a>
             </div>
@@ -76,7 +78,8 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
 
             <div class="action-buttons">
                 <div class="interaction-buttons">
-                    <button onclick="likePost(<?php echo $post['id']; ?>, '<?php echo $jaCurtiu ? 'descurtir' : 'curtir'; ?>')">
+                    <button
+                        onclick="likePost(<?php echo $post['id']; ?>, '<?php echo $jaCurtiu ? 'descurtir' : 'curtir'; ?>')">
                         <i class="<?php echo $jaCurtiu ? 'fa-solid fa-heart' : 'fa-regular fa-heart'; ?>"></i>
                     </button>
                 </div>
@@ -86,7 +89,7 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
             </div>
 
             <div class="liked-by">
-                <?php foreach ($curtidas as $curtidor) : ?>
+                <?php foreach ($curtidas as $curtidor): ?>
                     <span><img src="<?php echo $curtidor['foto']; ?>" alt=""></span>
                 <?php endforeach; ?>
                 <p><b><?php echo $totalCurtidas; ?> pessoa(s) curtiram isso</b></p>
@@ -103,10 +106,11 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
     <?php
 }
 
- if ($_GET['tipo'] === 'todas' && $offset + $limit <= $totalPostagemFiltrada || $_GET['tipo'] === 'seguidor' && $offset + $limit <= $totalPostagemSeguidas){
+if ($_GET['tipo'] === 'todas' && $offset + $limit <= $totalPostagem || $_GET['tipo'] === 'seguidor' && $offset + $limit <= $totalPostagemSeguidas) {
     ?>
     <div class="load-more">
-        <a href="index.php?offset=<?php echo $offset + $limit; ?>&tipo=<?php echo $tipo; ?>&search=<?php echo $search; ?>" class="btn-load-more">
+        <a href="index.php?offset=<?php echo $offset + $limit; ?>&tipo=<?php echo $tipo; ?>&search=<?php echo $search; ?>"
+            class="btn-load-more">
             Carregar mais postagens
         </a>
     </div>
@@ -116,9 +120,15 @@ while ($post = $postagens->fetch(PDO::FETCH_ASSOC)) {
 if ($offset > 0) {
     ?>
     <div class="load-more">
-        <a href="index.php?offset=<?php echo $offset - $limit; ?>&tipo=<?php echo $tipo; ?>&search=<?php echo $search; ?>" class="btn-load-more">
+        <a href="index.php?offset=<?php echo $offset - $limit; ?>&tipo=<?php echo $tipo; ?>&search=<?php echo $search; ?>"
+            class="btn-load-more">
             Voltar postagens
         </a>
     </div>
     <?php
 }
+
+$html = ob_get_clean();
+echo $html;
+?>
+

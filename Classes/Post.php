@@ -98,17 +98,14 @@ class Post
     public function contarTotalPostagensSeguidas($idUsuario)
     {
         // Consulta para obter o número total de postagens
-        $queryTotal = "SELECT COUNT(p.id) as total_postagens 
-                   FROM postagem p 
-                   LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario 
-                   WHERE s.idSeguidor = ? OR p.idUsuario = ? GROUP BY p.id ORDER BY p.id";
+        $queryTotal = "SELECT COUNT(DISTINCT p.id) AS total_postagens FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? OR p.idUsuario = ?";
 
         $stmtTotal = $this->conn->prepare($queryTotal);
         $stmtTotal->execute([$idUsuario, $idUsuario]);
         $resultTotal = $stmtTotal->fetch(PDO::FETCH_ASSOC);
 
         // Retorna o número total de postagens
-        return $resultTotal['total_postagens'];
+        return $resultTotal ? $resultTotal['total_postagens'] : 0;
     }
 
     // função que carrega as postagens do usuário junto com as postagens de quem ele segue 
@@ -119,7 +116,7 @@ class Post
 
         $totalPostagens = $this->contarTotalPostagensSeguidas($idUsuario);
 
-        $query = "SELECT p.* FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? or p.idUsuario = ? GROUP BY p.id ORDER BY p.id";
+        $query = "SELECT DISTINCT p.* FROM postagem p LEFT JOIN seguidor s ON p.idUsuario = s.idUsuario WHERE s.idSeguidor = ? OR p.idUsuario = ?  ORDER BY p.id";
 
         if ($offset >= $totalPostagens) {
             // Se o offset for maior ou igual ao total de postagens, ajusta o offset para o último conjunto válido
